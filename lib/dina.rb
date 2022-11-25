@@ -3,7 +3,7 @@ require "json_api_client"
 require "time"
 require "securerandom"
 require "require_all"
-require_all 'lib'
+require_all File.join(File.dirname(__FILE__), 'dina')
 
 module Dina
 
