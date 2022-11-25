@@ -16,7 +16,7 @@ module Dina
     has_many :organizations
     has_many :identifiers
 
-    validates_presence_of :familyNames
+    validates_presence_of :familyNames, :displayName
 
     def self.endpoint_path
       "agent-api/"

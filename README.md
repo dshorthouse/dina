@@ -34,9 +34,44 @@ Create and save a Person object:
   person = Dina::Person.new
   person.givenNames = "Peter"
   person.familyNames = "Pipetter"
+  person.email = "email@email.com"
+  person.displayName = "Pipetter, Peter"
   person.save
+
+  => true
+
 ```
 
+Query for a Person object by email:
+
+```
+  person = Dina::Person.find_by_email("email@email.com")
+  person.attributes
+
+  =>
+  {"type"=>"person",                                                  
+ "id"=>"bf42616e-846c-4dbd-8372-bef44cdfa3e8",                      
+ "displayName"=>"Pipetter, Peter",                                  
+ "email"=>"email@email.com",                                        
+ "createdBy"=>"username",                                             
+ "createdOn"=>2022-11-25 17:23:09.262958 UTC,                       
+ "givenNames"=>"Peter",                                             
+ "familyNames"=>"Pipetter",                          
+ "aliases"=>nil,                                     
+ "webpage"=>nil,                                     
+ "remarks"=>nil,                                     
+ "identifiers"=>[]}
+
+```
+
+Destroy a Person object:
+
+```
+  person = Dina::Person.find("bf42616e-846c-4dbd-8372-bef44cdfa3e8").first
+  person.destroy
+
+  => true
+```
 
 License
 -------
