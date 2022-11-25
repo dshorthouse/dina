@@ -16,8 +16,8 @@ module Dina
     end
 
     it "can have many collections" do
-      int = Dina::Institution.new
-      expect(int.collections).to be_nil
+      int = Dina::Institution.new({ collections: [ Dina::Collection.new ]})
+      expect(int.collections.size).to eq(1)
     end
 
   end

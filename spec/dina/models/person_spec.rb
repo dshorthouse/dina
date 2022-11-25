@@ -26,13 +26,13 @@ module Dina
     end
 
     it "can have many organizations" do
-      person = Dina::Person.new
-      expect(person.organizations).to be_nil
+      person = Dina::Person.new({ organizations: [ Dina::Organization.new, Dina::Organization.new]})
+      expect(person.organizations.size).to eq(2)
     end
 
     it "can have many identifiers" do
-      person = Dina::Person.new
-      expect(person.identifiers).to be_nil
+      person = Dina::Person.new({ identifiers: [ Dina::Identifier.new ]})
+      expect(person.identifiers.size).to eq(1)
     end
 
   end

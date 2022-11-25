@@ -1,6 +1,7 @@
 require "keycloak"
 require "json_api_client"
 require "time"
+require "securerandom"
 require "require_all"
 require_all 'lib'
 
