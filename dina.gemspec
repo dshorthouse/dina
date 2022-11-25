@@ -7,12 +7,12 @@ Gem::Specification.new do |s|
   s.name        = 'dina'
   s.version     = Dina::Version.version
   s.license     = 'MIT'
-  s.date        = '2022-08-23'
+  s.date        = '2022-11-25'
   s.summary     = "DINA ruby gem"
   s.description = "Authenicate against DINA's Keycloak and access its models"
   s.authors     = ["David P. Shorthouse"]
   s.email       = 'david.shorthouse@agr.gc.ca'
-  s.homepage    = ''
+  s.homepage    = 'https://github.com/dshorthouse/dina'
 
   s.files        = Dir['MIT-LICENSE', 'README.rdoc', 'lib/**/*']
   s.require_path = 'lib'
