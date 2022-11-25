@@ -5,6 +5,7 @@ The [DINA Consortium][1] develops an open-source web-based information managemen
 
 This Ruby 3.1 gem abstracts the Keycloak configuration and JSON:API models for the DINA collection management system. It depends on the [json_api_client][5] where more documentation is available on how to create, update, query, and delete objects.
 
+[![Gem Version][8]][9]
 [![Continuous Integration Status][6]][7]
 
 Usage
@@ -59,3 +60,5 @@ Authors: [David P. Shorthouse][4]
 [5]: https://github.com/JsonApiClient/json_api_client
 [6]: https://github.com/dshorthouse/dina/actions/workflows/ruby.yml/badge.svg
 [7]: https://github.com/dshorthouse/dina/actions
+[8]: https://badge.fury.io/rb/dina.svg
+[9]: http://badge.fury.io/rb/dina
