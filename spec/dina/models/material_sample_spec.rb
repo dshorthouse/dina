@@ -26,28 +26,23 @@ module Dina
     end
 
     it "can have many attachments" do
-      material_sample = Dina::MaterialSample.new
-      expect(material_sample.attachment).to be_nil
+      material_sample = Dina::MaterialSample.new({ attachment: [ Dina::Attachment.new ]})
+      expect(material_sample.attachment.size).to eq(1)
     end
 
     it "can have many projects" do
-      material_sample = Dina::MaterialSample.new
-      expect(material_sample.projects).to be_nil
+      material_sample = Dina::MaterialSample.new({ projects: [ Dina::Project.new ]})
+      expect(material_sample.projects.size).to eq(1)
     end
 
     it "can have many assemblages" do
-      material_sample = Dina::MaterialSample.new
-      expect(material_sample.assemblages).to be_nil
-    end
-
-    it "can have many preparation attachments" do
-      material_sample = Dina::MaterialSample.new
-      expect(material_sample.preparation_attachment).to be_nil
+      material_sample = Dina::MaterialSample.new({ assemblages: [ Dina::Assemblage.new ]})
+      expect(material_sample.assemblages.size).to eq(1)
     end
 
     it "can have many organisms" do
-      material_sample = Dina::MaterialSample.new
-      expect(material_sample.organism).to be_nil
+      material_sample = Dina::MaterialSample.new({ organism: [ Dina::Organism.new ]})
+      expect(material_sample.organism.size).to eq(1)
     end
 
   end
