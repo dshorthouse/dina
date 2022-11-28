@@ -42,5 +42,10 @@ module Dina
       expect(ce.attachment.size).to eq(1)
     end
 
+    it "should raise an Exception if group is missing" do
+      ce = Dina::CollectingEvent.new({ group: nil })
+      expect { ce.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
   end
 end

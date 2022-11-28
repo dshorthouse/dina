@@ -13,7 +13,8 @@ module Dina
 
     has_many :attachment, class_name: "ObjectStore"
 
-    validates_presence_of :group, :name
+    validates_presence_of :group, message: "group is required"
+    validates_presence_of :name, message: "name is required"
 
     def self.endpoint_path
       "collection-api/"

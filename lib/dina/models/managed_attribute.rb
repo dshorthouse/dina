@@ -13,7 +13,7 @@ module Dina
     property :createdBy, type: :string
     property :createdOn, type: :time
 
-    validates_presence_of :group
+    validates_presence_of :group, message: "group is required"
 
     def self.endpoint_path
       "collection-api/"

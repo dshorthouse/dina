@@ -6,6 +6,7 @@ module Dina
     self.paginator = JsonApiClient::Paginating::NestedParamPaginator
 
     before_create :on_before_create
+    before_save :on_before_save
 
     def self.endpoint_path
     end
@@ -39,6 +40,12 @@ module Dina
     def on_before_create
       self.attributes.delete_if { |k, v| v.nil? || v == "" }
       self.attributes = self.attributes.deep_symbolize_keys
+    end
+
+    def on_before_save
+      if !self.valid?
+        raise ObjectInvalid, "#{self.class} is invalid. #{self.errors.map(&:message).join("; ")}"
+      end
     end
 
   end

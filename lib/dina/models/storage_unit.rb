@@ -13,7 +13,7 @@ module Dina
     has_one :storage_unit_type
     has_one :parent_storage_unit, class_name: "StorageUnit"
 
-    validates_presence_of :group
+    validates_presence_of :group, message: "group is required"
 
     def self.endpoint_path
       "collection-api/"

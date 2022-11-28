@@ -30,5 +30,10 @@ module Dina
       expect(trans.involved_agents.size).to eq(1)
     end
 
+    it "should raise an Exception if group is missing" do
+      trans = Dina::Transaction.new({ group: nil })
+      expect { trans.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
   end
 end

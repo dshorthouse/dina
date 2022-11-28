@@ -11,5 +11,10 @@ module Dina
       expect(cm.attributes).to eq({"type"=>"collection-method", "id"=>@id})
     end
 
+    it "should raise an Exception if group is missing" do
+      cm = Dina::CollectingMethod.new({ group: nil })
+      expect { cm.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
   end
 end

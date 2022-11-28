@@ -16,7 +16,8 @@ module Dina
     has_many :organizations
     has_many :identifiers
 
-    validates_presence_of :familyNames, :displayName
+    validates_presence_of :familyNames, message: "familyNames is required"
+    validates_presence_of :displayName
 
     def self.endpoint_path
       "agent-api/"
@@ -36,7 +37,7 @@ module Dina
 
     private
 
-    def set_defaults
+    def on_before_save
       if self.displayName.nil? || self.displayName == ""
         self.displayName = [familyNames, givenNames].compact.join(", ")
       end

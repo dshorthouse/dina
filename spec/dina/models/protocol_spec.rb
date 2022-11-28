@@ -20,5 +20,9 @@ module Dina
       expect(protocol.attachment).to be_nil
     end
 
+    it "should raise an Exception if group is missing" do
+      protocol = Dina::Protocol.new({ group: nil })
+      expect { protocol.save }.to raise_error(Dina::ObjectInvalid)
+    end
   end
 end

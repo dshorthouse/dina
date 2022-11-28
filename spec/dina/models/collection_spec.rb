@@ -30,5 +30,10 @@ module Dina
       expect(collection.parent_collection).to be_a(Dina::Collection)
     end
 
+    it "should raise an Exception if group is missing" do
+      collection = Dina::Collection.new({ group: nil })
+      expect { collection.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
   end
 end

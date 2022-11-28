@@ -48,7 +48,8 @@ module Dina
     has_many :preparation_attachment, class_name: "Attachment" #TODO: error requesting Dina::MaterialSample::Metadatum
     has_many :organism, class_name: "Organism"
 
-    validates_presence_of :group, :materialSampleName
+    validates_presence_of :group, message: "group is required"
+    validates_presence_of :materialSampleName, message: "materialSampleName is required"
 
     def self.endpoint_path
       "collection-api/"

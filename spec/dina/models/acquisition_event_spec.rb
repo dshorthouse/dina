@@ -20,5 +20,10 @@ module Dina
       expect(ae.attributes).to eq({"type"=>"acquisition-event", "id" => @id })
     end
 
+    it "should raise an Exception if group is missing" do
+      protocol = Dina::Protocol.new({ group: nil })
+      expect { protocol.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
   end
 end

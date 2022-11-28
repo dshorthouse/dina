@@ -45,5 +45,15 @@ module Dina
       expect(material_sample.organism.size).to eq(1)
     end
 
+    it "should raise an Exception if group is missing" do
+      material_sample = Dina::MaterialSample.new({ group: nil, materialSampleName: "My sample" })
+      expect { material_sample.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
+    it "should raise an Exception if materialSampleName is missing" do
+      material_sample = Dina::MaterialSample.new({ group: "DINA", materialSampleName: nil })
+      expect { material_sample.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
   end
 end

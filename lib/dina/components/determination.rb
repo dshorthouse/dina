@@ -14,9 +14,9 @@ module Dina
     attr_accessor :qualifier
     attr_accessor :scientificNameSource
     attr_accessor :scientificNameDetails #in the form { classificationPath: "", classificationRanks: "" }
-    attr_accessor :isPrimary
-    attr_accessor :isFiledAs
-    attr_accessor :managedAttributes
+    attr_accessor :isPrimary #boolean
+    attr_accessor :isFiledAs #boolean
+    attr_accessor :managedAttributes #array
 
     def initialize
     end

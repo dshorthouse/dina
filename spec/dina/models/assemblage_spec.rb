@@ -25,5 +25,15 @@ module Dina
       expect(assemblage.attachment.size).to eq(1)
     end
 
+    it "should raise an Exception if group is missing" do
+      assemblage = Dina::Assemblage.new({ group: nil, name: "My assemblage" })
+      expect { assemblage.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
+    it "should raise an Exception if group is missing" do
+      assemblage = Dina::Assemblage.new({ group: "DINA", name: nil })
+      expect { assemblage.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
   end
 end

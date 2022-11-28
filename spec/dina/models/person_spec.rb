@@ -35,5 +35,10 @@ module Dina
       expect(person.identifiers.size).to eq(1)
     end
 
+    it "should raise an Exception if familyNames is missing" do
+      person = Dina::Person.new({ familyNames: nil })
+      expect { person.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
   end
 end

@@ -20,5 +20,10 @@ module Dina
       expect(project.attachment).to be_nil
     end
 
+    it "should raise an Exception if group is missing" do
+      project = Dina::Project.new({ group: nil })
+      expect { project.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
   end
 end

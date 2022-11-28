@@ -45,7 +45,7 @@ module Dina
     has_many :collectors, class_name: "Person"
     has_many :attachment, class_name: "Attachment"
 
-    validates_presence_of :group
+    validates_presence_of :group, message: "group is required"
 
     before_save :on_before_save
 
@@ -70,6 +70,7 @@ module Dina
       if !self.geoReferenceAssertions.empty? && self.geoReferenceAssertions[0][:dwcDecimalLatitude].nil?
         self.geoReferenceAssertions = nil
       end
+      super
     end
 
   end

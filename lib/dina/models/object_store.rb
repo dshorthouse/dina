@@ -36,7 +36,7 @@ module Dina
     has_one :dc_creator, class_name: "Person"
     has_many :derivatives, class_name: "Derivative"
 
-    validates_presence_of :group
+    validates_presence_of :group, message: "group is required"
 
     def self.endpoint_path
       "objectstore-api/"

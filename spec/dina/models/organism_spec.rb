@@ -15,5 +15,10 @@ module Dina
       expect(org.attributes).to eq({"type"=>"organism", "id"=>@id, "determination"=>[]})
     end
 
+    it "should raise an Exception if group is missing" do
+      org = Dina::Organism.new({ group: nil })
+      expect { org.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
   end
 end

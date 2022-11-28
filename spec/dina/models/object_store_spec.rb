@@ -45,5 +45,10 @@ module Dina
       expect(os.derivatives.size).to eq(1)
     end
 
+    it "should raise an Exception if group is missing" do
+      os = Dina::ObjectStore.new({ group: nil })
+      expect { os.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
   end
 end

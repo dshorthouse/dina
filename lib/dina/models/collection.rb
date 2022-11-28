@@ -18,7 +18,7 @@ module Dina
     has_one :institution, class_name: "Institution"
     has_one :parent_collection, class_name: "Collection"
 
-    validates_presence_of :group
+    validates_presence_of :group, message: "group is required"
 
     def self.endpoint_path
       "collection-api/"

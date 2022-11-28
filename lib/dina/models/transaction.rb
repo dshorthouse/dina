@@ -25,7 +25,7 @@ module Dina
     has_many :attachment
     has_many :involved_agents, class_name: "Person"
 
-    validates_presence_of :group
+    validates_presence_of :group, message: "group is required"
 
     def self.endpoint_path
       "loan-transaction/"

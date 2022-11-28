@@ -12,7 +12,7 @@ module Dina
     property :createdBy, type: :string
     property :createdOn, type: :time
 
-    validates_presence_of :username
+    validates_presence_of :username, message: "username is required"
 
     def self.endpoint_path
       "user-api/"

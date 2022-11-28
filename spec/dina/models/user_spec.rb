@@ -20,5 +20,10 @@ module Dina
       expect(user.attributes).to eq({"type"=>"user", "id" => @id })
     end
 
+    it "should raise an Exception if username is missing" do
+      user = Dina::User.new({ username: nil })
+      expect { user.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
   end
 end
