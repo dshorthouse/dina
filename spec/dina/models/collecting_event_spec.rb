@@ -31,16 +31,16 @@ module Dina
       }
       expect(ce.attributes).to eq(default)
     end
-=begin
-    it "can have one institution" do
-      collection = Dina::Collection.new({ institution: Dina::Institution.new })
-      expect(collection.institution).to be_a(Dina::Institution)
+
+    it "can have many collectors" do
+      ce = Dina::CollectingEvent.new({ collectors: [ Dina::Person.new, Dina::Person.new]})
+      expect(ce.collectors.size).to eq(2)
     end
 
-    it "can have one parent_collection" do
-      collection = Dina::Collection.new({ parent_collection: Dina::Collection.new })
-      expect(collection.parent_collection).to be_a(Dina::Collection)
+    it "can have many attachments" do
+      ce = Dina::CollectingEvent.new({ attachment: [ Dina::Attachment.new ]})
+      expect(ce.attachment.size).to eq(1)
     end
-=end
+
   end
 end
