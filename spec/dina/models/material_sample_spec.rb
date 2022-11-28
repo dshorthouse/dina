@@ -1,0 +1,54 @@
+module Dina
+  describe 'MaterialSample' do
+
+    before(:all) do
+      @id = SecureRandom.uuid
+    end
+
+    it "should create an object of type MaterialSample" do
+      material_sample = Dina::MaterialSample.new
+      expect(material_sample).to be_a(Dina::MaterialSample)
+    end
+
+    it "should create an object of type MaterialSample with default attributes" do
+      material_sample = Dina::MaterialSample.new({ id: @id })
+      default = {
+        "type" => "material-sample",
+        "id" => @id,
+        "associations" => [],
+        "tags" => [],
+        "hostOrganism" => {
+          "name" => nil,
+          "remarks" => nil
+        }
+      }
+      expect(material_sample.attributes).to eq(default)
+    end
+
+    it "can have many attachments" do
+      material_sample = Dina::MaterialSample.new
+      expect(material_sample.attachment).to be_nil
+    end
+
+    it "can have many projects" do
+      material_sample = Dina::MaterialSample.new
+      expect(material_sample.projects).to be_nil
+    end
+
+    it "can have many assemblages" do
+      material_sample = Dina::MaterialSample.new
+      expect(material_sample.assemblages).to be_nil
+    end
+
+    it "can have many preparation attachments" do
+      material_sample = Dina::MaterialSample.new
+      expect(material_sample.preparation_attachment).to be_nil
+    end
+
+    it "can have many organisms" do
+      material_sample = Dina::MaterialSample.new
+      expect(material_sample.organism).to be_nil
+    end
+
+  end
+end
