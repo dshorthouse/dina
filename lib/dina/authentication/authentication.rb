@@ -3,6 +3,20 @@
 module Dina
   module Authentication
 
+    # Sets Authentication configuration
+    # Options hash as follows:
+    # {
+    #    token_store_file: "file to store the token",
+    #    user: "username provided by DINA admin in Keycloak",
+    #    password: "password provided by DINA admin in Keycloak",
+    #    server_name: "used locally to reference the token",
+    #    client_id: "provided by DINA admin in Keycloak",
+    #    endpoint_url: "DINA API URL",
+    #    authorization_url: "Keycloak authorization URL".
+    #    realm: "provided by DINA admin in Keycloak"
+    # }
+    #
+    # @param options [Hash] the configuration options
     def self.config(options = {})
       @token_store_file = options[:token_store_file]
       @user = options[:user]
@@ -16,6 +30,10 @@ module Dina
       Keycloak.realm = @realm
     end
 
+    # Gets, sets, and renews a Bearer access token as required
+    # and produces a Header string
+    #
+    # @return [String] the Bearer token
     def self.header
       if access_token.nil? || refresh_token.nil?
         set_token

@@ -26,6 +26,10 @@ module Dina
       "person"
     end
 
+    # Finds a Person object using an email address
+    #
+    # @param email [String] an email address
+    # @return Person [Object] a Person object
     def self.find_by_email(email)
       where("email": email).all.first
     end
