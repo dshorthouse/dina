@@ -3,7 +3,6 @@ require_rel 'base_model'
 module Dina
   class Organization < BaseModel
     property :id, type: :string, default: SecureRandom.uuid
-    #NOTE: should be type: :multilingual_description but API not adjusted
     property :names, type: :array, default: [{languageCode: "EN", name: nil}, {languageCode: "FR", name: nil}]
     property :aliases, type: :array, default: []
     property :createdBy, type: :string

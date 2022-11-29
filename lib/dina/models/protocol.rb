@@ -9,7 +9,7 @@ module Dina
     property :createdBy, type: :string
     property :createdOn, type: :time
 
-    has_many :attachment, class_name: "ObjectStore"
+    has_many :attachment, class_name: "Attachment"
 
     validates_presence_of :group, message: "group is required"
 

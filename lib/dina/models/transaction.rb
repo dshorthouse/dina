@@ -22,7 +22,7 @@ module Dina
     property :createdOn, type: :time
 
     has_many :material_samples, class_name: "MaterialSample"
-    has_many :attachment
+    has_many :attachment, class_name: "Attachment"
     has_many :involved_agents, class_name: "Person"
 
     validates_presence_of :group, message: "group is required"
