@@ -12,7 +12,6 @@ module Dina
     property :group, type: :string
     property :managedAttributes, type: :object
     property :dwcOtherCatalogNumbers, type: :array
-    property :preparationMethod, type: :string
     property :preservationType, type: :string
     property :preparationFixative, type: :string
     property :preparationMaterials, type: :string
@@ -24,6 +23,9 @@ module Dina
     property :stateChangedOn, type: :time
     property :stateChangeRemarks, type: :string
     property :materialSampleRemarks, type: :string
+    property :restrictionFieldsExtension, type: :array
+    property :restrictionRemarks, type: :string
+    property :isRestricted, type: :boolean
     property :materialSampleChildren, type: :array
     property :associations, type: :array, default: []
     property :tags, type: :array, default: []
@@ -34,18 +36,18 @@ module Dina
     property :hierarchy, type: :object
     property :allowDuplicateName, type: :boolean
 
-    has_one :collection
-    has_one :parent_material_sample, class_name: "MaterialSample"
+    has_one :collection, class_name: "Collection"
     has_one :collecting_event, class_name: "CollectingEvent"
-    has_one :preparation_type
-    has_one :prepared_by, class_name: "Person"
-    has_one :storage_unit
-    has_one :acquisition_event
-
-    has_many :assemblages, class_name: "Assemblage"
+    has_one :preparation_type, class_name: "PreparationType"
+    has_one :preparation_method, class_name: "PreparationMethod"
+    has_one :parent_material_sample, class_name: "MaterialSample"
+    has_one :preparation_protocol, class_name: "Protocol"
+    has_one :acquisition_event, class_name: "AcquisitionEvent"
+    has_one :storage_unit, class_name: "StorageUnit"
+    has_many :prepared_by, class_name: "Person"
+    has_many :attachment, class_name: "Attachment"
     has_many :projects, class_name: "Project"
-    has_many :attachment, class_name: "Attachment" #TODO: error requesting Dina::MaterialSample::Metadatum
-    has_many :preparation_attachment, class_name: "Attachment" #TODO: error requesting Dina::MaterialSample::Metadatum
+    has_many :assemblages, class_name: "Assemblage"
     has_many :organism, class_name: "Organism"
 
     validates_presence_of :group, message: "group is required"

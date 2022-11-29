@@ -25,6 +25,51 @@ module Dina
       expect(material_sample.attributes).to eq(default)
     end
 
+    it "can have one collection" do
+      material_sample = Dina::MaterialSample.new({ collection: Dina::Collection.new })
+      expect(material_sample.collection).to be_a(Dina::Collection)
+    end
+
+    it "can have one collecting event" do
+      material_sample = Dina::MaterialSample.new({ collecting_event: Dina::CollectingEvent.new })
+      expect(material_sample.collecting_event).to be_a(Dina::CollectingEvent)
+    end
+
+    it "can have one preparation type" do
+      material_sample = Dina::MaterialSample.new({ preparation_type: Dina::PreparationType.new })
+      expect(material_sample.preparation_type).to be_a(Dina::PreparationType)
+    end
+
+    it "can have one preparation method" do
+      material_sample = Dina::MaterialSample.new({ preparation_method: Dina::PreparationMethod.new })
+      expect(material_sample.preparation_method).to be_a(Dina::PreparationMethod)
+    end
+
+    it "can have one parent material sample" do
+      material_sample = Dina::MaterialSample.new({ parent_material_sample: Dina::MaterialSample.new })
+      expect(material_sample.parent_material_sample).to be_a(Dina::MaterialSample)
+    end
+
+    it "can have one preparation protocol" do
+      material_sample = Dina::MaterialSample.new({ preparation_protocol: Dina::Protocol.new })
+      expect(material_sample.preparation_protocol).to be_a(Dina::Protocol)
+    end
+
+    it "can have one acquisition event" do
+      material_sample = Dina::MaterialSample.new({ acquisition_event: Dina::AcquisitionEvent.new })
+      expect(material_sample.acquisition_event).to be_a(Dina::AcquisitionEvent)
+    end
+
+    it "can have one storage unit" do
+      material_sample = Dina::MaterialSample.new({ storage_unit: Dina::StorageUnit.new })
+      expect(material_sample.storage_unit).to be_a(Dina::StorageUnit)
+    end
+
+    it "can have one collection" do
+      material_sample = Dina::MaterialSample.new({ collection: Dina::Collection.new })
+      expect(material_sample.collection).to be_a(Dina::Collection)
+    end
+
     it "can have many attachments" do
       material_sample = Dina::MaterialSample.new({ attachment: [ Dina::Attachment.new ]})
       expect(material_sample.attachment.size).to eq(1)
@@ -43,6 +88,11 @@ module Dina
     it "can have many organisms" do
       material_sample = Dina::MaterialSample.new({ organism: [ Dina::Organism.new ]})
       expect(material_sample.organism.size).to eq(1)
+    end
+
+    it "can have many prepared by" do
+      material_sample = Dina::MaterialSample.new({ prepared_by: [ Dina::Person.new ]})
+      expect(material_sample.prepared_by.size).to eq(1)
     end
 
     it "should raise an Exception if group is missing" do
