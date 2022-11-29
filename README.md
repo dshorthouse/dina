@@ -73,6 +73,24 @@ Destroy a Person object:
   => true
 ```
 
+Upload an image asset:
+
+```
+  file = Dina::File.new
+  file.group = "daom"
+  file.file_path = "/my-directory/my-file.jpg"
+  response = file.save
+
+  metadata = Dina::ObjectStore.new
+  metadata.group = "daom"
+  metadata.dcType = "Image"
+  metadata.fileExtension = ".jpg"
+  metadata.fileIdentifier = response[:fileIdentifier]
+  metadata.save
+
+  => true
+```
+
 License
 -------
 
