@@ -3,34 +3,31 @@ require_rel 'base_model'
 module Dina
   class ObjectStore < BaseModel
     property :id, type: :string, default: SecureRandom.uuid
+    property :createdBy, type: :string
+    property :createdOn, type: :time
     property :group, type: :string
-    property :dcType, type: :string
-    property :originalFilename, type: :string
-    property :bucket, type: :string
-    property :dateTimeDigitized, type: :string
-    property :fileIdentifier, type: :string
-    property :fileExtension, type: :string
     property :dcFormat, type: :string
     property :dcType, type: :string
-    property :acDigitizationDate, type: :time
+    property :acSubtype, type: :string
+    property :fileIdentifier, type: :string
+    property :bucket, type: :string
     property :acCaption, type: :string
+    property :acDigitizationDate, type: :time
     property :xmpMetadataDate, type: :time
+    property :originalFilename, type: :string
+    property :fileExtension, type: :string
+    property :acHashFunction, type: :string, default: "SHA-1"
+    property :acHashValue, type: :string
+    property :xmpRightsUsageTerms, type: :string, default: "Government of Canada Usage Term"
     property :xmpRightsWebStatement, type: :string, default: "https://open.canada.ca/en/open-government-licence-canada"
     property :dcRights, type: :string, default: "© Her Majesty The Queen in Right of Canada, as represented by the Minister of Agriculture and Agri-Food | © Sa Majesté la Reine du chef du Canada, représentée par le ministre de l’Agriculture et de l’Agroalimentaire"
     property :xmpRightsOwner, type: :string, default: "Government of Canada"
-    property :xmpRightsUsageTerms, type: :string, default: "Government of Canada Usage Term"
-    property :orientation, type: :integer
-    property :originalFilename, type: :string
-    property :acHashFunction, type: :string, default: "SHA-1"
-    property :acHashValue, type: :string
-    property :acSubtype, type: :string
     property :publiclyReleasable, type: :boolean, default: true
     property :notPubliclyReleasableReason, type: :string
-    property :acTags, type: :string
-    property :resourceExternalURL, type: :string
     property :managedAttributes, type: :object
-    property :createdBy, type: :string
-    property :createdOn, type: :time
+    property :acTags, type: :string
+    property :orientation, type: :integer
+    property :resourceExternalURL, type: :string
 
     has_one :ac_metadata_creator, class_name: "Person"
     has_one :dc_creator, class_name: "Person"
@@ -44,6 +41,15 @@ module Dina
 
     def self.table_name
       "metadata"
+    end
+
+    private
+
+    def on_before_save
+      if self.bucket.nil?
+        self.bucket = self.group
+      end
+      super
     end
 
   end

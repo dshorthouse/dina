@@ -1,4 +1,3 @@
-
 module Dina
   class ArrayCaster
     def self.cast(value, default)

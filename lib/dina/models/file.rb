@@ -1,40 +1,44 @@
-require_rel 'base_model'
-
 module Dina
-  class File < BaseModel
-    property :id, type: :string, default: SecureRandom.uuid
+  class File
+    attr_accessor :file_path, :group
 
-    def self.endpoint_path
+    def initialize
+    end
+
+    def endpoint_path
       "objectstore-api/"
     end
 
-    def self.table_name
-      "file"
+    def table_name
+      "file/#{@group}"
     end
 
-    #TODO: a "bucket" as part of the path (=table_name) to permit POST with necessary permissions
-    #TODO: body not JSON but an asset
+    def url
+      Dina::Authentication.endpoint_url + endpoint_path + table_name
+    end
 
-=begin
+    def file
+      ::File.new(file_path)
+    end
 
-    def initialize(bucket:, file:)
-      if !file.is_a?(::File) || !::File.exist?(file)
-        raise Exception.new "file is not of class File or does not exist"
+    def save
+      if group.nil?
+        raise ObjectInvalid, "#{self.class} is invalid. group is required."
       end
-      super
-      set_headers
+      if file_path.nil? || !::File.exist?(file_path)
+        raise ObjectInvalid, "#{self.class} is invalid. file not found in file_path."
+      end
+      response = RestClient::Request.execute(
+        method: :post,
+        headers: { authorization: Dina::Authentication.header },
+        url: url,
+        payload: {
+          multipart: true,
+          file: file
+        }
+      )
+      JSON.parse(response, symbolize_names: true)
     end
-
-    private
-
-    def set_headers
-      headers = {
-        content_type: "application/octet-stream",
-        content_disposition: "form-data; name=file; filename=#{::File.basename(file.path)}"
-      }
-      self.custom_headers.merge(headers)
-    end
-=end
 
   end
 end

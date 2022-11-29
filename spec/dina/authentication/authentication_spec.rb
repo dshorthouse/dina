@@ -6,7 +6,7 @@ module Dina
       @config = {
         token_store_file: @token_store_file.path,
         authorization_url: "http://localhost/auth",
-        endpoint_url: "http://localhost/api",
+        endpoint_url: "http://localhost/api/",
         client_id: "objectstore",
         realm: "readme",
         server_name: "dina",
