@@ -35,6 +35,8 @@ module Dina
 
     validates_presence_of :group, message: "group is required"
 
+    attr_accessor :accepted_types
+
     def self.endpoint_path
       "objectstore-api/"
     end
@@ -43,11 +45,22 @@ module Dina
       "metadata"
     end
 
+    def self.accepted_types
+      [
+        "IMAGE",
+        "MOVING_IMAGE",
+        "SOUND",
+        "TEXT",
+        "DATASET",
+        "UNDETERMINED"
+      ]
+    end
+
     private
 
     def on_before_save
-      if self.bucket.nil?
-        self.bucket = self.group
+      if !self.dcType.nil? && !self.class.accepted_types.include?(self.dcType)
+        raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for dcType is one of #{self.class.accepted_types.join(", ")}"
       end
       super
     end

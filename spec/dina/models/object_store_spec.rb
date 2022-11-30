@@ -50,5 +50,10 @@ module Dina
       expect { os.save }.to raise_error(Dina::ObjectInvalid)
     end
 
+    it "should raise an Exception if dcType is invalid" do
+      os = Dina::ObjectStore.new({ id: @id, group: "cnc", dcType: "NUMBER" })
+      expect { os.save }.to raise_error(Dina::PropertyValueInvalid)
+    end
+
   end
 end
