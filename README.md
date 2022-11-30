@@ -106,5 +106,5 @@ Authors: [David P. Shorthouse][4]
 [5]: https://github.com/JsonApiClient/json_api_client
 [6]: https://github.com/dshorthouse/dina/actions/workflows/ruby.yml/badge.svg
 [7]: https://github.com/dshorthouse/dina/actions
-[8]: https://badge.fury.io/rb/dina.svg
-[9]: https://badge.fury.io/rb/dina
+[8]: https://badgen.net/rubygems/v/dina/latest?cache=300
+[9]: https://rubygems.org/gems/dina
