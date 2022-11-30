@@ -20,5 +20,10 @@ module Dina
       expect(os.attributes).to eq({"id"=> @id, "type"=>"managed-attribute"})
     end
 
+    it "should raise an Exception if managedAttributeType is invalid" do
+      os = Dina::ObjectStoreManagedAttribute.new({ id: @id, managedAttributeType: "NUMBER" })
+      expect { os.save }.to raise_error(Dina::PropertyValueInvalid)
+    end
+
   end
 end

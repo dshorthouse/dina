@@ -20,5 +20,10 @@ module Dina
       expect(os.attributes).to eq({"id"=> @id, "type"=>"object-subtype"})
     end
 
+    it "should raise an Exception if dcType is invalid" do
+      os = Dina::ObjectSubtype.new({ id: @id, dcType: "NUMBER" })
+      expect { os.save }.to raise_error(Dina::PropertyValueInvalid)
+    end
+
   end
 end

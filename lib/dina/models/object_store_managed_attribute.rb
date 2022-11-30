@@ -19,5 +19,14 @@ module Dina
       "managed-attribute"
     end
 
+    private
+
+    def on_before_save
+      if !self.managedAttributeType.nil? && !ManagedAttribute.accepted_types.include?(self.managedAttributeType)
+        raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for managedAttributeType is one of #{ManagedAttribute.accepted_types.join(", ")}"
+      end
+      super
+    end
+
   end
 end
