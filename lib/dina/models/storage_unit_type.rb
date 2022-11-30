@@ -6,6 +6,7 @@ module Dina
     property :group, type: :string
     property :name, type: :string
     property :isInseperable, type: :boolean
+    property :gridLayoutDefinition, type: :object
     property :createdBy, type: :string
     property :createdOn, type: :time
 

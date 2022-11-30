@@ -30,7 +30,7 @@ module Dina
       expect { assemblage.save }.to raise_error(Dina::ObjectInvalid)
     end
 
-    it "should raise an Exception if group is missing" do
+    it "should raise an Exception if name is missing" do
       assemblage = Dina::Assemblage.new({ group: "DINA", name: nil })
       expect { assemblage.save }.to raise_error(Dina::ObjectInvalid)
     end

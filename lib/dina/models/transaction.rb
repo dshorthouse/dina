@@ -27,12 +27,30 @@ module Dina
 
     validates_presence_of :group, message: "group is required"
 
+    attr_accessor :accepted_directions
+
     def self.endpoint_path
       "loan-transaction/"
     end
 
     def self.table_name
       "transaction"
+    end
+
+    def self.accepted_directions
+      [
+        "IN",
+        "OUT"
+      ]
+    end
+
+    private
+
+    def on_before_save
+      if !self.materialDirection.nil? && !self.class.accepted_directions.include?(self.materialDirection)
+        raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for materialDirection is one of #{self.class.accepted_directions.join(", ")}"
+      end
+      super
     end
 
   end

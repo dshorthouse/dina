@@ -35,5 +35,10 @@ module Dina
       expect { trans.save }.to raise_error(Dina::ObjectInvalid)
     end
 
+    it "should raise an Exception if materialDirection is invalid" do
+      trans = Dina::Transaction.new({ id: @id, group: "cnc", materialDirection: "UNSURE" })
+      expect { trans.save }.to raise_error(Dina::PropertyValueInvalid)
+    end
+
   end
 end
