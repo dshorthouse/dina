@@ -6,8 +6,7 @@ This Ruby 3.1 gem abstracts the Keycloak configuration and JSON:API models for t
 
 ### Disclaimer
 
-The DINA API is under rapid development and so too is this gem. The intent of the latter is to be as closely aligned with the most recent version of the former. As such, this gem makes use of the DINA API reverse proxy in use by its frontend.
-
+The DINA APIs for each of its components are under rapid development and so too is this gem. The intent of the latter is to be as closely aligned with the most recent versions of the former. As such, this gem makes use of the DINA APIs via its frontend reverse proxy.
 
 [![Gem Version][8]][9]
 [![Continuous Integration Status][6]][7]
