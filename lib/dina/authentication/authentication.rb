@@ -81,11 +81,11 @@ module Dina
       end
 
       def access_token
-        read_token[:access_token] rescue nil
+        read_token[:access_token]
       end
 
       def refresh_token
-        read_token[:refresh_token] rescue nil
+        read_token[:refresh_token]
       end
 
       def auth_expiry

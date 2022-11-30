@@ -83,7 +83,7 @@ Upload an image asset:
 
   metadata = Dina::ObjectStore.new
   metadata.group = "daom"
-  metadata.dcType = "Image"
+  metadata.dcType = "IMAGE"
   metadata.fileExtension = ".jpg"
   metadata.fileIdentifier = response[:fileIdentifier]
   metadata.save
@@ -114,4 +114,4 @@ Authors: [David P. Shorthouse][4]
 [6]: https://github.com/dshorthouse/dina/actions/workflows/ruby.yml/badge.svg
 [7]: https://github.com/dshorthouse/dina/actions
 [8]: https://badge.fury.io/rb/dina.svg
-[9]: http://badge.fury.io/rb/dina
+[9]: https://badge.fury.io/rb/dina
