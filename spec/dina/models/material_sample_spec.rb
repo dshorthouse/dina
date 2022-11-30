@@ -101,8 +101,18 @@ module Dina
     end
 
     it "should raise an Exception if materialSampleName is missing" do
-      material_sample = Dina::MaterialSample.new({ group: "DINA", materialSampleName: nil })
+      material_sample = Dina::MaterialSample.new({ group: "DINA", materialSampleName: nil, materialSampleType: "WHOLE_ORGANISM" })
       expect { material_sample.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
+    it "should raise an Exception if materialSampleType is missing" do
+      material_sample = Dina::MaterialSample.new({ id: @id, group: "DINA", materialSampleName: "CNC123", materialSampleType: nil })
+      expect { material_sample.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
+    it "should raise an Exception if materialSampleType is invalid" do
+      material_sample = Dina::MaterialSample.new({ id: @id, group: "DINA", materialSampleName: "CNC123", materialSampleType: "NUMBER" })
+      expect { material_sample.save }.to raise_error(Dina::PropertyValueInvalid)
     end
 
   end

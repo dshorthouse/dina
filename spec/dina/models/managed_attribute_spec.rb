@@ -25,6 +25,16 @@ module Dina
       expect { ma.save }.to raise_error(Dina::ObjectInvalid)
     end
 
+    it "should raise an Exception if name is missing" do
+      ma = Dina::ManagedAttribute.new({ group: "DINA", name: nil, managedtAttributeType: "STRING" })
+      expect { ma.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
+    it "should raise an Exception if managedtAttributeType is missing" do
+      ma = Dina::ManagedAttribute.new({ group: "DINA", name: "test", managedtAttributeType: nil })
+      expect { ma.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
     it "should raise an Exception if managedAttributeComponent is invalid" do
       ma = Dina::ManagedAttribute.new({ id: @id, group: "cnc", managedAttributeComponent: "BIBLIO" })
       expect { ma.save }.to raise_error(Dina::PropertyValueInvalid)

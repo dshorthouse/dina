@@ -52,6 +52,9 @@ module Dina
 
     validates_presence_of :group, message: "group is required"
     validates_presence_of :materialSampleName, message: "materialSampleName is required"
+    validates_presence_of :materialSampleType, message: "materialSampleType is required"
+
+    attr_accessor :accepted_types
 
     def self.endpoint_path
       "collection-api/"
@@ -59,6 +62,24 @@ module Dina
 
     def self.table_name
       "material-sample"
+    end
+
+    def self.accepted_types
+      [
+        "WHOLE_ORGANISM",
+        "ORGANISM_PART",
+        "MIXED_ORGANISMS",
+        "MOLECULAR_SAMPLE"
+      ]
+    end
+
+    private
+
+    def on_before_save
+      if !self.materialSampleType.nil? && !self.class.accepted_types.include?(self.materialSampleType)
+        raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for materialSampleType is one of #{self.class.accepted_types.join(", ")}"
+      end
+      super
     end
 
   end
