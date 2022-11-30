@@ -30,9 +30,9 @@ module Dina
     # Finds a Person object using an email address
     #
     # @param email [String] an email address
-    # @return Person [Object] a Person object
+    # @return array [Array] an array of Person objects
     def self.find_by_email(email)
-      where("email": email).all.first
+      where("email": email).all
     end
 
     private

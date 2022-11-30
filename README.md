@@ -41,7 +41,7 @@ Dina::Authentication.config({
 #### Query for a `Person` by Email Address
 
 ```
-  person = Dina::Person.find_by_email("email@email.com")
+  person = Dina::Person.find_by_email("email@email.com").first
   person.attributes
 
   =>
