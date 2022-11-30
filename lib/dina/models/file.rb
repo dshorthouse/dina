@@ -1,6 +1,6 @@
 module Dina
   class File
-    attr_accessor :file_path, :group, :is_derivative
+    attr_accessor :file_path, :group, :is_derivative, :id
 
     def self.find(group:, id:)
       obj = self.new
@@ -42,7 +42,9 @@ module Dina
           file: file
         }
       )
-      JSON.parse(response, symbolize_names: true)
+      json = JSON.parse(response, symbolize_names: true)
+      self.id = json[:uuid]
+      json
     end
 
     private

@@ -38,7 +38,6 @@ Dina::Authentication.config({
   person.givenNames = "Peter"
   person.familyNames = "Pipetter"
   person.email = "email@email.com"
-  person.displayName = "Pipetter, Peter"
   person.save
 ```
 
@@ -76,13 +75,13 @@ Dina::Authentication.config({
   file = Dina::File.new
   file.group = "daom"
   file.file_path = "/my-directory/my-file.jpg"
-  response = file.save
+  file.save
 
   metadata = Dina::ObjectStore.new
   metadata.group = "daom"
   metadata.dcType = "IMAGE"
   metadata.fileExtension = ".jpg"
-  metadata.fileIdentifier = response[:fileIdentifier]
+  metadata.fileIdentifier = file.id
   metadata.save
 ```
 
