@@ -29,15 +29,15 @@ module Dina
     def self.execute(params, method: :get, payload: {})
       begin
         response = RestClient::Request.execute(
-            method: method,
-            url: endpoint + endpoint_path + "?" + params.to_query,
-            payload: payload.to_json,
-            headers: {
-              accept: 'application/json',
-              content_type: 'application/json',
-              authorization: Dina::Authentication.header
-            }
-          )
+          method: method,
+          url: endpoint + endpoint_path + "?" + params.to_query,
+          payload: payload.to_json,
+          headers: {
+            accept: 'application/json',
+            content_type: 'application/json',
+            authorization: Dina::Authentication.header
+          }
+        )
         JSON.parse(response, symbolize_names: true)
       rescue RestClient::ExceptionWithResponse => e
         e.response

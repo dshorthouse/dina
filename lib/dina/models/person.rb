@@ -35,6 +35,26 @@ module Dina
       where("email": email).all
     end
 
+    def self.search_by_name(name)
+      payload = {
+        query: {
+          multi_match: {
+            query: name,
+            type: :cross_fields,
+            fields: [
+              "data.attributes.familyNames^3",
+              "data.attributes.givenNames",
+              "data.attributes.displayName^5",
+              "data.attributes.aliases",
+              "data.attributes.displayName.autocomplete"
+            ]
+          }
+        }
+      }
+      hits = Dina::Search.execute(index: "agent", payload: payload)[:hits]
+      hits.map{|a| self.find(a[:_source][:data][:id]).first }
+    end
+
     private
 
     def on_before_save

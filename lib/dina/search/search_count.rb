@@ -14,7 +14,7 @@ module Dina
     # => Example: {query: {bool: {filter: {term: {"data.attributes.group": "dao"}}}}}
     #
     # @return [Integer] the count of items in the index according to the query/filter
-    def self.execute(index:, payload: {})
+    def self.execute(index:, payload: { query: { match_all: {} }})
       params = {
         indexName: index_name(index: index)
       }
