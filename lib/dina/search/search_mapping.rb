@@ -7,7 +7,11 @@ module Dina
       "search-api/search-ws/mapping"
     end
 
-    # index values: "agent", "material_sample", "object_store"
+    # Return the search mapping document
+    #
+    # @param index [String] the index, accepted value is one of "agent", "material_sample", "object_store"
+    #
+    # @return [Hash] the mapping document as a hash with symbolized keys
     def self.execute(index:)
       params = {
         indexName: index_name(index: index)

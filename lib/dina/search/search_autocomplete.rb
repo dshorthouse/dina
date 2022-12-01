@@ -7,11 +7,19 @@ module Dina
       "search-api/search-ws/auto-complete"
     end
 
-    # index values: "agent", "material_sample", "object_store"
-    # known autocomplete fields:
+    # Executes an autocomplete search
+    #
+    # Known field values (dependent on chosen index):
     #   agent: data.attributes.displayName
     #   material_sample: included.attributes.dwcRecordedBy, included.attributes.verbatimDeterminer
     #   object_store: none
+    #
+    # @param term [String] the search term
+    # @param index [String] the index, accepted value is one of "agent", "material_sample", "object_store"
+    # @param field [String]
+    # @param group [String] the DINA group name
+    #
+    # @return [Hash] the search result with symbolized keys
     def self.execute(term:, index:, field: nil, group: nil)
       params = {
         prefix: term,

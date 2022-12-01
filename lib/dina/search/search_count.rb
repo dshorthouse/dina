@@ -7,8 +7,13 @@ module Dina
       "search-api/search-ws/count"
     end
 
-    # index values: "agent", "material_sample", "object_store"
-    # Payload is a has like: {query: {bool: {filter: {term: {"data.attributes.group": "dao"}}}}}
+    # Executes an count search
+    #
+    # @param index [String] the index, accepted value is one of "agent", "material_sample", "object_store"
+    # @param payload [Hash] the Elasticsearch query hash
+    # => Example: {query: {bool: {filter: {term: {"data.attributes.group": "dao"}}}}}
+    #
+    # @return [Integer] the count of items in the index according to the query/filter
     def self.execute(index:, payload: {})
       params = {
         indexName: index_name(index: index)

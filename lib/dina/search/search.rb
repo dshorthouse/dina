@@ -7,8 +7,13 @@ module Dina
       "search-api/search-ws/search"
     end
 
-    # index values: "agent", "material_sample", "object_store"
-    # payload is a hash in the form of an Elasticsearch body
+    # Executes a search
+    #
+    # @param index [String] the index, accepted value is one of "agent", "material_sample", "object_store"
+    # @param payload [Hash] the payload hash as an Elasticsearch-formatted body
+    # => { query: { match_all: {} }
+    #
+    # @return [Hash] the search result with symbolized keys
     def self.execute(index:, payload: { query: { match_all: {} } })
       params = {
         indexName: index_name(index: index)
