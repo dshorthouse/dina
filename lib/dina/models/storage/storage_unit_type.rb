@@ -1,11 +1,12 @@
-require_rel 'base_model'
+require_rel '../base_model'
 
 module Dina
-  class PreparationMethod < BaseModel
+  class StorageUnitType < BaseModel
     property :id, type: :string, default: SecureRandom.uuid
     property :group, type: :string
     property :name, type: :string
-    property :multilingualDescription, type: :multilingual_description
+    property :isInseperable, type: :boolean
+    property :gridLayoutDefinition, type: :object
     property :createdBy, type: :string
     property :createdOn, type: :time
 
@@ -16,8 +17,7 @@ module Dina
     end
 
     def self.table_name
-      "preparation-method"
+      "storage-unit-type"
     end
-
   end
 end

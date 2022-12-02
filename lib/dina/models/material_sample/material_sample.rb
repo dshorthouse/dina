@@ -1,4 +1,4 @@
-require_rel 'base_model'
+require_rel '../base_model'
 
 module Dina
   class MaterialSample < BaseModel
