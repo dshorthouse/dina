@@ -3,7 +3,7 @@ module JsonApiClient
   module Associations
     class BaseAssociation
       def data(url)
-        url.sub!("/api/v1/", "/api/#{association_class.requestor.instance_variable_get(:@klass).endpoint_path}")
+        url.sub!("/api/v1/", "/api/#{klass.endpoint_path}")
         from_result_set(association_class.requestor.linked(url))
       end
     end
