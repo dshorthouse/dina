@@ -8,6 +8,8 @@ module Dina
     property :createdBy, type: :string
     property :createdOn, type: :time
 
+    belongs_to :person, shallow_path: true, class_name: "Person"
+
     def self.endpoint_path
       "agent-api/"
     end
