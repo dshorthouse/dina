@@ -41,6 +41,18 @@ Dina::Authentication.config({
   person.save
 ```
 
+#### Add an Identifier to a `Person`
+
+```
+  identifier = Dina::Identifier.new
+  identifier.namespace = "WIKIDATA"
+  identifier.value = "http://www.wikidata.org/entity/Q163373"
+  identifier.save
+
+  person.identifiers = [ identifier ]
+  person.save
+```
+
 #### Query for a `Person` by Email Address
 
 ```
@@ -62,7 +74,7 @@ Dina::Authentication.config({
  "identifiers"=>[]}
 ```
 
-#### Destroy a `Person`
+#### Delete a `Person`
 
 ```
   person = Dina::Person.find("bf42616e-846c-4dbd-8372-bef44cdfa3e8").first
