@@ -6,7 +6,7 @@ This Ruby 3.1 gem abstracts the Keycloak configuration and JSON:API models for t
 
 ### Disclaimer
 
-The DINA APIs for each of its components are under rapid development and so too is this gem. The intent of the latter is to be as closely aligned with the most recent versions of the former. As such, this gem makes use of the DINA APIs via its frontend reverse proxy.
+The DINA APIs for each of its components are under rapid development and so too is this gem. The intent of the latter is to be as closely aligned with the most recent versions of the former. As such, this gem makes use of the DINA APIs via their single, frontend gateway.
 
 [![Gem Version][8]][9]
 [![Continuous Integration Status][6]][7]
@@ -18,10 +18,12 @@ The DINA APIs for each of its components are under rapid development and so too 
 ```
 ### Configuration
 
+All variables are **required**.
+
 ```
 Dina::Authentication.config({
    authorization_url: "http://localhost/auth",
-   endpoint_url: "http://localhost/api/",
+   endpoint_url: "http://localhost/api",
    server_name: "server",
    realm: "dina",
    client_id: "dina",
@@ -30,6 +32,9 @@ Dina::Authentication.config({
    token_store_file: "config/token.json"
  })
 ```
+Note the absence of trailing slashes in both config URLs.
+
+The `authorization_url`, `realm`, `client_id`, `user`, and `password` are all used in the Keycloak authentication handshake. The `endpoint_url` is the single DINA API gateway. The `server_name` is a key used to reference the authentication token responses, which are stored and used in your local `token_store_file`.
 
 #### Create and Save a `Person`
 

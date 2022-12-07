@@ -12,7 +12,7 @@ module Dina
     end
 
     def self.site
-      Dina::Authentication.endpoint_url + endpoint_path
+      Dina::Authentication.endpoint_url + "/" + endpoint_path
     end
 
     def self.custom_headers

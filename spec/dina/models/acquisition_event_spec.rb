@@ -21,8 +21,8 @@ module Dina
     end
 
     it "should raise an Exception if group is missing" do
-      protocol = Dina::Protocol.new({ group: nil })
-      expect { protocol.save }.to raise_error(Dina::ObjectInvalid)
+      ae = Dina::AcquisitionEvent.new({ group: nil })
+      expect { ae.save }.to raise_error(Dina::ObjectInvalid)
     end
 
   end

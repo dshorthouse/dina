@@ -11,8 +11,8 @@ module Dina
     #    password: "password provided by DINA admin in Keycloak",
     #    server_name: "used locally to reference the token",
     #    client_id: "provided by DINA admin in Keycloak",
-    #    endpoint_url: "DINA API URL",
-    #    authorization_url: "Keycloak authorization URL".
+    #    endpoint_url: "DINA API URL without terminating slash",
+    #    authorization_url: "Keycloak authorization URL without terminating slash".
     #    realm: "provided by DINA admin in Keycloak"
     # }
     #

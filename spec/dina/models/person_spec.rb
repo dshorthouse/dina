@@ -26,7 +26,7 @@ module Dina
     end
 
     it "can have many organizations" do
-      person = Dina::Person.new({ organizations: [ Dina::Organization.new, Dina::Organization.new]})
+      person = Dina::Person.new({ organizations: [ Dina::Organization.new, Dina::Organization.new ]})
       expect(person.organizations.size).to eq(2)
     end
 
