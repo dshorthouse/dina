@@ -1,5 +1,5 @@
 module Dina
-  describe 'Authentication' do
+  describe 'Authentication:' do
 
     before(:all) do
       @token_store_file = Tempfile.new
@@ -19,25 +19,16 @@ module Dina
       @token_store_file.flush
     end
 
-    describe "It should authenticate and store tokens" do
+    describe "It should authenticate and store tokens and it" do
 
-      it "should read a token file" do
-        expect(@token_store_file.path).to eq(@config[:token_store_file])
+      it "should raise an Exception if the token file is not found" do
+        @config[:token_store_file] = "missing.json"
+        expect { Dina::Authentication.config(@config) }.to raise_error(Dina::TokenStoreFileNotFound)
       end
 
-      it "should be able to set the token store file" do
-        Dina::Authentication.token_store_file = @config[:token_store_file]
-        expect(Dina::Authentication.token_store_file).to eq(@config[:token_store_file])
-      end
-
-      it "should be able to send a config hash to Authentication" do
-        Dina::Authentication.config(@config)
-        expect(Dina::Authentication.token_store_file).to eq(@config[:token_store_file])
-      end
-
-      it "should have set Keycloak settings when config variables are passed" do
-        Dina::Authentication.config(@config)
-        expect(Keycloak.auth_server_url).to eq(Dina::Authentication.authorization_url)
+      it "should raise an Exception if there is a config element missing" do
+        @config[:client_id] = nil
+        expect { Dina::Authentication.config(@config) }.to raise_error(Dina::ConfigItemMissing)
       end
 
     end

@@ -18,16 +18,27 @@ module Dina
     #
     # @param options [Hash] the configuration options
     def self.config(options = {})
+      raise ConfigItemMissing, "Missing token_store_file from config." unless options[:token_store_file]
+      raise ConfigItemMissing, "Missing user from config." unless options[:user]
+      raise ConfigItemMissing, "Missing password from config." unless options[:password]
+      raise ConfigItemMissing, "Missing server_name from config." unless options[:server_name]
+      raise ConfigItemMissing, "Missing client_id from config." unless options[:client_id]
+      raise ConfigItemMissing, "Missing endpoint_url from config." unless options[:endpoint_url]
+      raise ConfigItemMissing, "Missing authorization_url from config." unless options[:authorization_url]
+      raise ConfigItemMissing, "Missing realm from config." unless options[:realm]
+
+      if !options[:token_store_file].instance_of?(String) || !::File.exist?(options[:token_store_file])
+        raise TokenStoreFileNotFound
+      end
+
       @token_store_file = options[:token_store_file]
       @user = options[:user]
       @password = options[:password]
       @server_name = options[:server_name]
       @client_id = options[:client_id]
       @endpoint_url = options[:endpoint_url]
-      @authorization_url = options[:authorization_url]
-      @realm = options[:realm]
-      Keycloak.auth_server_url = @authorization_url
-      Keycloak.realm = @realm
+      Keycloak.auth_server_url = options[:authorization_url]
+      Keycloak.realm = options[:realm]
     end
 
     # Gets, sets, and renews a Bearer access token as required
@@ -47,9 +58,33 @@ module Dina
     end
 
     class << self
-      attr_accessor :token_store_file, :authorization_url, :endpoint_url, :client_id, :realm, :server_name
+      attr_accessor :endpoint_url
 
       private
+
+      def access_token
+        begin
+          read_token[@server_name.to_sym][:access_token]
+        rescue
+          raise TokenStoreContentInvalid
+        end
+      end
+
+      def refresh_token
+        begin
+          read_token[@server_name.to_sym][:refresh_token]
+        rescue
+          raise TokenStoreContentInvalid
+        end
+      end
+
+      def auth_expiry
+        begin
+          read_token[@server_name.to_sym][:auth_expiry]
+        rescue
+          raise TokenStoreContentInvalid
+        end
+      end
 
       def get_token
         response = Keycloak::Client.get_token(
@@ -80,29 +115,11 @@ module Dina
         end
       end
 
-      def access_token
-        read_token[:access_token]
-      end
-
-      def refresh_token
-        read_token[:refresh_token]
-      end
-
-      def auth_expiry
-        read_token[:auth_expiry] rescue "9999-01-01 00:00:00 -0500"
-      end
-
       def read_token
-        raise TokenStoreFileNotFound unless @token_store_file.instance_of?(String) && ::File.exist?(@token_store_file)
-        JSON.parse(::File.read(@token_store_file), symbolize_names: true)[@server_name.to_sym] rescue default_token
-      end
-
-      def default_token
-        { access_token: nil, refresh_token: nil, auth_expiry: "9999-01-01 00:00:00 -0500" }
+        JSON.parse(::File.read(@token_store_file), symbolize_names: true)
       end
 
       def save_token(access_token:, refresh_token:, auth_expiry:)
-        raise TokenStoreFileNotFound unless @token_store_file.instance_of?(String) && ::File.exist?(@token_store_file)
         data_hash = JSON.parse(::File.read(@token_store_file), symbolize_names: true) rescue {}
         data_hash[@server_name.to_sym] = {
           access_token: access_token,
