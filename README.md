@@ -24,17 +24,17 @@ All variables are **required**.
 Dina::Authentication.config({
    authorization_url: "http://localhost/auth",
    endpoint_url: "http://localhost/api",
-   server_name: "server",
    realm: "dina",
    client_id: "dina",
    user: "username",
    password: "password",
+   server_name: "server",
    token_store_file: "config/token.json"
  })
 ```
 Note the absence of trailing slashes in both config URLs.
 
-The `authorization_url`, `realm`, `client_id`, `user`, and `password` are all used in the Keycloak authentication handshake. The `endpoint_url` is the single DINA API gateway. The `server_name` is a key used to reference the authentication token responses, which are stored and used in your local `token_store_file`.
+The `authorization_url`, `realm`, `client_id`, `user`, and `password` are all used in the Keycloak authentication handshake. The `endpoint_url` is the single DINA API gateway. All of these are to be obtained from a DINA administrator and then kept secure. The `server_name` is a key used to reference the authentication token responses, stored and refreshed in your local `token_store_file` that you must make writable.
 
 #### Create and Save a `Person`
 
