@@ -23,6 +23,11 @@ module Dina
       self.where("group.groupName": group).page(page).per(per)
     end
 
+    def initialize(params = {})
+      params[:id] = SecureRandom.uuid if !params[:id]
+      super
+    end
+
     def english_description
       if self.respond_to?(:multilingualDescription)
         multilingualDescription[:descriptions].select{|o| o[:lang] == "en"}.first[:desc]

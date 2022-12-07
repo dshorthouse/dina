@@ -1,6 +1,10 @@
 module Dina
   describe 'CollectingMethod' do
 
+    before(:all) do
+      @id = SecureRandom.uuid
+    end
+
     it "should create an object of type CollectionMethod" do
       cm = Dina::CollectingMethod.new
       expect(cm).to be_a(Dina::CollectingMethod)

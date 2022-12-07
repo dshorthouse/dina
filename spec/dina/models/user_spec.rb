@@ -25,5 +25,11 @@ module Dina
       expect { user.save }.to raise_error(Dina::ObjectInvalid)
     end
 
+    it "should create a new UUID for every new instance created" do
+      user = Dina::User.new
+      user2 = Dina::User.new
+      expect(user.id).not_to eq(user2.id)
+    end
+
   end
 end
