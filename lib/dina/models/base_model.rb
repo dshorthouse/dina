@@ -24,7 +24,7 @@ module Dina
     end
 
     def initialize(params = {})
-      params[:id] = SecureRandom.uuid if !params[:id]
+      params["id"] = SecureRandom.uuid if !params["id"]
       super
     end
 
