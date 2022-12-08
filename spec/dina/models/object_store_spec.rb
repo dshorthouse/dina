@@ -24,7 +24,7 @@ module Dina
         "xmpRightsOwner" => "Government of Canada",
         "xmpRightsUsageTerms" => "Government of Canada Usage Term",
         "acHashFunction" => "SHA-1",
-        "dcRights" => "© Her Majesty The Queen in Right of Canada, as represented by the Minister of Agriculture and Agri-Food | © Sa Majesté la Reine du chef du Canada, représentée par le ministre de l’Agriculture et de l’Agroalimentaire",
+        "dcRights" => "© His Majesty The King in Right of Canada, as represented by the Minister of Agriculture and Agri-Food | © Sa Majesté le Roi du chef du Canada, représentée par le ministre de l’Agriculture et de l’Agroalimentaire",
         "xmpRightsWebStatement" => "https://open.canada.ca/en/open-government-licence-canada"
       }
       expect(os.attributes).to eq(default)
