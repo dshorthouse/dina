@@ -20,7 +20,7 @@ module Dina
     property :acHashValue, type: :string
     property :xmpRightsUsageTerms, type: :string, default: "Government of Canada Usage Term"
     property :xmpRightsWebStatement, type: :string, default: "https://open.canada.ca/en/open-government-licence-canada"
-    property :dcRights, type: :string, default: "© Her Majesty The Queen in Right of Canada, as represented by the Minister of Agriculture and Agri-Food | © Sa Majesté la Reine du chef du Canada, représentée par le ministre de l’Agriculture et de l’Agroalimentaire"
+    property :dcRights, type: :string, default: "© His Majesty The King in Right of Canada, as represented by the Minister of Agriculture and Agri-Food | © Sa Majesté le Roi du chef du Canada, représentée par le ministre de l’Agriculture et de l’Agroalimentaire"
     property :xmpRightsOwner, type: :string, default: "Government of Canada"
     property :publiclyReleasable, type: :boolean, default: true
     property :notPubliclyReleasableReason, type: :string
