@@ -31,22 +31,22 @@ module Dina
 
     it "should remove classification instance from to_hash" do
       @det.classification = "Animalia|Arthropoda"
-      expect(@det.to_hash).to eq({ scientificNameDetails: { classificationPath: "Animalia|Arthropoda" } })
+      expect(@det.to_hash).to eq({ determiner: [], scientificNameDetails: { classificationPath: "Animalia|Arthropoda" } })
     end
 
     it "should remove ranks instance from to_hash" do
       @det.ranks = "kingdom|phylum"
-      expect(@det.to_hash).to eq({ scientificNameDetails: { classificationRanks: "kingdom|phylum" } })
+      expect(@det.to_hash).to eq({ determiner: [], scientificNameDetails: { classificationRanks: "kingdom|phylum" } })
     end
 
     it "should use a UUID for a determiner" do
       id = SecureRandom.uuid
-      @det.determiner = id
-      expect(@det.to_hash).to eq({ determiner: id, scientificNameDetails: {} })
+      @det.add_determiner(id)
+      expect(@det.to_hash).to eq({ determiner: [id], scientificNameDetails: {} })
     end
 
     it "should raise an Exception if determiner is not a UUID" do
-      expect { @det.determiner = "12345" }.to raise_error(Dina::PropertyValueInvalid)
+      expect { @det.add_determiner("12345") }.to raise_error(Dina::PropertyValueInvalid)
     end
 
   end

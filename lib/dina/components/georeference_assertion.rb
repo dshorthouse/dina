@@ -9,7 +9,7 @@ module Dina
     attr_accessor :dwcGeoreferenceProtocol
     attr_accessor :dwcGeoreferenceSources
     attr_accessor :dwcGeoreferenceRemarks
-    attr_accessor :dwcGeodeticDatum #A known UUID for a Person
+    attr_accessor :dwcGeodeticDatum
     attr_accessor :isPrimary
     attr_accessor :dwcGeoreferenceVerificationStatus
 

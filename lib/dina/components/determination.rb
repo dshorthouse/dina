@@ -9,7 +9,7 @@ module Dina
     attr_accessor :determinationRemarks
     attr_accessor :typeStatus
     attr_accessor :typeStatusEvidence
-    attr_accessor :determiner #A known UUID for a Person
+    attr_accessor :determiner #An array of known UUIDs for Person
     attr_accessor :determinedOn
     attr_accessor :qualifier
     attr_accessor :scientificNameSource
@@ -23,6 +23,7 @@ module Dina
 
     def initialize
       @scientificNameDetails = {}
+      @determiner = []
     end
 
     # Add a materialized classification string to scientificNameDetails
@@ -49,9 +50,12 @@ module Dina
       scientificNameDetails.merge!({ classificationRanks: ranks })
     end
 
-    def determiner=(id)
+    # Add a determiner as UUID to the array of determiner
+    #
+    # @param id [String] a UUID for a determiner
+    def add_determiner(id)
       raise PropertyValueInvalid, "Determiner must be a UUID." if !id.is_uuid?
-      @determiner = id
+      @determiner << id
     end
 
     # Produce a hash with symbolized keys
