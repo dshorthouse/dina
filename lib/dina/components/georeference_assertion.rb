@@ -12,14 +12,24 @@ module Dina
     attr_accessor :dwcGeodeticDatum
     attr_accessor :isPrimary
     attr_accessor :dwcGeoreferenceVerificationStatus
+    attr_accessor :createdOn
 
     def initialize
+      @georeferencedBy = []
+    end
+
+    # Add a georeferencedBy as UUID to the array
+    #
+    # @param id [String] a UUID for a georeferencedBy
+    def add_georeferencedBy(id)
+      raise PropertyValueInvalid, "georeferencedBy must be a UUID." if !id.is_uuid?
+      @georeferencedBy << id
     end
 
     def to_hash
       hash = {}
       instance_variables.each { |var| hash[var.to_s.delete('@')] = instance_variable_get(var) }
-      hash
+      hash.deep_symbolize_keys
     end
 
   end
