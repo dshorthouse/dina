@@ -1,30 +1,34 @@
 # encoding: utf-8
 class String
   def is_orcid?
-    ::Dina::Identifier.is_orcid_regex.match?(self) &&
+    ::Dina::PersistentIdentifier.is_orcid_regex.match?(self) &&
     ::Dina::Identifier.orcid_valid_checksum(self)
   end
 
   def is_wiki_id?
-    ::Dina::Identifier.is_wiki_regex.match?(self)
+    ::Dina::PersistentIdentifier.is_wiki_regex.match?(self)
   end
 
   def is_doi?
-    ::Dina::Identifier.is_doi_regex.match?(self)
+    ::Dina::PersistentIdentifier.is_doi_regex.match?(self)
+  end
+
+  def is_uuid?
+    ::Dina::PersistentIdentifier.is_uuid_regex.match?(self)
   end
 
   def orcid_from_url
-    ::Dina::Identifier.extract_orcid_regex.match(self)[0] rescue nil
+    ::Dina::PersistentIdentifier.extract_orcid_regex.match(self)[0] rescue nil
   end
 
   def wiki_from_url
-    ::Dina::Identifier.extract_wiki_regex.match(self)[0] rescue nil
+    ::Dina::PersistentIdentifier.extract_wiki_regex.match(self)[0] rescue nil
   end
 
 end
 
 module Dina
-  class Identifier
+  class PersistentIdentifier
 
     class << self
       def is_orcid_regex
@@ -37,6 +41,10 @@ module Dina
 
       def is_doi_regex
         /^10.\d{4,9}\/[-._;()\/:<>A-Z0-9]+$/i
+      end
+
+      def is_uuid_regex
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
       end
 
       def orcid_valid_checksum(orcid_string)
