@@ -12,6 +12,14 @@ module Dina
     attr_accessor :address # with properties receiverName, companyName, addressLine1, addressLine2, city, provinceState, zipCode, country
 
     def initialize
+      @address = {}
+    end
+
+    def add_address(address)
+      if !address.instance_of?(Hash)
+        raise PropertyValueInvalid, "Address must be a Hash."
+      end
+      @address.merge!(address)
     end
 
     def to_hash
