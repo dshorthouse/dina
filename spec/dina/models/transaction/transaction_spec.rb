@@ -31,7 +31,12 @@ module Dina
     end
 
     it "should raise an Exception if group is missing" do
-      trans = Dina::Transaction.new({ group: nil })
+      trans = Dina::Transaction.new({ group: nil, materialDirection: "IN" })
+      expect { trans.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
+    it "should raise an Exception if materialDirection is missing" do
+      trans = Dina::Transaction.new({ group: "CNC", materialDirection: nil })
       expect { trans.save }.to raise_error(Dina::ObjectInvalid)
     end
 

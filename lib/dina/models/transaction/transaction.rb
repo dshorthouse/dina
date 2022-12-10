@@ -26,6 +26,7 @@ module Dina
     has_many :involved_agents, class_name: "Person"
 
     validates_presence_of :group, message: "group is required"
+    validates_presence_of :materialDirection, message: "materialDirection is required"
 
     attr_accessor :accepted_directions
 

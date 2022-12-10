@@ -10,6 +10,9 @@ module Dina
 
     belongs_to :person, shallow_path: true, class_name: "Person"
 
+    validates_presence_of :namespace, message: "namespace is required"
+    validates_presence_of :value, message: "value is required"
+
     def self.endpoint_path
       "agent-api/"
     end
