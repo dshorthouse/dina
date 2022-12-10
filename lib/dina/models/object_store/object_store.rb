@@ -6,7 +6,7 @@ module Dina
     property :createdBy, type: :string
     property :createdOn, type: :time
     property :group, type: :string
-    property :dcFormat, type: :string
+    property :dcFormat, type: :string, default: "image/jpeg"
     property :dcType, type: :string
     property :acSubtype, type: :string
     property :fileIdentifier, type: :string
@@ -34,6 +34,10 @@ module Dina
     has_many :derivatives, class_name: "Derivative"
 
     validates_presence_of :group, message: "group is required"
+    validates_presence_of :dcFormat, message: "dcFormat is required"
+    validates_presence_of :dcType, message: "dcType is required"
+    validates_presence_of :xmpRightsUsageTerms, message: "xmpRightsUsageTerms is required"
+    validates_presence_of :dcRights, message: "dcRights is required"
 
     attr_accessor :accepted_types
 

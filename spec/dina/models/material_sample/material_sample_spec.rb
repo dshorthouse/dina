@@ -17,6 +17,7 @@ module Dina
         "id" => @id,
         "associations" => [],
         "tags" => [],
+        "publiclyReleasable" => true,
         "hostOrganism" => {
           "name" => nil,
           "remarks" => nil

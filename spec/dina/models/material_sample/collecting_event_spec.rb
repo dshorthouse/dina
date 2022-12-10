@@ -27,7 +27,8 @@ module Dina
         "geographicPlaceNameSourceDetail"=>[{"sourceID"=>nil, "sourceIdType"=>nil, "sourceURL"=>nil}],
         "managedAttributes"=>[],
         "tags"=>[],
-        "type"=>"collecting-event"
+        "type"=>"collecting-event",
+        "publiclyReleasable" => true
       }
       expect(ce.attributes).to eq(default)
     end

@@ -30,7 +30,7 @@ module Dina
     property :dwcMaximumDepthInMeters, type: :float
     property :substrate, type: :string
     property :remarks, type: :string
-    property :publiclyReleasable, type: :boolean
+    property :publiclyReleasable, type: :boolean, default: true
     property :notPubliclyReleasableReason, type: :string, default: nil
     property :tags, type: :array, default: []
     property :geographicPlaceNameSource, type: :string

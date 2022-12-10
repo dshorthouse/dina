@@ -24,6 +24,7 @@ module Dina
         "xmpRightsOwner" => "Government of Canada",
         "xmpRightsUsageTerms" => "Government of Canada Usage Term",
         "acHashFunction" => "SHA-1",
+        "dcFormat" => "image/jpeg",
         "dcRights" => "© His Majesty The King in Right of Canada, as represented by the Minister of Agriculture and Agri-Food | © Sa Majesté le Roi du chef du Canada, représentée par le ministre de l’Agriculture et de l’Agroalimentaire",
         "xmpRightsWebStatement" => "https://open.canada.ca/en/open-government-licence-canada"
       }
@@ -46,12 +47,32 @@ module Dina
     end
 
     it "should raise an Exception if group is missing" do
-      os = Dina::ObjectStore.new({ group: nil })
+      os = Dina::ObjectStore.new({ group: nil, dcFormat: "image/jpeg", dcType: "IMAGE", xmpRightsUsageTerms: "None", dcRights: "None" })
+      expect { os.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
+    it "should raise an Exception if dcFormat is missing" do
+      os = Dina::ObjectStore.new({ group: "CNC", dcFormat: nil, dcType: "IMAGE", xmpRightsUsageTerms: "None", dcRights: "None" })
+      expect { os.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
+    it "should raise an Exception if dcType is missing" do
+      os = Dina::ObjectStore.new({ group: "CNC", dcFormat: "image/jpeg", dcType: nil, xmpRightsUsageTerms: "None", dcRights: "None" })
+      expect { os.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
+    it "should raise an Exception if xmpRightsUsageTerms is missing" do
+      os = Dina::ObjectStore.new({ group: "CNC", dcFormat: "image/jpeg", dcType: "IMAGE", xmpRightsUsageTerms: nil, dcRights: "None" })
+      expect { os.save }.to raise_error(Dina::ObjectInvalid)
+    end
+
+    it "should raise an Exception if dcRights is missing" do
+      os = Dina::ObjectStore.new({ group: "CNC", dcFormat: "image/jpeg", dcType: "IMAGE", xmpRightsUsageTerms: "None", dcRights: nil })
       expect { os.save }.to raise_error(Dina::ObjectInvalid)
     end
 
     it "should raise an Exception if dcType is invalid" do
-      os = Dina::ObjectStore.new({ id: @id, group: "cnc", dcType: "NUMBER" })
+      os = Dina::ObjectStore.new({ id: @id, group: "cnc", dcFormat: "image/jpeg", dcType: "NUMBER", xmpRightsUsageTerms: "None", dcRights: "None" })
       expect { os.save }.to raise_error(Dina::PropertyValueInvalid)
     end
 

@@ -29,7 +29,7 @@ module Dina
     property :materialSampleChildren, type: :array
     property :associations, type: :array, default: []
     property :tags, type: :array, default: []
-    property :publiclyReleasable, type: :boolean
+    property :publiclyReleasable, type: :boolean, default: true
     property :notPubliclyReleasableReason, type: :string
     property :hostOrganism, type: :object, default: { name: nil, remarks: nil }
     property :scheduledActions, type: :object
