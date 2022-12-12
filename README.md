@@ -11,16 +11,23 @@ The DINA APIs for each of its components are under rapid development and so too 
 [![Gem Version][8]][9]
 [![Continuous Integration Status][6]][7]
 
+### Requirements & Dependencies
+
+- ruby >= 3.1
+- bundled dependencies: [json_api_client][5] (\~> 1.20), [keycloak][10] (\~> 3.2.1),
+
 ### Install
 
-```
+```bash
   $ gem install dina
+  $ irb
+  > require 'dina'
 ```
 ### Configuration
 
 All variables are **required**.
 
-```
+```ruby
 Dina::Authentication.config({
    authorization_url: "http://localhost/auth",
    endpoint_url: "http://localhost/api",
@@ -38,68 +45,90 @@ The `authorization_url`, `realm`, `client_id`, `user`, and `password` are all us
 
 #### Create and Save a `Person`
 
+```ruby
+person = Dina::Person.new
+person.givenNames = "Peter"
+person.familyNames = "Pipetter"
+person.email = "email@email.com"
+person.save
+=> true
 ```
-  person = Dina::Person.new
-  person.givenNames = "Peter"
-  person.familyNames = "Pipetter"
-  person.email = "email@email.com"
-  person.save
+
+Alternatively, use the `create` method:
+
+```ruby
+data = {
+  givenNames: "Peter",
+  familyNames: "pipetter",
+  email: "email@email.com"
+}
+person = Dina::Person.create(data)
 ```
+
+Note that a new object like `person` above sets and uses a default v4 UUID, which can be accessed as `person.id`.
 
 #### Add an Identifier to a `Person`
 
-```
-  identifier = Dina::Identifier.new
-  identifier.namespace = "WIKIDATA"
-  identifier.value = "http://www.wikidata.org/entity/Q163373"
-  identifier.save
+```ruby
+identifier = Dina::Identifier.new
+identifier.namespace = "WIKIDATA"
+identifier.value = "http://www.wikidata.org/entity/Q163373"
+identifier.save
+=> true
 
-  person.identifiers = [ identifier ]
-  person.save
+person.identifiers = [ identifier ]
+person.save
+=> true
 ```
+
+Note that joined objects (like `identifier` above) must be saved before they can be attached as a related object (like `person` above).
 
 #### Query for a `Person` by Email Address
 
+```ruby
+person = Dina::Person.find_by_email("email@email.com").first
+person.attributes
+=>
+{"type"=>"person",                                                  
+"id"=>"bf42616e-846c-4dbd-8372-bef44cdfa3e8",                      
+"displayName"=>"Pipetter, Peter",                                  
+"email"=>"email@email.com",                                        
+"createdBy"=>"username",                                             
+"createdOn"=>2022-11-25 17:23:09.262958 UTC,                       
+"givenNames"=>"Peter",                                             
+"familyNames"=>"Pipetter",                          
+"aliases"=>nil,                                     
+"webpage"=>nil,                                     
+"remarks"=>nil,                                     
+"identifiers"=>[]}
 ```
-  person = Dina::Person.find_by_email("email@email.com").first
-  person.attributes
 
-  =>
-  {"type"=>"person",                                                  
- "id"=>"bf42616e-846c-4dbd-8372-bef44cdfa3e8",                      
- "displayName"=>"Pipetter, Peter",                                  
- "email"=>"email@email.com",                                        
- "createdBy"=>"username",                                             
- "createdOn"=>2022-11-25 17:23:09.262958 UTC,                       
- "givenNames"=>"Peter",                                             
- "familyNames"=>"Pipetter",                          
- "aliases"=>nil,                                     
- "webpage"=>nil,                                     
- "remarks"=>nil,                                     
- "identifiers"=>[]}
-```
+Note that unlike typical ActiveRecord methods, *find* or *find_by_\** methods return an array.
 
 #### Delete a `Person`
 
-```
-  person = Dina::Person.find("bf42616e-846c-4dbd-8372-bef44cdfa3e8").first
-  person.destroy
+```ruby
+person = Dina::Person.find("bf42616e-846c-4dbd-8372-bef44cdfa3e8").first
+person.destroy
+=> true
 ```
 
 #### Upload an Image `File` and its `ObjectStore` Metadata
 
-```
-  file = Dina::File.new
-  file.group = "daom"
-  file.file_path = "/my-directory/my-file.jpg"
-  file.save
+```ruby
+file = Dina::File.new
+file.group = "daom"
+file.file_path = "/my-directory/my-file.jpg"
+file.save
+=> true
 
-  metadata = Dina::ObjectStore.new
-  metadata.group = "daom"
-  metadata.dcType = "IMAGE"
-  metadata.fileExtension = ".jpg"
-  metadata.fileIdentifier = file.id
-  metadata.save
+metadata = Dina::ObjectStore.new
+metadata.group = "daom"
+metadata.dcType = "IMAGE"
+metadata.fileExtension = ".jpg"
+metadata.fileIdentifier = file.id
+metadata.save
+=> true
 ```
 
 ### Support
@@ -124,3 +153,4 @@ Authors: [David P. Shorthouse][4]
 [7]: https://github.com/dshorthouse/dina/actions
 [8]: https://badgen.net/rubygems/v/dina/latest?cache=300
 [9]: https://rubygems.org/gems/dina
+[10]: https://github.com/imagov/keycloak
