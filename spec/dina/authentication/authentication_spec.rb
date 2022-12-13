@@ -32,8 +32,38 @@ module Dina
         expect { Dina::Authentication.config(@config) }.to raise_error(Dina::TokenStoreFileNotFound)
       end
 
-      it "should raise an Exception if there is a config element missing" do
+      it "should raise an Exception if client_id is missing from config" do
         @config[:client_id] = nil
+        expect { Dina::Authentication.config(@config) }.to raise_error(Dina::ConfigItemMissing)
+      end
+
+      it "should raise an Exception if realm is missing from config" do
+        @config[:realm] = nil
+        expect { Dina::Authentication.config(@config) }.to raise_error(Dina::ConfigItemMissing)
+      end
+
+      it "should raise an Exception if server_name is missing from config" do
+        @config[:server_name] = nil
+        expect { Dina::Authentication.config(@config) }.to raise_error(Dina::ConfigItemMissing)
+      end
+
+      it "should raise an Exception if user is missing from config" do
+        @config[:user] = nil
+        expect { Dina::Authentication.config(@config) }.to raise_error(Dina::ConfigItemMissing)
+      end
+
+      it "should raise an Exception if password is missing from config" do
+        @config[:password] = nil
+        expect { Dina::Authentication.config(@config) }.to raise_error(Dina::ConfigItemMissing)
+      end
+
+      it "should raise an Exception if authorization_url is missing from config" do
+        @config[:authorization_url] = nil
+        expect { Dina::Authentication.config(@config) }.to raise_error(Dina::ConfigItemMissing)
+      end
+
+      it "should raise an Exception if endpoint_url is missing from config" do
+        @config[:endpoint_url] = nil
         expect { Dina::Authentication.config(@config) }.to raise_error(Dina::ConfigItemMissing)
       end
 
