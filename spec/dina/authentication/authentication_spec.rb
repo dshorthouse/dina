@@ -21,6 +21,12 @@ module Dina
 
     describe "It should authenticate and store tokens and it" do
 
+      it "should populate an empty token file with nil values for keys" do
+        Dina::Authentication.config(@config)
+        token = JSON.parse(::File.read(@token_store_file), symbolize_names: true)
+        expect(token).to eq({ dina: { access_token: nil, auth_expiry: nil, refresh_token: nil }})
+      end
+
       it "should raise an Exception if the token file is not found" do
         @config[:token_store_file] = "missing.json"
         expect { Dina::Authentication.config(@config) }.to raise_error(Dina::TokenStoreFileNotFound)

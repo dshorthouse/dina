@@ -43,7 +43,6 @@ module Dina
       if ::File.zero?(@token_store_file)
         create_empty_token
       end
-
     end
 
     # Gets, sets, and renews a Bearer access token as required
