@@ -24,7 +24,7 @@ module Dina
     end
 
     def url
-      Dina::Authentication.endpoint_url + endpoint_path + table_name
+      Dina::Authentication.endpoint_url + "/" + endpoint_path + table_name
     end
 
     def file

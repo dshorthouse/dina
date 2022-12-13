@@ -28,10 +28,18 @@ module Dina
       "collection"
     end
 
+    # Finds a Collection object by name
+    #
+    # @param email [String] a name
+    # @return object [Object] a Collection object
     def self.find_by_name(name)
       where(name: name).all.first
     end
 
+    # Finds a Collection object by code
+    #
+    # @param code [String] a code
+    # @return object [Object] a Collection object
     def self.find_by_code(code)
       where(code: code).all.first
     end

@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.name        = 'dina'
   s.version     = Dina::Version.version
   s.license     = 'MIT'
-  s.date        = '2022-12-12'
+  s.date        = '2022-12-13'
   s.summary     = "DINA ruby gem"
   s.description = "Authenicate against DINA's Keycloak and access its models"
   s.authors     = ["David P. Shorthouse"]
