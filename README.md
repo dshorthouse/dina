@@ -117,13 +117,13 @@ person.destroy
 
 ```ruby
 file = Dina::File.new
-file.group = "daom"
+file.group = "DAOM"
 file.file_path = "/my-directory/my-file.jpg"
 file.save
 => true
 
 metadata = Dina::ObjectStore.new
-metadata.group = "daom"
+metadata.group = "DAOM"
 metadata.dcType = "IMAGE"
 metadata.fileExtension = ".jpg"
 metadata.fileIdentifier = file.id

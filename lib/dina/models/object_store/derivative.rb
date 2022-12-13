@@ -16,6 +16,7 @@ module Dina
     belongs_to :ac_derived_from, shallow_path: true, class_name: "ObjectStore"
 
     validates_presence_of :group, message: "group is required"
+    validates_presence_of :bucket, message: "bucket is required"
 
     def self.endpoint_path
       "objectstore-api/"
@@ -28,8 +29,8 @@ module Dina
     private
 
     def on_before_save
-      if self.bucket.nil?
-        self.bucket = self.group
+      if self.group && self.bucket.nil?
+        self.bucket = self.group.downcase
       end
       super
     end
