@@ -19,9 +19,9 @@ The DINA APIs for each of its components are under rapid development and so too 
 ### Install
 
 ```bash
-  $ gem install dina
-  $ irb
-  > require 'dina'
+$ gem install dina
+$ irb
+> require 'dina'
 ```
 ### Configuration
 
