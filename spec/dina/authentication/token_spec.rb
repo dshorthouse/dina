@@ -3,7 +3,7 @@ module Dina
 
     describe "It should read from a cached token file and it" do
 
-      before(:all) do
+      before(:each) do
         @config = {
           token_store_file: mock_token_path,
           authorization_url: "http://localhost/auth",
@@ -14,9 +14,6 @@ module Dina
           user: "cnc-su",
           password: "cnc-su"
         }
-      end
-
-      after(:all) do
       end
 
       it "should produce a header with a Bearer string" do

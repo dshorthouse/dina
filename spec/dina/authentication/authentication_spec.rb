@@ -1,7 +1,7 @@
 module Dina
   describe 'Authentication:' do
 
-    before(:all) do
+    before(:each) do
       @token_store_file = Tempfile.new
       @config = {
         token_store_file: @token_store_file.path,
@@ -15,7 +15,7 @@ module Dina
       }
     end
 
-    after(:all) do
+    after(:each) do
       @token_store_file.flush
     end
 
