@@ -39,6 +39,11 @@ module Dina
       @endpoint_url = options[:endpoint_url]
       Keycloak.auth_server_url = options[:authorization_url]
       Keycloak.realm = options[:realm]
+
+      if ::File.zero?(@token_store_file)
+        create_empty_token
+      end
+
     end
 
     # Gets, sets, and renews a Bearer access token as required
@@ -46,10 +51,6 @@ module Dina
     #
     # @return [String] the Bearer token
     def self.header
-      if ::File.zero?(@token_store_file)
-        create_empty_token
-      end
-
       if access_token.nil? || refresh_token.nil?
         set_token
       end
