@@ -15,16 +15,20 @@ module Dina
     def initialize
     end
 
+    def endpoint
+      Dina::Authentication.endpoint_url
+    end
+
     def endpoint_path
       "objectstore-api/"
     end
 
     def table_name
-      "file/#{@group}"
+      "file/#{@group.downcase}"
     end
 
     def url
-      Dina::Authentication.endpoint_url + "/" + endpoint_path + table_name
+      endpoint + "/" + endpoint_path + table_name
     end
 
     def file

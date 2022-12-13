@@ -46,6 +46,10 @@ module Dina
     #
     # @return [String] the Bearer token
     def self.header
+      if ::File.zero?(@token_store_file)
+        create_empty_token
+      end
+
       if access_token.nil? || refresh_token.nil?
         set_token
       end
@@ -117,6 +121,16 @@ module Dina
 
       def read_token
         JSON.parse(::File.read(@token_store_file), symbolize_names: true)
+      end
+
+      def create_empty_token
+        data_hash = {}
+        data_hash[@server_name.to_sym] = {
+          access_token: nil,
+          refresh_token: nil,
+          auth_expiry: nil
+        }
+        ::File.write(@token_store_file, JSON.dump(data_hash))
       end
 
       def save_token(access_token:, refresh_token:, auth_expiry:)
