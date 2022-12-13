@@ -30,7 +30,7 @@ module Dina
       begin
         response = RestClient::Request.execute(
           method: method,
-          url: endpoint + endpoint_path + "?" + params.to_query,
+          url: endpoint + "/" + endpoint_path + "?" + params.to_query,
           payload: payload.to_json,
           headers: {
             accept: 'application/json',
