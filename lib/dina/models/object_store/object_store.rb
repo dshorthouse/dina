@@ -34,6 +34,7 @@ module Dina
     has_many :derivatives, class_name: "Derivative"
 
     validates_presence_of :group, message: "group is required"
+    validates_presence_of :bucket, message: "bucket is required"
     validates_presence_of :dcFormat, message: "dcFormat is required"
     validates_presence_of :dcType, message: "dcType is required"
     validates_presence_of :xmpRightsUsageTerms, message: "xmpRightsUsageTerms is required"
@@ -63,6 +64,9 @@ module Dina
     private
 
     def on_before_save
+      if self.group && self.bucket.nil?
+        self.bucket = self.group.downcase
+      end
       if !self.dcType.nil? && !self.class.accepted_types.include?(self.dcType)
         raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for dcType is one of #{self.class.accepted_types.join(", ")}"
       end

@@ -17,7 +17,7 @@ module Dina
     has_many :identifiers, class_name: "Identifier"
 
     validates_presence_of :familyNames, message: "familyNames is required"
-    validates_presence_of :displayName
+    validates_presence_of :displayName, message: "displayName is required"
 
     def self.endpoint_path
       "agent-api/"
