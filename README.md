@@ -134,18 +134,19 @@ metadata.save
 
 ### Schema
 
-To list available Classes, do the following:
+To list available JSON:API Classes:
 
 ```ruby
-Dina::child_classes
+Dina::classes
 ```
 
-To see available properties for a Class:
+To list available properties for a Class:
 
 ```ruby
-Dina::MaterialSample.schema
+Dina::MaterialSample.properties
 ```
-To see available relationships and their cardinality for a Class:
+
+To list relationships and their cardinality for a Class:
 
 ```ruby
 Dina::MaterialSample.associations
