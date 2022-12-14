@@ -23,7 +23,11 @@ $ gem install dina
 ```
 ### Configuration
 
-All variables are **required** and can be obtained from a DINA system administrator. The `authorization_url`, `realm`, `client_id`, `user`, and `password` are all used in the Keycloak authentication handshake. The `endpoint_url` is the single DINA API gateway. The `server_name` is a key used to reference the authentication token responses, stored and refreshed in your local `token_store_file` that you must make writable. Note the absence of trailing slashes in both config URLs.
+All variables are **required** and most can be obtained from a DINA system administrator.
+- `authorization_url`, `realm`, `client_id`, `user`, and `password`: used in the Keycloak authentication handshake
+- `endpoint_url`: the single DINA gateway to JSON:API models
+- `server_name`: a key used to reference authentication token responses (in the event you connect to multiple DINA servers or have multiple credentials)
+- `token_store_file`: your local file that caches authentication token responses, prefixed by the server_name key.
 
 ```ruby
 require 'dina'
@@ -50,7 +54,7 @@ person.save
 => true
 ```
 
-Alternatively, use the `create` method to save a `Person`:
+Alternatively, use the `create` method to save a `Person` without having to instantiate it first:
 
 ```ruby
 data = {
@@ -61,7 +65,7 @@ data = {
 person = Dina::Person.create(data)
 ```
 
-Note that a new instance like `person` above sets and uses a default UUIDv4, which can be accessed as `person.id`.
+A new instance like `person` above sets and uses a default UUIDv4, which can be accessed as `person.id`.
 
 #### Add an Identifier to a `person` Instance
 
@@ -77,7 +81,7 @@ person.save
 => true
 ```
 
-Note that joined instance objects (like `identifier` above) must be saved before they can be attached as a related object (like `person` above).
+Instance objects (like `identifier` above) must be saved before they can be attached to related objects (like `person` above).
 
 #### Query for a `Person` by Email Address
 
@@ -99,7 +103,7 @@ person.attributes
 "identifiers"=>[]}
 ```
 
-Note that unlike typical ActiveRecord methods, *find* or *find_by_\** methods return an array and so you have to additionally use the `.first` method.
+Unlike typical ActiveRecord methods, *find* or *find_by_\** methods return an array and so you must additionally use `.first` or `[0]`.
 
 #### Delete a `Person`
 
