@@ -33,7 +33,7 @@ module Dina
     # @param email [String] a name
     # @return object [Object] a Collection object
     def self.find_by_name(name)
-      where(name: name).all.first
+      where(name: name).all
     end
 
     # Finds a Collection object by code
@@ -41,7 +41,7 @@ module Dina
     # @param code [String] a code
     # @return object [Object] a Collection object
     def self.find_by_code(code)
-      where(code: code).all.first
+      where(code: code).all
     end
 
   end

@@ -20,14 +20,13 @@ The DINA APIs for each of its components are under rapid development and so too 
 
 ```bash
 $ gem install dina
-$ irb
-> require 'dina'
 ```
 ### Configuration
 
-All variables are **required**.
+All variables are **required** and can be obtained from a DINA system administrator. The `authorization_url`, `realm`, `client_id`, `user`, and `password` are all used in the Keycloak authentication handshake. The `endpoint_url` is the single DINA API gateway. The `server_name` is a key used to reference the authentication token responses, stored and refreshed in your local `token_store_file` that you must make writable. Note the absence of trailing slashes in both config URLs.
 
 ```ruby
+require 'dina'
 Dina::Authentication.config({
    authorization_url: "http://localhost/auth",
    endpoint_url: "http://localhost/api",
@@ -39,11 +38,8 @@ Dina::Authentication.config({
    token_store_file: "config/token.json"
  })
 ```
-Note the absence of trailing slashes in both config URLs.
 
-The `authorization_url`, `realm`, `client_id`, `user`, and `password` are all used in the Keycloak authentication handshake. The `endpoint_url` is the single DINA API gateway. All of these are to be obtained from a DINA administrator and then kept secure. The `server_name` is a key used to reference the authentication token responses, stored and refreshed in your local `token_store_file` that you must make writable.
-
-#### Create and Save a `Person`
+#### Instantiate and Save a `Person`
 
 ```ruby
 person = Dina::Person.new
@@ -54,7 +50,7 @@ person.save
 => true
 ```
 
-Alternatively, use the `create` method:
+Alternatively, use the `create` method to save a `Person`:
 
 ```ruby
 data = {
@@ -65,9 +61,9 @@ data = {
 person = Dina::Person.create(data)
 ```
 
-Note that a new object like `person` above sets and uses a default v4 UUID, which can be accessed as `person.id`.
+Note that a new instance like `person` above sets and uses a default UUIDv4, which can be accessed as `person.id`.
 
-#### Add an Identifier to a `Person`
+#### Add an Identifier to a `person` Instance
 
 ```ruby
 identifier = Dina::Identifier.new
@@ -81,7 +77,7 @@ person.save
 => true
 ```
 
-Note that joined objects (like `identifier` above) must be saved before they can be attached as a related object (like `person` above).
+Note that joined instance objects (like `identifier` above) must be saved before they can be attached as a related object (like `person` above).
 
 #### Query for a `Person` by Email Address
 
@@ -103,7 +99,7 @@ person.attributes
 "identifiers"=>[]}
 ```
 
-Note that unlike typical ActiveRecord methods, *find* or *find_by_\** methods return an array.
+Note that unlike typical ActiveRecord methods, *find* or *find_by_\** methods return an array and so you have to additionally use the `.first` method.
 
 #### Delete a `Person`
 
@@ -125,6 +121,7 @@ file.save
 metadata = Dina::ObjectStore.new
 metadata.group = "DAOM"
 metadata.dcType = "IMAGE"
+metadata.dcFormat = "image/jpeg"
 metadata.fileExtension = ".jpg"
 metadata.fileIdentifier = file.id
 metadata.save
