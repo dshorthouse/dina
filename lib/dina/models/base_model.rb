@@ -23,6 +23,10 @@ module Dina
       self.where("group.groupName": group).page(page).per(per)
     end
 
+    def self.properties
+      self.schema.instance_values["properties"]
+    end
+
     def initialize(params = {})
       symbolized_params = params.transform_keys(&:to_sym)
       params["id"] = SecureRandom.uuid if !symbolized_params[:id]

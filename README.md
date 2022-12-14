@@ -132,6 +132,25 @@ metadata.save
 => true
 ```
 
+### Schema
+
+To list available Classes, do the following:
+
+```ruby
+Dina::child_classes
+```
+
+To see available properties for a Class:
+
+```ruby
+Dina::MaterialSample.schema
+```
+To see available relationships and their cardinality for a Class:
+
+```ruby
+Dina::MaterialSample.associations
+```
+
 ### Support
 
 Bug reports can be filed at [https://github.com/dshorthouse/dina/issues][3].
