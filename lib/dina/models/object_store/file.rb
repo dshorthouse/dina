@@ -1,6 +1,14 @@
 module Dina
-  class File
+  class File < BaseModel
     attr_accessor :file_path, :group, :is_derivative, :id
+
+    def self.verify_ssl
+      begin
+        connection_options[:ssl][:verify]
+      rescue
+        true
+      end
+    end
 
     def self.find(group:, id:)
       obj = self.new
@@ -8,7 +16,8 @@ module Dina
       RestClient::Request.execute(
         method: :get,
         headers: { authorization: Dina::Authentication.header },
-        url: obj.url + "/#{id}"
+        url: obj.url + "/#{id}",
+        verify_ssl: verify_ssl
       )
     end
 
@@ -44,7 +53,8 @@ module Dina
         payload: {
           multipart: true,
           file: file
-        }
+        },
+        verify_ssl: self.class.verify_ssl
       )
       json = JSON.parse(response, symbolize_names: true)
       self.id = json[:uuid]
