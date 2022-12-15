@@ -152,6 +152,14 @@ To list relationships and their cardinality for a Class:
 Dina::MaterialSample.associations
 ```
 
+### Connection Errors
+
+In the event there are SSL certificate verification issues:
+
+```ruby
+Dina::BaseModel.connection_options[:ssl] = { verify: false }
+```
+
 ### Support
 
 Bug reports can be filed at [https://github.com/dshorthouse/dina/issues][3].
