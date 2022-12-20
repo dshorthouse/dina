@@ -1,5 +1,13 @@
 module Dina
-  class BaseSearch
+  class BaseSearch < BaseModel
+
+    def self.verify_ssl
+      begin
+        connection_options[:ssl][:verify]
+      rescue
+        true
+      end
+    end
 
     def self.endpoint
       Dina::Authentication.endpoint_url
@@ -36,7 +44,8 @@ module Dina
             accept: 'application/json',
             content_type: 'application/json',
             authorization: Dina::Authentication.header
-          }
+          },
+          verify_ssl: verify_ssl
         )
         JSON.parse(response, symbolize_names: true)
       rescue RestClient::ExceptionWithResponse => e
