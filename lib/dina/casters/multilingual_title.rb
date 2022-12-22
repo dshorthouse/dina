@@ -5,7 +5,7 @@ module Dina
     def initialize(opts = {})
       @titles = []
       if opts[:titles]
-        @descriptions = opts[:titles]
+        @titles = opts[:titles]
       end
       if opts[:english]
         self.english_title = opts[:english]
