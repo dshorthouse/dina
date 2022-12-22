@@ -1,6 +1,6 @@
 module Dina
   class File < BaseModel
-    attr_accessor :file_path, :group, :is_derivative, :id
+    attr_accessor :id, :file_path, :group, :is_derivative
 
     def self.verify_ssl
       begin
@@ -21,7 +21,17 @@ module Dina
       )
     end
 
-    def initialize
+    def self.create(attributes = {})
+      new(attributes).tap do |resource|
+        resource.save
+      end
+    end
+
+    def initialize(attributes = {})
+      @id = attributes[:id] || SecureRandom.uuid
+      @group = attributes[:group] || nil
+      @is_derivative = attributes[:is_derivative] || false
+      @file_path = attributes[:file_path] || nil
     end
 
     def endpoint
@@ -33,7 +43,7 @@ module Dina
     end
 
     def table_name
-      "file/#{@group.downcase}"
+      "file/#{group.downcase}"
     end
 
     def url
@@ -64,6 +74,9 @@ module Dina
     private
 
     def validate_params
+      if id.nil? || !id.is_uuid?
+        raise ObjectInvalid, "#{self.class} is invalid. id is not a UUID."
+      end
       if group.nil?
         raise ObjectInvalid, "#{self.class} is invalid. group is required."
       end

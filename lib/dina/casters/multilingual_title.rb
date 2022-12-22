@@ -17,7 +17,7 @@ module Dina
 
     def english_title=(title)
       titles.delete_if{|o| o[:lang] == "en"}
-      titles << { lang: "en", title: desc }
+      titles << { lang: "en", title: title }
     end
 
     def english_title
