@@ -11,7 +11,6 @@ module Dina
     end
 
     it "should raise an Exception if config has not yet been called" do
-      puts Dina::Authentication.endpoint_url
       expect { Dina::BaseModel.site }.to raise_error(Dina::ConfigItemMissing)
     end
 
