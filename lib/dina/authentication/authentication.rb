@@ -61,6 +61,24 @@ module Dina
       "Bearer " + access_token
     end
 
+    # Flushes instance variables from memory
+    # but token store file content remains intact
+    def self.flush
+      @token_store_file = nil
+      @user = nil
+      @password = nil
+      @server_name = nil
+      @client_id = nil
+      @endpoint_url = nil
+      Keycloak.auth_server_url = nil
+      Keycloak.realm = nil
+    end
+
+    # Replaces content of token store file with default values
+    def self.flush_token
+      create_empty_token
+    end
+
     class << self
       attr_accessor :endpoint_url
 

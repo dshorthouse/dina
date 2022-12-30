@@ -8,21 +8,28 @@ module Dina
     before_create :on_before_create
     before_save :on_before_save
 
+    # Required by json_api_client
+    # Set by all child classes
     def self.endpoint_path
     end
 
+    # Required by json_api_client
     def self.site
+      raise ConfigItemMissing, "Missing endpoint_url from config. Perhaps Dina::Authentication.config has not yet been called." unless Dina::Authentication.endpoint_url
       Dina::Authentication.endpoint_url + "/" + endpoint_path
     end
 
+    # injects keybloak bearer token with all json_api_client calls
     def self.custom_headers
       { content_type: "application/vnd.api+json", authorization: Dina::Authentication.header }
     end
 
+    # helper method for all child classes to retrieve records by group
     def self.find_by_group(group, page: 1, per: 50)
       self.where("group.groupName": group).page(page).per(per)
     end
 
+    # helper method to retrieve all properties for a class
     def self.properties
       self.schema.instance_values["properties"]
     end
