@@ -18,7 +18,7 @@ module Dina
     after(:each) do
       @token_store_file.flush
       @config = {}
-      Dina::Authentication.flush
+      Dina::Authentication.flush_variables
     end
 
     it "should populate an empty token file with nil values for keys" do
@@ -70,7 +70,7 @@ module Dina
     it "should flush the instance variables" do
       Dina::Authentication.config(@config)
       expect(Dina::Authentication.endpoint_url).to eq("http://localhost/api")
-      Dina::Authentication.flush
+      Dina::Authentication.flush_variables
       expect(Dina::Authentication.endpoint_url).to eq(nil)
     end
 

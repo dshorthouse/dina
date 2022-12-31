@@ -40,5 +40,10 @@ module Dina
       expect { person.save }.to raise_error(Dina::ObjectInvalid)
     end
 
+    it "should raise an Exception if config has not yet been called" do
+      person = Dina::Person.new({ familyNames: "Pipetter" })
+      expect { person.save }.to raise_error(Dina::ConfigItemMissing)
+    end
+
   end
 end

@@ -63,7 +63,8 @@ module Dina
 
     # Flushes instance variables from memory
     # but token store file content remains intact
-    def self.flush
+    def self.flush_variables
+      @token = nil
       @token_store_file = nil
       @user = nil
       @password = nil
@@ -74,9 +75,15 @@ module Dina
       Keycloak.realm = nil
     end
 
-    # Replaces content of token store file with default values
+    # Saves default values in token store file
     def self.flush_token
       create_empty_token
+    end
+
+    # Flush instance variables and save default values in token store file
+    def self.flush
+      flush_variables
+      flush_token
     end
 
     class << self
@@ -86,7 +93,7 @@ module Dina
 
       def access_token
         begin
-          read_token[@server_name.to_sym][:access_token]
+          token[@server_name.to_sym][:access_token]
         rescue
           raise TokenStoreContentInvalid
         end
@@ -94,7 +101,7 @@ module Dina
 
       def refresh_token
         begin
-          read_token[@server_name.to_sym][:refresh_token]
+          token[@server_name.to_sym][:refresh_token]
         rescue
           raise TokenStoreContentInvalid
         end
@@ -102,7 +109,7 @@ module Dina
 
       def auth_expiry
         begin
-          read_token[@server_name.to_sym][:auth_expiry]
+          token[@server_name.to_sym][:auth_expiry]
         rescue
           raise TokenStoreContentInvalid
         end
@@ -137,28 +144,33 @@ module Dina
         end
       end
 
-      def read_token
-        JSON.parse(::File.read(@token_store_file), symbolize_names: true)
+      def token
+        @token ||= JSON.parse(::File.read(@token_store_file), symbolize_names: true)
       end
 
       def create_empty_token
-        data_hash = {}
-        data_hash[@server_name.to_sym] = {
+        data = {}
+        data[@server_name.to_sym] = {
           access_token: nil,
           refresh_token: nil,
           auth_expiry: nil
         }
-        ::File.write(@token_store_file, JSON.dump(data_hash))
+        write_token(data: data)
       end
 
       def save_token(access_token:, refresh_token:, auth_expiry:)
-        data_hash = JSON.parse(::File.read(@token_store_file), symbolize_names: true) rescue {}
-        data_hash[@server_name.to_sym] = {
+        data = JSON.parse(::File.read(@token_store_file), symbolize_names: true) rescue {}
+        data[@server_name.to_sym] = {
           access_token: access_token,
           refresh_token: refresh_token,
           auth_expiry: auth_expiry
         }
-        ::File.write(@token_store_file, JSON.dump(data_hash))
+        write_token(data: data)
+      end
+
+      def write_token(data:)
+        ::File.write(@token_store_file, JSON.dump(data))
+        @token = data
       end
 
     end

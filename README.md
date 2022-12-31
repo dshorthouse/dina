@@ -160,6 +160,14 @@ In the event there are SSL certificate verification issues:
 Dina::BaseModel.connection_options[:ssl] = { verify: false }
 ```
 
+### Advanced
+
+Flush the token from memory and save an empty token file
+
+```ruby
+Dina::Authentication.flush
+```
+
 ### Support
 
 Bug reports can be filed at [https://github.com/dshorthouse/dina/issues][3].

@@ -16,7 +16,7 @@ module Dina
 
     after(:each) do
       @config = {}
-      Dina::Authentication.flush
+      Dina::Authentication.flush_variables
     end
 
     it "should produce a header with a Bearer string" do
