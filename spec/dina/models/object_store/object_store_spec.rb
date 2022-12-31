@@ -1,7 +1,7 @@
 module Dina
   describe 'ObjectStore' do
 
-    before(:all) do
+    before(:each) do
       @id = SecureRandom.uuid
     end
 

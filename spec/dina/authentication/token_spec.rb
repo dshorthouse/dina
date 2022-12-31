@@ -9,14 +9,14 @@ module Dina
         client_id: "objectstore",
         realm: "readme",
         server_name: "dina",
-        user: "cnc-su",
-        password: "cnc-su"
+        user: "user",
+        password: "password"
       }
     end
 
     after(:each) do
       @config = {}
-      Dina::Authentication.flush_variables
+      Dina::Authentication.endpoint_url = nil
     end
 
     it "should produce a header with a Bearer string" do

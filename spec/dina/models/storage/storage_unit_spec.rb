@@ -1,7 +1,7 @@
 module Dina
   describe 'StorageUnit' do
 
-    before(:all) do
+    before(:each) do
       @id = SecureRandom.uuid
     end
 

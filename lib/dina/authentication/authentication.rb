@@ -31,6 +31,7 @@ module Dina
         raise TokenStoreFileNotFound
       end
 
+      @token = nil
       @token_store_file = options[:token_store_file]
       @user = options[:user]
       @password = options[:password]
@@ -41,12 +42,15 @@ module Dina
       Keycloak.realm = options[:realm]
 
       if ::File.zero?(@token_store_file)
-        create_empty_token
+        write_token(data: empty_token)
       end
     end
 
     # Gets, sets, and renews a Bearer access token as required
     # and produces a Header string
+    #
+    # WARNING: this is not likely to be threadsafe unless we do away with @token
+    # and load the token_store_file with every call to header
     #
     # @return [String] the Bearer token
     def self.header
@@ -61,29 +65,9 @@ module Dina
       "Bearer " + access_token
     end
 
-    # Flushes instance variables from memory
-    # but token store file content remains intact
-    def self.flush_variables
-      @token = nil
-      @token_store_file = nil
-      @user = nil
-      @password = nil
-      @server_name = nil
-      @client_id = nil
-      @endpoint_url = nil
-      Keycloak.auth_server_url = nil
-      Keycloak.realm = nil
-    end
-
-    # Saves default values in token store file
-    def self.flush_token
-      create_empty_token
-    end
-
     # Flush instance variables and save default values in token store file
     def self.flush
-      flush_variables
-      flush_token
+      write_token(data: empty_token)
     end
 
     class << self
@@ -148,14 +132,14 @@ module Dina
         @token ||= JSON.parse(::File.read(@token_store_file), symbolize_names: true)
       end
 
-      def create_empty_token
+      def empty_token
         data = {}
         data[@server_name.to_sym] = {
           access_token: nil,
           refresh_token: nil,
           auth_expiry: nil
         }
-        write_token(data: data)
+        data
       end
 
       def save_token(access_token:, refresh_token:, auth_expiry:)
