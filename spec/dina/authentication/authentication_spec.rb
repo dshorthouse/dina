@@ -19,7 +19,6 @@ module Dina
       Dina::Authentication.flush
       @token_store_file.flush
       @config = {}
-      Dina::Authentication.endpoint_url = nil
     end
 
     it "should populate an empty token file with nil values for keys" do

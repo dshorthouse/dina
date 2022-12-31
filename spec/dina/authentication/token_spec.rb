@@ -12,6 +12,7 @@ module Dina
         user: "user",
         password: "password"
       }
+      Dina::Authentication.config(@config)
     end
 
     after(:each) do
@@ -20,12 +21,10 @@ module Dina
     end
 
     it "should produce a header with a Bearer string" do
-      Dina::Authentication.config(@config)
       expect(Dina::Authentication.header[0..5]).to eq("Bearer")
     end
 
     it "should produce a header whose Access token is included" do
-      Dina::Authentication.config(@config)
       token = "Bearer " + mock_token[@config[:server_name].to_sym][:access_token]
       expect(Dina::Authentication.header).to eq(token)
     end
