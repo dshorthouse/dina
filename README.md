@@ -31,7 +31,7 @@ All variables are **required** and most can be obtained from a DINA system admin
 
 ```ruby
 require 'dina'
-Dina.config({
+settings = {
    authorization_url: "http://localhost/auth",
    endpoint_url: "http://localhost/api",
    realm: "dina",
@@ -40,7 +40,8 @@ Dina.config({
    password: "password",
    server_name: "server",
    token_store_file: "config/token.json"
- })
+ }
+Dina.config = settings
 ```
 
 #### Instantiate and Save a `Person`
