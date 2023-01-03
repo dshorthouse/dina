@@ -12,13 +12,12 @@ module Dina
         user: "user",
         password: "password"
       }
-      Dina.config(@config)
+      Dina.config = @config
     end
 
     after(:each) do
       @config = {}
-      # Not the cleanest way to clear config, a symptom here that dina may not be threadsafe
-      Authentication.endpoint_url = nil
+      Dina.flush_config
     end
 
     it "should produce a header with a Bearer string" do
@@ -32,7 +31,7 @@ module Dina
 
     it "should raise an Exception if the server_name is not found in the token file" do
       @config[:server_name] = "missing"
-      Dina.config(@config)
+      Dina.config = @config
       expect { Dina.header }.to raise_error(TokenStoreContentInvalid)
     end
 

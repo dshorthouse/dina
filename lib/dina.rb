@@ -9,10 +9,10 @@ module Dina
 
   JsonApiClient::Paginating::NestedParamPaginator.page_param = "offset"
   JsonApiClient::Paginating::NestedParamPaginator.per_page_param = "limit"
-  JsonApiClient::Schema.register array: Dina::ArrayCaster
-  JsonApiClient::Schema.register object: Dina::ObjectCaster
-  JsonApiClient::Schema.register multilingual_title: Dina::MultilingualTitleCaster
-  JsonApiClient::Schema.register multilingual_description: Dina::MultilingualDescriptionCaster
+  JsonApiClient::Schema.register array: ArrayCaster
+  JsonApiClient::Schema.register object: ObjectCaster
+  JsonApiClient::Schema.register multilingual_title: MultilingualTitleCaster
+  JsonApiClient::Schema.register multilingual_description: MultilingualDescriptionCaster
 
   module_function
 
@@ -20,8 +20,12 @@ module Dina
     BaseModel.subclasses
   end
 
-  def config(options = {})
-    Authentication.instance.config(options)
+  def config
+    Authentication.instance.config
+  end
+
+  def config=(options = {})
+    Authentication.instance.config = options
   end
 
   def header
@@ -30,6 +34,10 @@ module Dina
 
   def flush
     Authentication.instance.flush
+  end
+
+  def flush_config
+    Authentication.instance.flush_config
   end
 
 end

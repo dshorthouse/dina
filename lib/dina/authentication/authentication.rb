@@ -4,8 +4,6 @@ module Dina
   class Authentication
 
     class << self
-      attr_accessor :endpoint_url
-
       def instance
         Thread.current[:dina_authentication] ||= new
       end
@@ -13,12 +11,12 @@ module Dina
 
     def initialize
       @token = nil
-      @endpoint_url = nil
-      @token_store_file = nil
-      @user = nil
-      @password = nil
-      @server_name = nil
-      @client_id = nil
+      @config = nil
+      @opts = default_opts
+    end
+
+    def config
+      @config ||= OpenStruct.new(@opts)
     end
 
     # Sets Authentication configuration
@@ -35,31 +33,27 @@ module Dina
     # }
     #
     # @param options [Hash] the configuration options
-    def config(options = {})
-      raise ConfigItemMissing, "Missing token_store_file from config." unless options[:token_store_file]
-      raise ConfigItemMissing, "Missing user from config." unless options[:user]
-      raise ConfigItemMissing, "Missing password from config." unless options[:password]
-      raise ConfigItemMissing, "Missing server_name from config." unless options[:server_name]
-      raise ConfigItemMissing, "Missing client_id from config." unless options[:client_id]
-      raise ConfigItemMissing, "Missing endpoint_url from config." unless options[:endpoint_url]
-      raise ConfigItemMissing, "Missing authorization_url from config." unless options[:authorization_url]
-      raise ConfigItemMissing, "Missing realm from config." unless options[:realm]
+    def config=(opts = {})
+      raise ConfigItemMissing, "Missing token_store_file from config." unless opts[:token_store_file]
+      raise ConfigItemMissing, "Missing user from config." unless opts[:user]
+      raise ConfigItemMissing, "Missing password from config." unless opts[:password]
+      raise ConfigItemMissing, "Missing server_name from config." unless opts[:server_name]
+      raise ConfigItemMissing, "Missing client_id from config." unless opts[:client_id]
+      raise ConfigItemMissing, "Missing endpoint_url from config." unless opts[:endpoint_url]
+      raise ConfigItemMissing, "Missing authorization_url from config." unless opts[:authorization_url]
+      raise ConfigItemMissing, "Missing realm from config." unless opts[:realm]
 
-      if !options[:token_store_file].instance_of?(String) || !::File.exist?(options[:token_store_file])
+      if !opts[:token_store_file].instance_of?(String) || !::File.exist?(opts[:token_store_file])
         raise TokenStoreFileNotFound
       end
 
       @token = nil
-      @token_store_file = options[:token_store_file]
-      @user = options[:user]
-      @password = options[:password]
-      @server_name = options[:server_name]
-      @client_id = options[:client_id]
-      @endpoint_url = options[:endpoint_url]
-      Keycloak.auth_server_url = options[:authorization_url]
-      Keycloak.realm = options[:realm]
+      @config = nil
+      @opts.merge!(opts)
+      Keycloak.auth_server_url = config.authorization_url
+      Keycloak.realm = config.realm
 
-      if ::File.zero?(@token_store_file)
+      if ::File.zero?(config.token_store_file)
         write_token(data: empty_token)
       end
     end
@@ -83,16 +77,35 @@ module Dina
       "Bearer " + access_token
     end
 
-    # Flush instance variables and save default values in token store file
+    # Save default values in token store file
     def flush
       write_token(data: empty_token)
     end
 
+    def flush_config
+      @opts = default_opts
+      @config = nil
+      @token = nil
+    end
+
     private
+
+    def default_opts
+      {
+        token_store_file: nil,
+        user: nil,
+        password: nil,
+        server_name: nil,
+        client_id: nil,
+        endpoint_url: nil,
+        realm: nil,
+        authorization_url: nil
+      }
+    end
 
     def access_token
       begin
-        token[@server_name.to_sym][:access_token]
+        token[config.server_name.to_sym][:access_token]
       rescue
         raise TokenStoreContentInvalid
       end
@@ -100,7 +113,7 @@ module Dina
 
     def refresh_token
       begin
-        token[@server_name.to_sym][:refresh_token]
+        token[config.server_name.to_sym][:refresh_token]
       rescue
         raise TokenStoreContentInvalid
       end
@@ -108,7 +121,7 @@ module Dina
 
     def auth_expiry
       begin
-        token[@server_name.to_sym][:auth_expiry]
+        token[config.server_name.to_sym][:auth_expiry]
       rescue
         raise TokenStoreContentInvalid
       end
@@ -116,9 +129,9 @@ module Dina
 
     def get_token
       response = Keycloak::Client.get_token(
-        @user,
-        @password,
-        client_id= @client_id,
+        config.user,
+        config.password,
+        client_id= config.client_id,
         secret='')
       JSON.parse(response, symbolize_names: true)
     end
@@ -133,7 +146,7 @@ module Dina
       begin
         response = Keycloak::Client.get_token_by_refresh_token(
           refresh_token,
-          client_id= @client_id,
+          client_id= config.client_id,
           secret='')
         json = JSON.parse(response, symbolize_names: true)
         auth_expiry = (Time.now + json[:expires_in].seconds).to_s
@@ -144,12 +157,12 @@ module Dina
     end
 
     def token
-      @token ||= JSON.parse(::File.read(@token_store_file), symbolize_names: true)
+      @token ||= JSON.parse(::File.read(config.token_store_file), symbolize_names: true)
     end
 
     def empty_token
       data = {}
-      data[@server_name.to_sym] = {
+      data[config.server_name.to_sym] = {
         access_token: nil,
         refresh_token: nil,
         auth_expiry: nil
@@ -158,8 +171,8 @@ module Dina
     end
 
     def save_token(access_token:, refresh_token:, auth_expiry:)
-      data = JSON.parse(::File.read(@token_store_file), symbolize_names: true) rescue {}
-      data[@server_name.to_sym] = {
+      data = JSON.parse(::File.read(config.token_store_file), symbolize_names: true) rescue {}
+      data[config.server_name.to_sym] = {
         access_token: access_token,
         refresh_token: refresh_token,
         auth_expiry: auth_expiry
@@ -168,7 +181,7 @@ module Dina
     end
 
     def write_token(data:)
-      ::File.write(@token_store_file, JSON.dump(data))
+      ::File.write(config.token_store_file, JSON.dump(data))
       @token = data
     end
 

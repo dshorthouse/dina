@@ -5,6 +5,10 @@ module Dina
       @id = SecureRandom.uuid
     end
 
+    after(:each) do
+      Dina.flush_config
+    end
+
     it "should create an object of type Person" do
       person = Person.new
       expect(person).to be_a(Person)
@@ -43,6 +47,22 @@ module Dina
     it "should raise an Exception if config has not yet been called" do
       person = Person.new({ familyNames: "Pipetter" })
       expect { person.save }.to raise_error(ConfigItemMissing)
+    end
+
+    it "should throw a 404 error" do
+      config = {
+        token_store_file: mock_token_path,
+        authorization_url: "http://localhost/auth",
+        endpoint_url: "http://localhost/api",
+        client_id: "objectstore",
+        realm: "readme",
+        server_name: "dina",
+        user: "user",
+        password: "password"
+      }
+      Dina.config = config
+      person = Person.new({ familyNames: "Pipetter" })
+      expect { person.save }.to raise_error(JsonApiClient::Errors::NotFound)
     end
 
   end
