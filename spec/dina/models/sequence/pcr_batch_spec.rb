@@ -6,12 +6,12 @@ module Dina
     end
 
     it "should create an object of type PcrBatch" do
-      pcr = Dina::PcrBatch.new
-      expect(pcr).to be_a(Dina::PcrBatch)
+      pcr = PcrBatch.new
+      expect(pcr).to be_a(PcrBatch)
     end
 
     it "should create an object of type PcrBatch with a UUID as id" do
-      pcr = Dina::PcrBatch.new
+      pcr = PcrBatch.new
       expect(pcr.id).to be_a_uuid
     end
 

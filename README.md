@@ -31,7 +31,7 @@ All variables are **required** and most can be obtained from a DINA system admin
 
 ```ruby
 require 'dina'
-Dina::Authentication.config({
+Dina.config({
    authorization_url: "http://localhost/auth",
    endpoint_url: "http://localhost/api",
    realm: "dina",
@@ -137,7 +137,7 @@ metadata.save
 To list available JSON:API Classes:
 
 ```ruby
-Dina::classes
+Dina.classes
 ```
 
 To list available properties for a Class:
@@ -165,7 +165,7 @@ Dina::BaseModel.connection_options[:ssl] = { verify: false }
 Flush the token from memory and save an empty token file
 
 ```ruby
-Dina::Authentication.flush
+Dina.flush
 ```
 
 ### Support

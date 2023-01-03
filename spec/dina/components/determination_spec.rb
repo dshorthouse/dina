@@ -3,11 +3,11 @@ module Dina
   describe 'Determination' do
 
     before(:each) do
-      @det = Dina::Determination.new
+      @det = Determination.new
     end
 
     it "should create an object of type Determination" do
-      expect(@det).to be_a(Dina::Determination)
+      expect(@det).to be_a(Determination)
     end
 
     it "should create an object of type Determination with a default scientificNameDetails" do
@@ -46,7 +46,7 @@ module Dina
     end
 
     it "should raise an Exception if determiner is not a UUID" do
-      expect { @det.add_determiner("12345") }.to raise_error(Dina::PropertyValueInvalid)
+      expect { @det.add_determiner("12345") }.to raise_error(PropertyValueInvalid)
     end
 
   end

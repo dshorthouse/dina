@@ -6,12 +6,12 @@ module Dina
     end
 
     it "should create an object of type Organization" do
-      org = Dina::Organization.new
-      expect(org).to be_a(Dina::Organization)
+      org = Organization.new
+      expect(org).to be_a(Organization)
     end
 
     it "should create an object of type Organization with default attributes" do
-      org = Dina::Organization.new({ id: @id })
+      org = Organization.new({ id: @id })
       default = {
         "type" => "organization",
         "id" => @id,

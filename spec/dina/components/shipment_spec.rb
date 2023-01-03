@@ -3,11 +3,11 @@ module Dina
   describe 'Shipment' do
 
     before(:each) do
-      @shipment = Dina::Shipment.new
+      @shipment = Shipment.new
     end
 
     it "should create an object of type Shipment" do
-      expect(@shipment).to be_a(Dina::Shipment)
+      expect(@shipment).to be_a(Shipment)
     end
 
     it "should create an object of type Shipment with default options" do
@@ -26,7 +26,7 @@ module Dina
     end
 
     it "should raise an Exception if address is not a Hash" do
-      expect { @shipment.add_address("12345") }.to raise_error(Dina::PropertyValueInvalid)
+      expect { @shipment.add_address("12345") }.to raise_error(PropertyValueInvalid)
     end
 
   end

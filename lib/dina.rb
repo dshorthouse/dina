@@ -14,7 +14,22 @@ module Dina
   JsonApiClient::Schema.register multilingual_title: Dina::MultilingualTitleCaster
   JsonApiClient::Schema.register multilingual_description: Dina::MultilingualDescriptionCaster
 
-  def self.classes
-    Dina::BaseModel.subclasses
+  module_function
+
+  def classes
+    BaseModel.subclasses
   end
+
+  def config(options = {})
+    Authentication.instance.config(options)
+  end
+
+  def header
+    Authentication.instance.header
+  end
+
+  def flush
+    Authentication.instance.flush
+  end
+
 end

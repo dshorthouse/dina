@@ -3,11 +3,11 @@ module Dina
   describe 'GeoreferenceAssertion' do
 
     before(:each) do
-      @assertion = Dina::GeoreferenceAssertion.new
+      @assertion = GeoreferenceAssertion.new
     end
 
     it "should create an object of type GeoreferenceAssertion" do
-      expect(@assertion).to be_a(Dina::GeoreferenceAssertion)
+      expect(@assertion).to be_a(GeoreferenceAssertion)
     end
 
     it "should create an object of type GeoreferenceAssertion with default options" do
@@ -17,7 +17,7 @@ module Dina
     end
 
     it "should raise an Exception if georeferencedBy is not a UUID" do
-      expect { @assertion.add_georeferencedBy("12345") }.to raise_error(Dina::PropertyValueInvalid)
+      expect { @assertion.add_georeferencedBy("12345") }.to raise_error(PropertyValueInvalid)
     end
 
   end

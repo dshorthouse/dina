@@ -6,12 +6,12 @@ module Dina
     end
 
     it "should create an object of type MolecularSample" do
-      molecular_sample = Dina::MolecularSample.new
-      expect(molecular_sample).to be_a(Dina::MolecularSample)
+      molecular_sample = MolecularSample.new
+      expect(molecular_sample).to be_a(MolecularSample)
     end
 
     it "should create an object of type MolecularSample with a UUID as id" do
-      molecular_sample = Dina::MolecularSample.new
+      molecular_sample = MolecularSample.new
       expect(molecular_sample.id).to be_a_uuid
     end
 

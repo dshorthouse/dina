@@ -6,12 +6,12 @@ module Dina
     end
 
     it "should create an object of type NgsWorkflow" do
-      ngs = Dina::NgsWorkflow.new
-      expect(ngs).to be_a(Dina::NgsWorkflow)
+      ngs = NgsWorkflow.new
+      expect(ngs).to be_a(NgsWorkflow)
     end
 
     it "should create an object of type NgsWorkflow with a UUID as id" do
-      ngs = Dina::NgsWorkflow.new
+      ngs = NgsWorkflow.new
       expect(ngs.id).to be_a_uuid
     end
 

@@ -1,7 +1,25 @@
 # encoding: utf-8
 
 module Dina
-  module Authentication
+  class Authentication
+
+    class << self
+      attr_accessor :endpoint_url
+
+      def instance
+        Thread.current[:dina_authentication] ||= new
+      end
+    end
+
+    def initialize
+      @token = nil
+      @endpoint_url = nil
+      @token_store_file = nil
+      @user = nil
+      @password = nil
+      @server_name = nil
+      @client_id = nil
+    end
 
     # Sets Authentication configuration
     # Options hash as follows:
@@ -17,7 +35,7 @@ module Dina
     # }
     #
     # @param options [Hash] the configuration options
-    def self.config(options = {})
+    def config(options = {})
       raise ConfigItemMissing, "Missing token_store_file from config." unless options[:token_store_file]
       raise ConfigItemMissing, "Missing user from config." unless options[:user]
       raise ConfigItemMissing, "Missing password from config." unless options[:password]
@@ -53,7 +71,7 @@ module Dina
     # and load the token_store_file with every call to header
     #
     # @return [String] the Bearer token
-    def self.header
+    def header
       if access_token.nil? || refresh_token.nil?
         set_token
       end
@@ -66,98 +84,94 @@ module Dina
     end
 
     # Flush instance variables and save default values in token store file
-    def self.flush
+    def flush
       write_token(data: empty_token)
     end
 
-    class << self
-      attr_accessor :endpoint_url
+    private
 
-      private
-
-      def access_token
-        begin
-          token[@server_name.to_sym][:access_token]
-        rescue
-          raise TokenStoreContentInvalid
-        end
+    def access_token
+      begin
+        token[@server_name.to_sym][:access_token]
+      rescue
+        raise TokenStoreContentInvalid
       end
+    end
 
-      def refresh_token
-        begin
-          token[@server_name.to_sym][:refresh_token]
-        rescue
-          raise TokenStoreContentInvalid
-        end
+    def refresh_token
+      begin
+        token[@server_name.to_sym][:refresh_token]
+      rescue
+        raise TokenStoreContentInvalid
       end
+    end
 
-      def auth_expiry
-        begin
-          token[@server_name.to_sym][:auth_expiry]
-        rescue
-          raise TokenStoreContentInvalid
-        end
+    def auth_expiry
+      begin
+        token[@server_name.to_sym][:auth_expiry]
+      rescue
+        raise TokenStoreContentInvalid
       end
+    end
 
-      def get_token
-        response = Keycloak::Client.get_token(
-          @user,
-          @password,
+    def get_token
+      response = Keycloak::Client.get_token(
+        @user,
+        @password,
+        client_id= @client_id,
+        secret='')
+      JSON.parse(response, symbolize_names: true)
+    end
+
+    def set_token
+      json = get_token
+      auth_expiry = (Time.now + json[:expires_in].seconds).to_s
+      save_token(access_token: json[:access_token], refresh_token: json[:refresh_token], auth_expiry: auth_expiry)
+    end
+
+    def renew_token
+      begin
+        response = Keycloak::Client.get_token_by_refresh_token(
+          refresh_token,
           client_id= @client_id,
           secret='')
-        JSON.parse(response, symbolize_names: true)
-      end
-
-      def set_token
-        json = get_token
+        json = JSON.parse(response, symbolize_names: true)
         auth_expiry = (Time.now + json[:expires_in].seconds).to_s
         save_token(access_token: json[:access_token], refresh_token: json[:refresh_token], auth_expiry: auth_expiry)
+      rescue
+        set_token
       end
+    end
 
-      def renew_token
-        begin
-          response = Keycloak::Client.get_token_by_refresh_token(
-            refresh_token,
-            client_id= @client_id,
-            secret='')
-          json = JSON.parse(response, symbolize_names: true)
-          auth_expiry = (Time.now + json[:expires_in].seconds).to_s
-          save_token(access_token: json[:access_token], refresh_token: json[:refresh_token], auth_expiry: auth_expiry)
-        rescue
-          set_token
-        end
-      end
+    def token
+      @token ||= JSON.parse(::File.read(@token_store_file), symbolize_names: true)
+    end
 
-      def token
-        @token ||= JSON.parse(::File.read(@token_store_file), symbolize_names: true)
-      end
+    def empty_token
+      data = {}
+      data[@server_name.to_sym] = {
+        access_token: nil,
+        refresh_token: nil,
+        auth_expiry: nil
+      }
+      data
+    end
 
-      def empty_token
-        data = {}
-        data[@server_name.to_sym] = {
-          access_token: nil,
-          refresh_token: nil,
-          auth_expiry: nil
-        }
-        data
-      end
+    def save_token(access_token:, refresh_token:, auth_expiry:)
+      data = JSON.parse(::File.read(@token_store_file), symbolize_names: true) rescue {}
+      data[@server_name.to_sym] = {
+        access_token: access_token,
+        refresh_token: refresh_token,
+        auth_expiry: auth_expiry
+      }
+      write_token(data: data)
+    end
 
-      def save_token(access_token:, refresh_token:, auth_expiry:)
-        data = JSON.parse(::File.read(@token_store_file), symbolize_names: true) rescue {}
-        data[@server_name.to_sym] = {
-          access_token: access_token,
-          refresh_token: refresh_token,
-          auth_expiry: auth_expiry
-        }
-        write_token(data: data)
-      end
-
-      def write_token(data:)
-        ::File.write(@token_store_file, JSON.dump(data))
-        @token = data
-      end
-
+    def write_token(data:)
+      ::File.write(@token_store_file, JSON.dump(data))
+      @token = data
     end
 
   end
+
 end

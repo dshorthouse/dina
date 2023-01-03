@@ -6,12 +6,12 @@ module Dina
     end
 
     it "should create an object of type BaseModel" do
-      base = Dina::BaseModel.new
-      expect(base).to be_a(Dina::BaseModel)
+      base = BaseModel.new
+      expect(base).to be_a(BaseModel)
     end
 
     it "should raise an Exception if config has not yet been called" do
-      expect { Dina::BaseModel.site }.to raise_error(Dina::ConfigItemMissing)
+      expect { BaseModel.site }.to raise_error(ConfigItemMissing)
     end
 
   end

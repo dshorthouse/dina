@@ -6,23 +6,23 @@ module Dina
     end
 
     it "should create an object of type ObjectSubtype" do
-      os = Dina::ObjectSubtype.new
-      expect(os).to be_a(Dina::ObjectSubtype)
+      os = ObjectSubtype.new
+      expect(os).to be_a(ObjectSubtype)
     end
 
     it "should create an object of type ObjectSubtype with a UUID as id" do
-      os = Dina::ObjectSubtype.new
+      os = ObjectSubtype.new
       expect(os.id).to be_a_uuid
     end
 
     it "should create an object of type ObjectStore with default attributes" do
-      os = Dina::ObjectSubtype.new({ id: @id })
+      os = ObjectSubtype.new({ id: @id })
       expect(os.attributes).to eq({"id"=> @id, "type"=>"object-subtype"})
     end
 
     it "should raise an Exception if dcType is invalid" do
-      os = Dina::ObjectSubtype.new({ id: @id, dcType: "NUMBER" })
-      expect { os.save }.to raise_error(Dina::PropertyValueInvalid)
+      os = ObjectSubtype.new({ id: @id, dcType: "NUMBER" })
+      expect { os.save }.to raise_error(PropertyValueInvalid)
     end
 
   end

@@ -6,23 +6,23 @@ module Dina
     end
 
     it "should create an object of type ObjectStoreManagedAttribute" do
-      os = Dina::ObjectStoreManagedAttribute.new
-      expect(os).to be_a(Dina::ObjectStoreManagedAttribute)
+      os = ObjectStoreManagedAttribute.new
+      expect(os).to be_a(ObjectStoreManagedAttribute)
     end
 
     it "should create an object of type ObjectStoreManagedAttribute with a UUID as id" do
-      os = Dina::ObjectStoreManagedAttribute.new
+      os = ObjectStoreManagedAttribute.new
       expect(os.id).to be_a_uuid
     end
 
     it "should create an object of type ObjectStoreManagedAttribute with default attributes" do
-      os = Dina::ObjectStoreManagedAttribute.new({ id: @id })
+      os = ObjectStoreManagedAttribute.new({ id: @id })
       expect(os.attributes).to eq({"id"=> @id, "type"=>"managed-attribute"})
     end
 
     it "should raise an Exception if managedAttributeType is invalid" do
-      os = Dina::ObjectStoreManagedAttribute.new({ id: @id, managedAttributeType: "NUMBER" })
-      expect { os.save }.to raise_error(Dina::PropertyValueInvalid)
+      os = ObjectStoreManagedAttribute.new({ id: @id, managedAttributeType: "NUMBER" })
+      expect { os.save }.to raise_error(PropertyValueInvalid)
     end
 
   end

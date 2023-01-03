@@ -6,12 +6,12 @@ module Dina
     end
 
     it "should create an object of type IndexSet" do
-      index_set = Dina::IndexSet.new
-      expect(index_set).to be_a(Dina::IndexSet)
+      index_set = IndexSet.new
+      expect(index_set).to be_a(IndexSet)
     end
 
     it "should create an object of type IndexSet with a UUID as id" do
-      index_set = Dina::IndexSet.new
+      index_set = IndexSet.new
       expect(index_set.id).to be_a_uuid
     end
 

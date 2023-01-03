@@ -6,18 +6,18 @@ module Dina
     end
 
     it "should create an object of type Organism" do
-      org = Dina::Organism.new
-      expect(org).to be_a(Dina::Organism)
+      org = Organism.new
+      expect(org).to be_a(Organism)
     end
 
     it "should create an object of type Organism with default attributes" do
-      org = Dina::Organism.new({ id: @id })
+      org = Organism.new({ id: @id })
       expect(org.attributes).to eq({"type"=>"organism", "id"=>@id, "determination"=>[]})
     end
 
     it "should raise an Exception if group is missing" do
-      org = Dina::Organism.new({ group: nil })
-      expect { org.save }.to raise_error(Dina::ObjectInvalid)
+      org = Organism.new({ group: nil })
+      expect { org.save }.to raise_error(ObjectInvalid)
     end
 
   end

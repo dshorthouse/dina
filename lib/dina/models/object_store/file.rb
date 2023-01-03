@@ -15,7 +15,7 @@ module Dina
       obj.group = group
       RestClient::Request.execute(
         method: :get,
-        headers: { authorization: Dina::Authentication.header },
+        headers: { authorization: Dina.header },
         url: obj.url + "/#{id}",
         verify_ssl: verify_ssl
       )
@@ -35,7 +35,7 @@ module Dina
     end
 
     def endpoint
-      Dina::Authentication.endpoint_url
+      Autentication.endpoint_url
     end
 
     def endpoint_path
@@ -58,7 +58,7 @@ module Dina
       validate_params
       response = RestClient::Request.execute(
         method: :post,
-        headers: { authorization: Dina::Authentication.header },
+        headers: { authorization: Dina.header },
         url: (!is_derivative) ? url : url + "/derivative",
         payload: {
           multipart: true,

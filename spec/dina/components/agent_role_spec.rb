@@ -3,11 +3,11 @@ module Dina
   describe 'AgentRole' do
 
     before(:each) do
-      @agent_role = Dina::AgentRole.new
+      @agent_role = AgentRole.new
     end
 
     it "should create an object of type AgentRole" do
-      expect(@agent_role).to be_a(Dina::AgentRole)
+      expect(@agent_role).to be_a(AgentRole)
     end
 
     it "should create an object of type AgentRole with a default agent" do
@@ -21,7 +21,7 @@ module Dina
     end
 
     it "should raise an Exception if Agent is not a UUID" do
-      expect { @agent_role.add_agent("12345") }.to raise_error(Dina::PropertyValueInvalid)
+      expect { @agent_role.add_agent("12345") }.to raise_error(PropertyValueInvalid)
     end
 
   end

@@ -6,23 +6,23 @@ module Dina
     end
 
     it "should create an object of type Project" do
-      project = Dina::Project.new
-      expect(project).to be_a(Dina::Project)
+      project = Project.new
+      expect(project).to be_a(Project)
     end
 
     it "should create an object of type Project with default attributes" do
-      project = Dina::Project.new({ id: @id })
+      project = Project.new({ id: @id })
       expect(project.attributes).to eq({"type"=>"project", "id"=>@id})
     end
 
     it "can have many attachments" do
-      project = Dina::Project.new
+      project = Project.new
       expect(project.attachment).to be_nil
     end
 
     it "should raise an Exception if group is missing" do
-      project = Dina::Project.new({ group: nil })
-      expect { project.save }.to raise_error(Dina::ObjectInvalid)
+      project = Project.new({ group: nil })
+      expect { project.save }.to raise_error(ObjectInvalid)
     end
 
   end

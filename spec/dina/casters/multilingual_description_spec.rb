@@ -3,11 +3,11 @@ module Dina
   describe 'MultilingualDescription' do
 
     before(:each) do
-      @md = Dina::MultilingualDescription.new
+      @md = MultilingualDescription.new
     end
 
     it "should create an object of type MultilingualDescription" do
-      expect(@md).to be_a(Dina::MultilingualDescription)
+      expect(@md).to be_a(MultilingualDescription)
     end
 
     it "should create an English description" do

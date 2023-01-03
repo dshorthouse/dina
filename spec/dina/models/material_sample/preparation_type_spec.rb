@@ -6,18 +6,18 @@ module Dina
     end
 
     it "should create an object of type PreparationType" do
-      pt = Dina::PreparationType.new
-      expect(pt).to be_a(Dina::PreparationType)
+      pt = PreparationType.new
+      expect(pt).to be_a(PreparationType)
     end
 
     it "should create an object of type PreparationType with a UUID as id" do
-      pt = Dina::PreparationType.new
+      pt = PreparationType.new
       expect(pt.id).to be_a_uuid
     end
 
     it "should raise an Exception if group is missing" do
-      pt = Dina::PreparationType.new({ group: nil })
-      expect { pt.save }.to raise_error(Dina::ObjectInvalid)
+      pt = PreparationType.new({ group: nil })
+      expect { pt.save }.to raise_error(ObjectInvalid)
     end
 
   end

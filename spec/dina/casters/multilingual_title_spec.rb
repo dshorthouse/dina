@@ -3,11 +3,11 @@ module Dina
   describe 'MultilingualTitle' do
 
     before(:each) do
-      @mt = Dina::MultilingualTitle.new
+      @mt = MultilingualTitle.new
     end
 
     it "should create an object of type MultilingualTitle" do
-      expect(@mt).to be_a(Dina::MultilingualTitle)
+      expect(@mt).to be_a(MultilingualTitle)
     end
 
     it "should create an English title" do

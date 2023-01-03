@@ -15,13 +15,13 @@ module Dina
 
     # Required by json_api_client
     def self.site
-      raise ConfigItemMissing, "Missing endpoint_url from config. Perhaps Dina::Authentication.config has not yet been called." unless Dina::Authentication.endpoint_url
-      Dina::Authentication.endpoint_url + "/" + endpoint_path
+      raise ConfigItemMissing, "Missing endpoint_url from config. Perhaps Dina.config has not yet been called." unless Authentication.endpoint_url
+      Authentication.endpoint_url + "/" + endpoint_path
     end
 
     # injects keybloak bearer token with all json_api_client calls
     def self.custom_headers
-      { content_type: "application/vnd.api+json", authorization: Dina::Authentication.header }
+      { content_type: "application/vnd.api+json", authorization: Dina.header }
     end
 
     # helper method for all child classes to retrieve records by group
