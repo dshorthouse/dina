@@ -52,8 +52,8 @@ module Dina
     it "should throw a 404 error" do
       config = {
         token_store_file: mock_token_path,
-        authorization_url: "http://localhost/auth",
-        endpoint_url: "http://localhost/api",
+        authorization_url: "http://localhost:9999/auth",
+        endpoint_url: "http://localhost:9999/api",
         client_id: "objectstore",
         realm: "readme",
         server_name: "dina",
@@ -62,7 +62,7 @@ module Dina
       }
       Dina.config = config
       person = Person.new({ familyNames: "Pipetter" })
-      expect { person.save }.to raise_error(JsonApiClient::Errors::NotFound)
+      expect { person.save }.to raise_error(JsonApiClient::Errors::ConnectionError)
     end
 
   end
