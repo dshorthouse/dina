@@ -35,7 +35,7 @@ module Dina
     end
 
     def endpoint
-      Autentication.endpoint_url
+      Dina.config.endpoint_url
     end
 
     def endpoint_path

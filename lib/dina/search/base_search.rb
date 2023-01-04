@@ -10,7 +10,7 @@ module Dina
     end
 
     def self.endpoint
-      Dina::Authentication.endpoint_url
+      Dina.config.endpoint_url
     end
 
     def self.endpoint_path
@@ -43,7 +43,7 @@ module Dina
           headers: {
             accept: 'application/json',
             content_type: 'application/json',
-            authorization: Dina::Authentication.header
+            authorization: Dina.header
           },
           verify_ssl: verify_ssl
         )

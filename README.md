@@ -174,7 +174,7 @@ Dina.flush
 Bug reports can be filed at [https://github.com/dshorthouse/dina/issues][3].
 
 ### Copyright
-Copyright © 2022 Government of Canada
+Copyright © 2023 Government of Canada
 
 Authors: [David P. Shorthouse][4]
 
