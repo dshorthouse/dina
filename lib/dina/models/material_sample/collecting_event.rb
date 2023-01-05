@@ -18,6 +18,7 @@ module Dina
     property :dwcVerbatimSRS, type: :string, default: "WGS84 (EPSG:4326)"
     property :dwcVerbatimElevation, type: :string
     property :dwcVerbatimDepth, type: :string
+    property :dwcFieldNumber, type: :string
     property :dwcOtherRecordNumbers, type: :array, default: []
     property :dwcRecordNumber, type: :string
     property :dwcCountry, type: :string
