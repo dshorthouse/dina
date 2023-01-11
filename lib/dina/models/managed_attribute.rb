@@ -46,22 +46,6 @@ module Dina
       ]
     end
 
-    def english_description=(desc)
-      description[:en] = desc
-    end
-
-    def english_description
-      description[:en]
-    end
-
-    def french_description=(desc)
-      description[:fr] = desc
-    end
-
-    def french_description
-      description[:fr]
-    end
-
     private
 
     def on_before_save

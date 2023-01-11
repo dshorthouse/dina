@@ -40,18 +40,6 @@ module Dina
       super
     end
 
-    def english_description
-      if self.respond_to?(:multilingualDescription)
-        multilingualDescription[:descriptions].select{|o| o[:lang] == "en"}.first[:desc]
-      end
-    end
-
-    def french_description
-      if self.respond_to?(:multilingualDescription)
-        multilingualDescription[:descriptions].select{|o| o[:lang] == "fr"}.first[:desc]
-      end
-    end
-
     private
 
     def on_before_create
