@@ -51,12 +51,12 @@ module Dina
 
     it "should raise an Exception if an attempt is made to add a multilingualTitle" do
       person = Person.new
-      expect { person.set_multilingualTitle({ en: "Mr. Magoo" }) }.to raise_error(PropertyInvalid)
+      expect { person.set_multilingualTitle({ en: "Mr. Magoo" }) }.to raise_error(NoMethodError)
     end
 
     it "should raise an Exception if an attempt is made to add a multilingualDescription" do
       person = Person.new
-      expect { person.set_multilingualDescription({ en: "Mr. Magoo" }) }.to raise_error(PropertyInvalid)
+      expect { person.set_multilingualDescription({ en: "Mr. Magoo" }) }.to raise_error(NoMethodError)
     end
 
     it "should throw a 404 error" do
