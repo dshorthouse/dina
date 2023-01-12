@@ -2,6 +2,7 @@ module Dina
   class BaseModel < JsonApiClient::Resource
     include JsonApiClient::Helpers::Callbacks
 
+    self.raise_on_blank_find_param = true
     self.json_key_format = :camelized_key
     self.paginator = JsonApiClient::Paginating::NestedParamPaginator
 

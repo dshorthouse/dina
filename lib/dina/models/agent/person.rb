@@ -35,6 +35,10 @@ module Dina
       where("email": email).all
     end
 
+    # Searches for a Person by name using the search module
+    #
+    # @param name [String] any portion of a person's name
+    # @return array [Array] an array of Person objects, ordered by relevance
     def self.search_by_name(name)
       payload = {
         query: {
