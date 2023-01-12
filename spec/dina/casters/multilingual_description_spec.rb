@@ -11,18 +11,18 @@ module Dina
     end
 
     it "should create an English description" do
-      @md.english_description = "My description"
+      @md.set_description({ en: "My description" })
       expect(@md.to_hash).to eq({ "descriptions" => [{ lang: "en", desc: "My description" }] })
     end
 
     it "should create a French description" do
-      @md.french_description = "Ma description"
+      @md.set_description({ fr: "Ma description" })
       expect(@md.to_hash).to eq({ "descriptions" => [{ lang: "fr", desc: "Ma description" }] })
     end
 
     it "should create an English & French description" do
-      @md.english_description = "My description"
-      @md.french_description = "Ma description"
+      @md.set_description({ en: "My description" })
+      @md.set_description({ fr: "Ma description" })
       expect(@md.to_hash).to eq({ "descriptions" => [{ lang: "en", desc: "My description" }, { lang: "fr", desc: "Ma description" }] })
     end
 

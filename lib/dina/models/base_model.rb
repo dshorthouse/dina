@@ -40,6 +40,40 @@ module Dina
       super
     end
 
+    # Adds or updates a multilingualDescription with a language key
+    #
+    # @param opts [Hash] the description expessed as { en: "My description" }
+    def set_multilingualDescription(opts = {})
+      if self.respond_to?(:multilingualDescription)
+        if self.multilingualDescription.nil?
+          self.multilingualDescription = opts
+        else
+          descriptions = multilingualDescription["descriptions"]
+          descriptions.delete_if{|o| o["lang"] == opts.keys[0].to_s}
+          descriptions << { "lang" => opts.keys[0].to_s, "desc" => opts[opts.keys[0]] }
+        end
+      else
+        raise PropertyInvalid, "#{self.class} does not have the property multilingualDescription"
+      end
+    end
+
+    # Adds or updates a multilingualTitle with a language key
+    #
+    # @param opts [Hash] the title expessed as { en: "My title" }
+    def set_multilingualTitle(opts = {})
+      if self.respond_to?(:multilingualTitle)
+        if self.multilingualTitle.nil?
+          self.multilingualTitle = opts
+        else
+          titles = multilingualTitle["titles"]
+          titles.delete_if{|o| o["lang"] == opts.keys[0].to_s}
+          titles << { "lang" => opts.keys[0].to_s, "title" => opts[opts.keys[0]] }
+        end
+      else
+        raise PropertyInvalid, "#{self.class} does not have the property multilingualTitle"
+      end
+    end
+
     private
 
     def on_before_create

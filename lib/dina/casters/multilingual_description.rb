@@ -6,31 +6,16 @@ module Dina
       @descriptions = []
       if opts[:descriptions]
         @descriptions = opts[:descriptions]
-      end
-      if opts[:english]
-        self.english_description = opts[:english]
-      end
-      if opts[:french]
-        self.french_description = opts[:french]
+      else
+        self.set_description(opts)
       end
     end
 
-    def english_description=(desc)
-      descriptions.delete_if{|o| o[:lang] == "en"}
-      descriptions << { lang: "en", desc: desc }
-    end
-
-    def english_description
-      descriptions.select{|o| o[:lang] == "en"}.first[:desc]
-    end
-
-    def french_description=(desc)
-      descriptions.delete_if{|o| o[:lang] == "fr"}
-      descriptions << { lang: "fr", desc: desc }
-    end
-
-    def french_description
-      descriptions.select{|o| o[:lang] == "fr"}.first[:desc]
+    def set_description(opts = {})
+      opts.each do |key, value|
+        descriptions.delete_if{|o| o[:lang] == key.to_s}
+        descriptions << { lang: key.to_s, desc: value }
+      end
     end
 
     def to_hash

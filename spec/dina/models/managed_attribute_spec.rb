@@ -20,9 +20,15 @@ module Dina
       expect(ma.attributes).to eq({"id"=> @id, "type"=>"managed-attribute"})
     end
 
-    it "can have a multilingual description" do
+    it "can have a multilingual description by sending a Hash" do
       ma = ManagedAttribute.new
-      ma.multilingualDescription = { english: "My attribute", french: "Mon propriété" }
+      ma.multilingualDescription = { en: "My attribute", fr: "Mon propriété" }
+      expect(ma.multilingualDescription).to eq("descriptions" => [{ "lang" => "en", "desc" => "My attribute" }, { "lang" => "fr", "desc" => "Mon propriété" }])
+    end
+
+    it "can have a multilingual description by sending an array of Hashes" do
+      ma = ManagedAttribute.new
+      ma.multilingualDescription = { descriptions: [{ lang: "en", desc: "My attribute" }, { lang: "fr", desc: "Mon propriété" }] }
       expect(ma.multilingualDescription).to eq("descriptions" => [{ "lang" => "en", "desc" => "My attribute" }, { "lang" => "fr", "desc" => "Mon propriété" }])
     end
 

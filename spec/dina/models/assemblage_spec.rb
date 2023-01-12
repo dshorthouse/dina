@@ -27,14 +27,34 @@ module Dina
 
     it "can have a multilingual title" do
       assemblage = Assemblage.new
-      assemblage.multilingualTitle = { english: "My assemblage", french: "Mon assemblage" }
-      expect(assemblage.multilingualTitle).to eq("titles" => [{ "lang" => "en", "title" => "My assemblage" }, { "lang" => "fr", "title" => "Mon assemblage" }])
+      assemblage.multilingualTitle = { en: "My assemblage" }
+      expect(assemblage.multilingualTitle).to eq({ "titles" => [{ "lang" => "en", "title" => "My assemblage" }] })
     end
 
     it "can have a multilingual description" do
       assemblage = Assemblage.new
-      assemblage.multilingualDescription = { english: "My assemblage", french: "Mon assemblage" }
-      expect(assemblage.multilingualDescription).to eq("descriptions" => [{ "lang" => "en", "desc" => "My assemblage" }, { "lang" => "fr", "desc" => "Mon assemblage" }])
+      assemblage.multilingualDescription = { en: "My assemblage" }
+      expect(assemblage.multilingualDescription).to eq({ "descriptions" => [{ "lang" => "en", "desc" => "My assemblage" }] })
+    end
+
+    it "can add a multilingual description" do
+      assemblage = Assemblage.new
+      assemblage.set_multilingualDescription({ fr: "Mon assemblage" })
+      expect(assemblage.multilingualDescription).to eq({ "descriptions" => [{ "lang" => "fr", "desc" => "Mon assemblage" }] })
+    end
+
+    it "can add two multilingual descriptions" do
+      assemblage = Assemblage.new
+      assemblage.set_multilingualDescription({ fr: "Mon assemblage" })
+      assemblage.set_multilingualDescription({ en: "My assemblage" })
+      expect(assemblage.multilingualDescription).to eq({ "descriptions" => [{ "lang" => "fr", "desc" => "Mon assemblage" }, { "lang" => "en", "desc" => "My assemblage" }] })
+    end
+
+    it "can add two multilingual titles" do
+      assemblage = Assemblage.new
+      assemblage.set_multilingualTitle({ fr: "Mon assemblage" })
+      assemblage.set_multilingualTitle({ en: "My assemblage" })
+      expect(assemblage.multilingualTitle).to eq({ "titles" => [{ "lang" => "fr", "title" => "Mon assemblage" }, { "lang" => "en", "title" => "My assemblage" }] })
     end
 
     it "should raise an Exception if group is missing" do

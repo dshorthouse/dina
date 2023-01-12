@@ -6,31 +6,16 @@ module Dina
       @titles = []
       if opts[:titles]
         @titles = opts[:titles]
-      end
-      if opts[:english]
-        self.english_title = opts[:english]
-      end
-      if opts[:french]
-        self.french_title = opts[:french]
+      else
+        self.set_title(opts)
       end
     end
 
-    def english_title=(title)
-      titles.delete_if{|o| o[:lang] == "en"}
-      titles << { lang: "en", title: title }
-    end
-
-    def english_title
-      titles.select{|o| o[:lang] == "en"}.first[:title]
-    end
-
-    def french_title=(title)
-      titles.delete_if{|o| o[:lang] == "fr"}
-      titles << { lang: "fr", title: title }
-    end
-
-    def french_title
-      titles.select{|o| o[:lang] == "fr"}.first[:title]
+    def set_title(opts ={})
+      opts.each do |key, value|
+        titles.delete_if{|o| o[:lang] == key.to_s}
+        titles << { lang: key.to_s, title: value }
+      end
     end
 
     def to_hash
