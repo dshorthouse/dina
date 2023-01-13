@@ -20,6 +20,12 @@ module Dina
       expect(project.attachment).to be_nil
     end
 
+    it "can have a multilingual description by sending a Hash" do
+      project = Project.new
+      project.multilingualDescription = { en: "My attribute", fr: "Mon propriété" }
+      expect(project.multilingualDescription).to eq("descriptions" => [{ "lang" => "en", "desc" => "My attribute" }, { "lang" => "fr", "desc" => "Mon propriété" }])
+    end
+
     it "should raise an Exception if group is missing" do
       project = Project.new({ group: nil })
       expect { project.save }.to raise_error(ObjectInvalid)

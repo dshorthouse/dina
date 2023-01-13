@@ -30,6 +30,12 @@ module Dina
       expect(collection.parent_collection).to be_a(Collection)
     end
 
+    it "can have a multilingual description by sending a Hash" do
+      collection = Collection.new
+      collection.multilingualDescription = { en: "My attribute", fr: "Mon propriété" }
+      expect(collection.multilingualDescription).to eq("descriptions" => [{ "lang" => "en", "desc" => "My attribute" }, { "lang" => "fr", "desc" => "Mon propriété" }])
+    end
+
     it "should raise an Exception if group is missing" do
       collection = Collection.new({ group: nil })
       expect { collection.save }.to raise_error(ObjectInvalid)

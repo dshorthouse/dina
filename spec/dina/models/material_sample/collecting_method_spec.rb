@@ -15,6 +15,12 @@ module Dina
       expect(cm.attributes).to eq({"type"=>"collection-method", "id"=>@id})
     end
 
+    it "can have a multilingual description by sending a Hash" do
+      cm = CollectingMethod.new
+      cm.multilingualDescription = { en: "My attribute", fr: "Mon propriété" }
+      expect(cm.multilingualDescription).to eq("descriptions" => [{ "lang" => "en", "desc" => "My attribute" }, { "lang" => "fr", "desc" => "Mon propriété" }])
+    end
+
     it "should raise an Exception if group is missing" do
       cm = CollectingMethod.new({ group: nil })
       expect { cm.save }.to raise_error(ObjectInvalid)

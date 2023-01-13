@@ -15,6 +15,12 @@ module Dina
       expect(pt.id).to be_a_uuid
     end
 
+    it "can have a multilingual description by sending a Hash" do
+      pt = PreparationType.new
+      pt.multilingualDescription = { en: "My attribute", fr: "Mon propriété" }
+      expect(pt.multilingualDescription).to eq("descriptions" => [{ "lang" => "en", "desc" => "My attribute" }, { "lang" => "fr", "desc" => "Mon propriété" }])
+    end
+
     it "should raise an Exception if group is missing" do
       pt = PreparationType.new({ group: nil })
       expect { pt.save }.to raise_error(ObjectInvalid)

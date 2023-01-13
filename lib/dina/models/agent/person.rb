@@ -55,7 +55,7 @@ module Dina
           }
         }
       }
-      hits = Dina::Search.execute(index: "agent", payload: payload)[:hits]
+      hits = Search.execute(index: "agent", payload: payload)[:hits]
       hits.map{|a| self.find(a[:_source][:data][:id]).first }
     end
 

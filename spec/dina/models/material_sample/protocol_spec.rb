@@ -20,6 +20,12 @@ module Dina
       expect(protocol.attachment).to be_nil
     end
 
+    it "can have a multilingual description by sending a Hash" do
+      protocol = Protocol.new
+      protocol.multilingualDescription = { en: "My attribute", fr: "Mon propriété" }
+      expect(protocol.multilingualDescription).to eq("descriptions" => [{ "lang" => "en", "desc" => "My attribute" }, { "lang" => "fr", "desc" => "Mon propriété" }])
+    end
+
     it "should raise an Exception if group is missing" do
       protocol = Protocol.new({ group: nil })
       expect { protocol.save }.to raise_error(ObjectInvalid)

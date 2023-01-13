@@ -20,6 +20,12 @@ module Dina
       expect(os.attributes).to eq({"id"=> @id, "type"=>"managed-attribute"})
     end
 
+    it "can have a multilingual description by sending a Hash" do
+      os = ObjectStoreManagedAttribute.new
+      os.multilingualDescription = { en: "My attribute", fr: "Mon propriété" }
+      expect(os.multilingualDescription).to eq("descriptions" => [{ "lang" => "en", "desc" => "My attribute" }, { "lang" => "fr", "desc" => "Mon propriété" }])
+    end
+
     it "should raise an Exception if managedAttributeType is invalid" do
       os = ObjectStoreManagedAttribute.new({ id: @id, managedAttributeType: "NUMBER" })
       expect { os.save }.to raise_error(PropertyValueInvalid)
