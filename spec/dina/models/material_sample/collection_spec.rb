@@ -38,7 +38,7 @@ module Dina
 
     it "should raise an Exception if group is missing" do
       collection = Collection.new({ group: nil })
-      expect { collection.save }.to raise_error(ObjectInvalid)
+      expect { collection.save }.to raise_error(ObjectInvalid, "Dina::Collection is invalid. group is required")
     end
 
   end

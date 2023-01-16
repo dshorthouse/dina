@@ -17,12 +17,12 @@ module Dina
 
     it "should raise an Exception if namespace is missing" do
       id = Identifier.new({ namespace: nil, value: "Q12345" })
-      expect { id.save }.to raise_error(ObjectInvalid)
+      expect { id.save }.to raise_error(ObjectInvalid, "Dina::Identifier is invalid. namespace is required")
     end
 
     it "should raise an Exception if value is missing" do
       id = Identifier.new({ namespace: "WIKIDATA", value: nil })
-      expect { id.save }.to raise_error(ObjectInvalid)
+      expect { id.save }.to raise_error(ObjectInvalid, "Dina::Identifier is invalid. value is required")
     end
 
   end

@@ -23,7 +23,7 @@ module Dina
 
     it "should raise an Exception if group is missing" do
       cm = CollectingMethod.new({ group: nil })
-      expect { cm.save }.to raise_error(ObjectInvalid)
+      expect { cm.save }.to raise_error(ObjectInvalid, "Dina::CollectingMethod is invalid. group is required")
     end
 
   end

@@ -35,37 +35,37 @@ module Dina
 
     it "should raise an Exception if client_id is missing from config" do
       @config[:client_id] = nil
-      expect { Dina.config = @config }.to raise_error(ConfigItemMissing)
+      expect { Dina.config = @config }.to raise_error(ConfigItemMissing, "Missing client_id from config.")
     end
 
     it "should raise an Exception if realm is missing from config" do
       @config[:realm] = nil
-      expect { Dina.config = @config }.to raise_error(ConfigItemMissing)
+      expect { Dina.config = @config }.to raise_error(ConfigItemMissing, "Missing realm from config.")
     end
 
     it "should raise an Exception if server_name is missing from config" do
       @config[:server_name] = nil
-      expect { Dina.config = @config }.to raise_error(ConfigItemMissing)
+      expect { Dina.config = @config }.to raise_error(ConfigItemMissing, "Missing server_name from config.")
     end
 
     it "should raise an Exception if user is missing from config" do
       @config[:user] = nil
-      expect { Dina.config = @config }.to raise_error(ConfigItemMissing)
+      expect { Dina.config = @config }.to raise_error(ConfigItemMissing, "Missing user from config.")
     end
 
     it "should raise an Exception if password is missing from config" do
       @config[:password] = nil
-      expect { Dina.config = @config }.to raise_error(ConfigItemMissing)
+      expect { Dina.config = @config }.to raise_error(ConfigItemMissing, "Missing password from config.")
     end
 
     it "should raise an Exception if authorization_url is missing from config" do
       @config[:authorization_url] = nil
-      expect { Dina.config = @config }.to raise_error(ConfigItemMissing)
+      expect { Dina.config = @config }.to raise_error(ConfigItemMissing, "Missing authorization_url from config.")
     end
 
     it "should raise an Exception if endpoint_url is missing from config" do
       @config[:endpoint_url] = nil
-      expect { Dina.config = @config }.to raise_error(ConfigItemMissing)
+      expect { Dina.config = @config }.to raise_error(ConfigItemMissing, "Missing endpoint_url from config.")
     end
 
     it "should flush the contents of the token file" do

@@ -38,12 +38,12 @@ module Dina
     end
 
     it "should raise an Exception if name is missing" do
-      ma = ManagedAttribute.new({ group: "DINA", name: nil, managedtAttributeType: "STRING" })
+      ma = ManagedAttribute.new({ group: "DINA", name: nil, vocabularyElementType: "STRING" })
       expect { ma.save }.to raise_error(ObjectInvalid)
     end
 
-    it "should raise an Exception if managedtAttributeType is missing" do
-      ma = ManagedAttribute.new({ group: "DINA", name: "test", managedtAttributeType: nil })
+    it "should raise an Exception if vocabularyElementType is missing" do
+      ma = ManagedAttribute.new({ group: "DINA", name: "test", vocabularyElementType: nil })
       expect { ma.save }.to raise_error(ObjectInvalid)
     end
 
@@ -52,8 +52,8 @@ module Dina
       expect { ma.save }.to raise_error(PropertyValueInvalid)
     end
 
-    it "should raise an Exception if managedAttributeType is invalid" do
-      ma = ManagedAttribute.new({ id: @id, group: "cnc", managedAttributeType: "NUMBER" })
+    it "should raise an Exception if vocabularyElementType is invalid" do
+      ma = ManagedAttribute.new({ id: @id, group: "cnc", vocabularyElementType: "NUMBER" })
       expect { ma.save }.to raise_error(PropertyValueInvalid)
     end
 

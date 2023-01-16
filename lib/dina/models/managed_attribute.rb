@@ -6,7 +6,7 @@ module Dina
     property :group, type: :string
     property :name, type: :string
     property :key, type: :string
-    property :managedAttributeType, type: :string
+    property :vocabularyElementType, type: :string
     property :managedAttributeComponent, type: :string
     property :acceptedValues, type: :array
     property :multilingualDescription, type: :multilingual_description
@@ -15,7 +15,7 @@ module Dina
 
     validates_presence_of :group, message: "group is required"
     validates_presence_of :name, message: "name is required"
-    validates_presence_of :managedAttributeType, message: "managedAttributeType is required"
+    validates_presence_of :vocabularyElementType, message: "vocabularyElementType is required"
 
     attr_accessor :accepted_components, :accepted_types
 
@@ -52,8 +52,8 @@ module Dina
       if !self.managedAttributeComponent.nil? && !self.class.accepted_components.include?(self.managedAttributeComponent)
         raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for managedAttributeComponent is one of #{self.class.accepted_components.join(", ")}"
       end
-      if !self.managedAttributeType.nil? && !self.class.accepted_types.include?(self.managedAttributeType)
-        raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for managedAttributeType is one of #{self.class.accepted_types.join(", ")}"
+      if !self.vocabularyElementType.nil? && !self.class.accepted_types.include?(self.vocabularyElementType)
+        raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for vocabularyElementType is one of #{self.class.accepted_types.join(", ")}"
       end
       super
     end

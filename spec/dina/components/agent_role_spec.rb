@@ -21,7 +21,7 @@ module Dina
     end
 
     it "should raise an Exception if Agent is not a UUID" do
-      expect { @agent_role.add_agent("12345") }.to raise_error(PropertyValueInvalid)
+      expect { @agent_role.add_agent("12345") }.to raise_error(PropertyValueInvalid, "Agent must be a UUID.")
     end
 
   end

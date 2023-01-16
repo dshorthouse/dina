@@ -15,5 +15,15 @@ module Dina
       expect(product.id).to be_a_uuid
     end
 
+    it "should raise an Exception if group is missing" do
+      product = Product.new({ group: nil, name: "name" })
+      expect { product.save }.to raise_error(ObjectInvalid, "Dina::Product is invalid. group is required")
+    end
+
+    it "should raise an Exception if name is missing" do
+      product = Product.new({ group: "ccfc", name: nil })
+      expect { product.save }.to raise_error(ObjectInvalid, "Dina::Product is invalid. name is required")
+    end
+
   end
 end

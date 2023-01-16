@@ -5,7 +5,7 @@ module Dina
     property :id, type: :string, default: SecureRandom.uuid
     property :name, type: :string
     property :key, type: :string
-    property :managedAttributeType, type: :string
+    property :vocabularyElementType, type: :string
     property :acceptedValues, type: :array
     property :multilingualDescription, type: :multilingual_description
     property :createdBy, type: :string
@@ -22,8 +22,8 @@ module Dina
     private
 
     def on_before_save
-      if !self.managedAttributeType.nil? && !ManagedAttribute.accepted_types.include?(self.managedAttributeType)
-        raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for managedAttributeType is one of #{ManagedAttribute.accepted_types.join(", ")}"
+      if !self.vocabularyElementType.nil? && !ManagedAttribute.accepted_types.include?(self.vocabularyElementType)
+        raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for vocabularyElementType is one of #{ManagedAttribute.accepted_types.join(", ")}"
       end
       super
     end

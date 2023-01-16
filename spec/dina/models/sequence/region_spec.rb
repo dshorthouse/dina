@@ -15,5 +15,15 @@ module Dina
       expect(region.id).to be_a_uuid
     end
 
+    it "should raise an Exception if group is missing" do
+      region = Region.new({ group: nil, symbol: "symbol" })
+      expect { region.save }.to raise_error(ObjectInvalid)
+    end
+
+    it "should raise an Exception if symbol is missing" do
+      region = Region.new({ group: "ccfc", symbol: nil })
+      expect { region.save }.to raise_error(ObjectInvalid)
+    end
+
   end
 end

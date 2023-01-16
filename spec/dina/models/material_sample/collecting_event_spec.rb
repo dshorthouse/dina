@@ -45,7 +45,7 @@ module Dina
 
     it "should raise an Exception if group is missing" do
       ce = CollectingEvent.new({ group: nil })
-      expect { ce.save }.to raise_error(ObjectInvalid)
+      expect { ce.save }.to raise_error(ObjectInvalid, "Dina::CollectingEvent is invalid. group is required")
     end
 
   end
