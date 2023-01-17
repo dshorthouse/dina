@@ -24,7 +24,7 @@ module Dina
         "dwcVerbatimSRS"=>"WGS84 (EPSG:4326)",
         "extensionValues"=>[],
         "geoReferenceAssertions"=>[],
-        "geographicPlaceNameSourceDetail"=>[{"sourceID"=>nil, "sourceIdType"=>nil, "sourceURL"=>nil}],
+        "geographicPlaceNameSourceDetail"=>{},
         "managedAttributes"=>[],
         "tags"=>[],
         "type"=>"collecting-event",
