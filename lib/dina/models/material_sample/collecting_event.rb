@@ -36,7 +36,7 @@ module Dina
     property :tags, type: :array, default: []
     property :geographicPlaceNameSource, type: :string
     property :geographicPlaceNameSourceDetail, type: :object, default: {}
-    property :managedAttributes, type: :array, default: []
+    property :managedAttributes, type: :object
     property :geoReferenceAssertions, type: :array, default: []
     property :eventGeom, type: :string
     property :extensionValues, type: :array, default: []
@@ -67,9 +67,6 @@ module Dina
       end
       if self.geographicPlaceNameSource.nil?
         self.geographicPlaceNameSourceDetail = nil
-      end
-      if !self.geoReferenceAssertions.empty? && self.geoReferenceAssertions[0][:dwcDecimalLatitude].nil?
-        self.geoReferenceAssertions = nil
       end
       super
     end
