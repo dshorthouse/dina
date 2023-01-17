@@ -35,7 +35,7 @@ module Dina
     property :notPubliclyReleasableReason, type: :string, default: nil
     property :tags, type: :array, default: []
     property :geographicPlaceNameSource, type: :string
-    property :geographicPlaceNameSourceDetail, type: :array, default: [{ sourceID: nil, sourceIdType: nil, sourceURL: nil }]
+    property :geographicPlaceNameSourceDetail, type: :object
     property :managedAttributes, type: :array, default: []
     property :geoReferenceAssertions, type: :array, default: []
     property :eventGeom, type: :string
