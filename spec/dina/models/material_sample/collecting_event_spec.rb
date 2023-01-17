@@ -25,7 +25,6 @@ module Dina
         "extensionValues"=>[],
         "geoReferenceAssertions"=>[],
         "geographicPlaceNameSourceDetail"=>{},
-        "managedAttributes"=>{},
         "tags"=>[],
         "type"=>"collecting-event",
         "publiclyReleasable" => true
