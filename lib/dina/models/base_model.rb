@@ -3,6 +3,7 @@ module Dina
     include JsonApiClient::Helpers::Callbacks
 
     self.raise_on_blank_find_param = true
+    self.add_defaults_to_changes = true
     self.json_key_format = :camelized_key
     self.paginator = JsonApiClient::Paginating::NestedParamPaginator
 
@@ -54,11 +55,15 @@ module Dina
     end
 
     def on_before_create
-      self.attributes.delete_if { |k, v| v.nil? || v == "" }
+      self.attributes.delete_if { |k, v| v.nil? || v == "" || ((v.is_a?(Array) || v.is_a?(Hash)) && v.empty?) }
       self.attributes = self.attributes.deep_symbolize_keys
     end
 
     def on_before_save
+      unknown_attributes = self.attributes.symbolize_keys.keys - self.class.properties.keys - [:type]
+      if unknown_attributes.size > 0
+        raise ObjectInvalid, "#{self.class} is invalid. #{unknown_attributes.join(", ")} are not accepted properties."
+      end
       if !self.valid?
         raise ObjectInvalid, "#{self.class} is invalid. #{self.errors.map(&:message).join("; ")}"
       end

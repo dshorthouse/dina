@@ -59,6 +59,13 @@ module Dina
       expect { person.set_multilingualDescription({ en: "Mr. Magoo" }) }.to raise_error(NoMethodError)
     end
 
+    it "should raise an Exception if an attempt is made to save with unknown properties" do
+      person = Person.new
+      person.address = "I live here"
+      person.country = "Canada"
+      expect { person.save }.to raise_error(ObjectInvalid, "Dina::Person is invalid. address, country are not accepted properties.")
+    end
+
     it "should throw a 404 error" do
       config = {
         token_store_file: mock_token_path,
