@@ -19,8 +19,8 @@ module Dina
     property :dwcVerbatimElevation, type: :string
     property :dwcVerbatimDepth, type: :string
     property :dwcFieldNumber, type: :string
-    property :dwcOtherRecordNumbers, type: :array, default: []
     property :dwcRecordNumber, type: :string
+    property :otherRecordNumbers, type: :array, default: []
     property :dwcCountry, type: :string
     property :dwcCountryCode, type: :string
     property :dwcStateProvince, type: :string

@@ -19,7 +19,7 @@ module Dina
       ce = CollectingEvent.new({ id: @id })
       default = {
         "id"=>@id,
-        "dwcOtherRecordNumbers"=>[],
+        "otherRecordNumbers"=>[],
         "dwcVerbatimCoordinateSystem"=>"decimal degrees",
         "dwcVerbatimSRS"=>"WGS84 (EPSG:4326)",
         "extensionValues"=>[],
