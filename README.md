@@ -114,6 +114,19 @@ person.destroy
 => true
 ```
 
+### Add a collection method to a collecting event
+
+```ruby
+# Find a collection method or create one as you would a person or identifier above
+collection_method = Dina::CollectionMethod.find("bf42616e-846c-4dbd-8372-bef44cdfa3e9").first
+
+collecting_event = Dina::CollectingEvent.new
+collecting_event.group = "CNC"
+collecting_event.collection_method = collection_method
+collecting_event.save
+=> true
+```
+
 #### Upload an Image `File` and its `ObjectStore` Metadata
 
 ```ruby
