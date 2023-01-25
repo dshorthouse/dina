@@ -114,7 +114,7 @@ person.destroy
 => true
 ```
 
-### Add a collection method to a collecting event
+#### Add an instance of a `collection method` to that of a `collecting event`
 
 ```ruby
 # Find a collection method or create one as you would a person or identifier above
