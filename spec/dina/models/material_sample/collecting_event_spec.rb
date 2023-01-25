@@ -42,6 +42,11 @@ module Dina
       expect(ce.attachment.size).to eq(1)
     end
 
+    it "can have one collection method" do
+      ce = CollectingEvent.new({ group: "CNC", collection_method: CollectionMethod.new })
+      expect(ce.collection_method).to be_a(CollectionMethod)
+    end
+
     it "should raise an Exception if group is missing" do
       ce = CollectingEvent.new({ group: nil })
       expect { ce.save }.to raise_error(ObjectInvalid, "Dina::CollectingEvent is invalid. group is required")

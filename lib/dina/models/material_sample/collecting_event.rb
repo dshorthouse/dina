@@ -46,6 +46,8 @@ module Dina
     has_many :collectors, class_name: "Person"
     has_many :attachment, class_name: "Attachment"
 
+    has_one :collection_method, class_name: "CollectionMethod"
+
     validates_presence_of :group, message: "group is required"
 
     before_save :on_before_save
