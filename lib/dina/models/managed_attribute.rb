@@ -39,6 +39,7 @@ module Dina
     def self.accepted_types
       [
         "INTEGER",
+        "DECIMAL",
         "STRING",
         "PICKLIST",
         "DATE",
