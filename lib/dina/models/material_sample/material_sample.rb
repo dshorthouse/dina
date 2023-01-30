@@ -3,6 +3,7 @@ require_rel '../base_model'
 module Dina
   class MaterialSample < BaseModel
     property :id, type: :string, default: SecureRandom.uuid
+    property :version, type: :integer
     property :dwcCatalogNumber, type: :string
     property :materialSampleName, type: :string
     property :materialSampleType, type: :string
@@ -23,7 +24,8 @@ module Dina
     property :stateChangedOn, type: :time
     property :stateChangeRemarks, type: :string
     property :materialSampleRemarks, type: :string
-    property :restrictionFieldsExtension, type: :array
+    property :extensionValues, type: :object
+    property :restrictionFieldsExtension, type: :object
     property :restrictionRemarks, type: :string
     property :isRestricted, type: :boolean
     property :materialSampleChildren, type: :array
