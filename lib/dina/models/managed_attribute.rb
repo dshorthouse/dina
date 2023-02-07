@@ -16,6 +16,7 @@ module Dina
     validates_presence_of :group, message: "group is required"
     validates_presence_of :name, message: "name is required"
     validates_presence_of :vocabularyElementType, message: "vocabularyElementType is required"
+    validates_presence_of :managedAttributeComponent, message: "managedAttributeComponent is required"
 
     attr_accessor :accepted_components, :accepted_types
 
