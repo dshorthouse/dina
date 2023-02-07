@@ -38,17 +38,22 @@ module Dina
     end
 
     it "should raise an Exception if name is missing" do
-      ma = ManagedAttribute.new({ group: "DINA", name: nil, vocabularyElementType: "STRING" })
-      expect { ma.save }.to raise_error(ObjectInvalid)
+      ma = ManagedAttribute.new({ group: "DINA", name: nil, vocabularyElementType: "STRING", managedAttributeComponent: "ASSEMBLAGE" })
+      expect { ma.save }.to raise_error(ObjectInvalid, "Dina::ManagedAttribute is invalid. name is required")
     end
 
     it "should raise an Exception if vocabularyElementType is missing" do
-      ma = ManagedAttribute.new({ group: "DINA", name: "test", vocabularyElementType: nil })
-      expect { ma.save }.to raise_error(ObjectInvalid)
+      ma = ManagedAttribute.new({ group: "DINA", name: "test", vocabularyElementType: nil, managedAttributeComponent: "ASSEMBLAGE" })
+      expect { ma.save }.to raise_error(ObjectInvalid, "Dina::ManagedAttribute is invalid. vocabularyElementType is required")
+    end
+
+    it "should raise an Exception if managedAttributeComponent is missing" do
+      ma = ManagedAttribute.new({ id: @id, group: "cnc", name: "test", vocabularyElementType: "STRING", })
+      expect { ma.save }.to raise_error(ObjectInvalid, "Dina::ManagedAttribute is invalid. managedAttributeComponent is required")
     end
 
     it "should raise an Exception if managedAttributeComponent is invalid" do
-      ma = ManagedAttribute.new({ id: @id, group: "cnc", managedAttributeComponent: "BIBLIO" })
+      ma = ManagedAttribute.new({ id: @id, group: "cnc", name: "test", vocabularyElementType: "STRING", managedAttributeComponent: "BIBLIO" })
       expect { ma.save }.to raise_error(PropertyValueInvalid)
     end
 
