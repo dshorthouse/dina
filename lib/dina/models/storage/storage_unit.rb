@@ -5,6 +5,7 @@ module Dina
     property :id, type: :string, default: SecureRandom.uuid
     property :group, type: :string
     property :name, type: :string
+    property :barcode, type: :string
     property :storageUnitChildren, type: :array
     property :hierarchy, type: :string
     property :createdBy, type: :string

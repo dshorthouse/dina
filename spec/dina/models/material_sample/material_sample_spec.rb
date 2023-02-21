@@ -113,7 +113,7 @@ module Dina
 
     it "should raise an Exception if materialSampleType is invalid" do
       material_sample = MaterialSample.new({ id: @id, group: "DINA", materialSampleName: "CNC123", materialSampleType: "NUMBER" })
-      expect { material_sample.save }.to raise_error(PropertyValueInvalid, "Dina::MaterialSample is invalid. Accepted value for materialSampleType is one of WHOLE_ORGANISM, ORGANISM_PART, MIXED_ORGANISMS, MOLECULAR_SAMPLE")
+      expect { material_sample.save }.to raise_error(PropertyValueInvalid, "Dina::MaterialSample is invalid. Accepted value for materialSampleType is one of WHOLE_ORGANISM, CULTURE_STRAIN, ORGANISM_PART, MIXED_ORGANISMS, MOLECULAR_SAMPLE")
     end
 
   end

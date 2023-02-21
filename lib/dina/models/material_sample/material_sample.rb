@@ -69,6 +69,7 @@ module Dina
     def self.accepted_types
       [
         "WHOLE_ORGANISM",
+        "CULTURE_STRAIN",
         "ORGANISM_PART",
         "MIXED_ORGANISMS",
         "MOLECULAR_SAMPLE"
