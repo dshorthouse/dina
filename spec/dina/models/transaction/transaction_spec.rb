@@ -45,5 +45,10 @@ module Dina
       expect { trans.save }.to raise_error(PropertyValueInvalid)
     end
 
+    it "should raise an Exception if openedDate is malformed" do
+      trans = Transaction.new({ id: @id, group: "cnc", materialDirection: "IN" })
+      expect { trans.openedDate = "today" }.to raise_error(PropertyValueInvalid)
+    end
+
   end
 end

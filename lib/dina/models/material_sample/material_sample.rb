@@ -17,11 +17,11 @@ module Dina
     property :preparationFixative, type: :string
     property :preparationMaterials, type: :string
     property :preparationSubstrate, type: :string
-    property :preparationDate, type: :time
+    property :preparationDate, type: :date
     property :preparationRemarks, type: :string
     property :dwcDegreeOfEstablishment, type: :string
     property :materialSampleState, type: :string
-    property :stateChangedOn, type: :time
+    property :stateChangedOn, type: :date
     property :stateChangeRemarks, type: :string
     property :materialSampleRemarks, type: :string
     property :extensionValues, type: :object

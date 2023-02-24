@@ -4,9 +4,9 @@ module Dina
   class AcquisitionEvent < BaseModel
     property :id, type: :string, default: SecureRandom.uuid
     property :group, type: :string
-    property :receivedDate, type: :string
+    property :receivedDate, type: :date
     property :receptionRemarks, type: :string
-    property :isolatedOn, type: :string
+    property :isolatedOn, type: :date
     property :isolationRemarks, type: :string
     property :createdBy, type: :string
     property :createdOn, type: :time

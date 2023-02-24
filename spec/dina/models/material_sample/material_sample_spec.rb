@@ -96,6 +96,23 @@ module Dina
       expect(material_sample.prepared_by.size).to eq(2)
     end
 
+    it "can have a preparationDate in the form of a date string" do
+      material_sample = MaterialSample.new({ group: "DINA", materialSampleName: "DINA", materialSampleType: "WHOLE_ORGANISM"})
+      material_sample.preparationDate = "2022-01-01"
+      expect(material_sample).to be_a(MaterialSample)
+    end
+
+    it "can have a preparationDate in the form of a date object" do
+      material_sample = MaterialSample.new({ group: "DINA", materialSampleName: "DINA", materialSampleType: "WHOLE_ORGANISM"})
+      material_sample.preparationDate = Date.parse("2022-01-01")
+      expect(material_sample).to be_a(MaterialSample)
+    end
+
+    it "should raise an Exception if preparationDate is a malformed string" do
+      material_sample = MaterialSample.new({ group: "DINA", materialSampleName: "DINA", materialSampleType: "WHOLE_ORGANISM"})
+      expect { material_sample.preparationDate = "2022" }.to raise_error(PropertyValueInvalid)
+    end
+
     it "should raise an Exception if group is missing" do
       material_sample = MaterialSample.new({ group: nil, materialSampleName: "My sample", materialSampleType: "WHOLE_ORGANISM" })
       expect { material_sample.save }.to raise_error(ObjectInvalid, "Dina::MaterialSample is invalid. group is required")

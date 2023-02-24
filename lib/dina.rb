@@ -1,6 +1,7 @@
 require "keycloak"
 require "json_api_client"
 require "time"
+require "date"
 require "securerandom"
 require "require_all"
 require_all File.join(File.dirname(__FILE__), 'dina')
@@ -11,6 +12,7 @@ module Dina
   JsonApiClient::Paginating::NestedParamPaginator.per_page_param = "limit"
   JsonApiClient::Schema.register array: ArrayCaster
   JsonApiClient::Schema.register object: ObjectCaster
+  JsonApiClient::Schema.register date: DateCaster
   JsonApiClient::Schema.register multilingual_title: MultilingualTitleCaster
   JsonApiClient::Schema.register multilingual_description: MultilingualDescriptionCaster
 

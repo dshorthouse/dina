@@ -6,8 +6,8 @@ module Dina
     property :group, type: :string
     property :name, type: :string
     property :multilingualDescription, type: :multilingual_description
-    property :startDate, type: :string
-    property :endDate, type: :string
+    property :startDate, type: :date
+    property :endDate, type: :date
     property :status, type: :string
     property :createdBy, type: :string
     property :createdOn, type: :time

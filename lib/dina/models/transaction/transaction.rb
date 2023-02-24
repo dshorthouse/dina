@@ -11,9 +11,9 @@ module Dina
     property :otherIdentifiers, type: :array, default: []
     property :status, type: :string
     property :purpose, type: :string
-    property :openedDate, type: :time
-    property :closedDate, type: :time
-    property :dueDate, type: :time
+    property :openedDate, type: :date
+    property :closedDate, type: :date
+    property :dueDate, type: :date
     property :remarks, type: :string
     property :managedAttributes, type: :object
     property :agentRoles, type: :array # Each of type Dina::AgentRole
