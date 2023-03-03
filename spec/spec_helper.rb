@@ -10,6 +10,10 @@ def mock_token_path
   File.expand_path("../resources/token.json", __FILE__)
 end
 
+def mock_empty_token_path
+  File.expand_path("../resources/empty_token.json", __FILE__)
+end
+
 def mock_token
   JSON.parse(::File.read(mock_token_path), symbolize_names: true)
 end

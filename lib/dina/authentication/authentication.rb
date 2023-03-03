@@ -53,7 +53,7 @@ module Dina
       Keycloak.auth_server_url = config.authorization_url
       Keycloak.realm = config.realm
 
-      if ::File.zero?(config.token_store_file)
+      if ::File.zero?(config.token_store_file) || !token.key?(config.server_name.to_sym)
         write_token(data: empty_token)
       end
     end

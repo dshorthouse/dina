@@ -66,10 +66,10 @@ module Dina
       expect { person.save }.to raise_error(ObjectInvalid, "Dina::Person is invalid. address, country are not accepted properties.")
     end
 
-    it "should throw a 404 error" do
+    it "should throw a Socket error" do
       config = {
-        token_store_file: mock_token_path,
-        authorization_url: "http://localhost:9999/auth",
+        token_store_file: mock_empty_token_path,
+        authorization_url: "http://locahost:9999/auth",
         endpoint_url: "http://localhost:9999/api",
         client_id: "objectstore",
         realm: "readme",
@@ -79,7 +79,8 @@ module Dina
       }
       Dina.config = config
       person = Person.new({ familyNames: "Pipetter" })
-      expect { person.save }.to raise_error(JsonApiClient::Errors::ConnectionError)
+      expect { person.save }.to raise_error(SocketError)
+      ::File.write(mock_empty_token_path, "")
     end
 
   end

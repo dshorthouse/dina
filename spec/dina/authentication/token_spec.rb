@@ -29,11 +29,5 @@ module Dina
       expect(Dina.header).to eq(token)
     end
 
-    it "should raise an Exception if the server_name is not found in the token file" do
-      @config[:server_name] = "missing"
-      Dina.config = @config
-      expect { Dina.header }.to raise_error(TokenStoreContentInvalid)
-    end
-
   end
 end
