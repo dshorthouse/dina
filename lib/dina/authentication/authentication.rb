@@ -58,11 +58,7 @@ module Dina
       end
     end
 
-    # Gets, sets, and renews a Bearer access token as required
-    # and produces a Header string
-    #
-    # WARNING: this is not likely to be threadsafe unless we do away with @token
-    # and load the token_store_file with every call to header
+    # Gets, sets, and renews a Bearer access token as required and produces a Header string
     #
     # @return [String] the Bearer token
     def header

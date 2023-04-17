@@ -5,7 +5,9 @@ module Dina
     property :id, type: :string, default: SecureRandom.uuid
     property :group, type: :string
     property :name, type: :string
+    property :protocolType, type: :string
     property :multilingualDescription, type: :multilingual_description
+    property :protocolData, type: :array
     property :createdBy, type: :string
     property :createdOn, type: :time
 

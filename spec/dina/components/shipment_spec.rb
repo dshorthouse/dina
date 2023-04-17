@@ -11,7 +11,7 @@ module Dina
     end
 
     it "should create an object of type Shipment with default options" do
-      address = {
+      address = Address.new({
         receiverName: "Peter Pipetter",
         companyName: "N/A",
         addressLine1: nil,
@@ -20,12 +20,12 @@ module Dina
         provinceState: "Ontario",
         zipCode: nil,
         country: "Canada"
-      }
+      })
       @shipment.add_address(address)
-      expect(@shipment.address).to eq(address)
+      expect(@shipment.address).to eq(address.to_hash)
     end
 
-    it "should raise an Exception if address is not a Hash" do
+    it "should raise an Exception if address is not an Address" do
       expect { @shipment.add_address("12345") }.to raise_error(PropertyValueInvalid)
     end
 

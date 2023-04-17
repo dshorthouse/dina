@@ -1,13 +1,9 @@
 module Dina
-  class Address
-    attr_accessor :receiverName
-    attr_accessor :companyName
-    attr_accessor :addressLine1
-    attr_accessor :addressLine2
-    attr_accessor :city
-    attr_accessor :provinceState
-    attr_accessor :zipCode
-    attr_accessor :country
+  class ProtocolDataElement
+    attr_accessor :elementType #string
+    attr_accessor :value #string
+    attr_accessor :vocabularyBased #boolean
+    attr_accessor :unit #string
 
     def initialize(params = {})
       params.each do |key, value|

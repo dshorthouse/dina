@@ -16,10 +16,10 @@ module Dina
     end
 
     def add_address(address)
-      if !address.instance_of?(Hash)
-        raise PropertyValueInvalid, "Address must be a Hash."
+      if !address.instance_of?(Address)
+        raise PropertyValueInvalid, "Address must be of type Address."
       end
-      @address.merge!(address)
+      @address.merge!(address.to_hash)
     end
 
     def to_hash
