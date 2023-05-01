@@ -3,7 +3,6 @@ require_rel '../base_model'
 module Dina
   class Derivative < BaseModel
     property :id, type: :string, default: SecureRandom.uuid
-    property :group, type: :string
     property :bucket, type: :string
     property :fileIdentifier, type: :string
     property :fileExtension, type: :string
@@ -13,10 +12,13 @@ module Dina
     property :acHashValue, type: :string
     property :derivativeType, type: :string
 
-    belongs_to :ac_derived_from, shallow_path: true, class_name: "ObjectStore"
+    has_one :ac_derived_from, class_name: "ObjectStore"
 
-    validates_presence_of :group, message: "group is required"
     validates_presence_of :bucket, message: "bucket is required"
+    validates_presence_of :dcFormat, message: "dcFormat is required"
+    validates_presence_of :dcType, message: "dcType is required"
+    validates_presence_of :fileIdentifier, message: "fileIdentifier is required"
+    validates_presence_of :fileExtension, message: "fileExtension is required"
 
     def self.endpoint_path
       "objectstore-api/"
@@ -29,9 +31,6 @@ module Dina
     private
 
     def on_before_save
-      if self.group && self.bucket.nil?
-        self.bucket = self.group.downcase
-      end
       super
     end
 
