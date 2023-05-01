@@ -12,7 +12,7 @@ module Dina
     property :acHashValue, type: :string
     property :derivativeType, type: :string
 
-    has_one :ac_derived_from, class_name: "ObjectStore"
+    belongs_to :ac_derived_from, shallow_path: true, class_name: "ObjectStore"
 
     validates_presence_of :bucket, message: "bucket is required"
     validates_presence_of :dcFormat, message: "dcFormat is required"

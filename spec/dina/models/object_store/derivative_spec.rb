@@ -16,7 +16,7 @@ module Dina
     end
 
     it "can have one acDerivedFrom" do
-      deriv = Derivative.new({ ac_derived_from: ObjectStore.new })
+      deriv = Derivative.new({ ac_derived_from:  ObjectStore.new })
       expect(deriv.ac_derived_from).to be_a(ObjectStore)
     end
 
