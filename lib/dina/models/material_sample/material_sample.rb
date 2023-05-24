@@ -12,6 +12,7 @@ module Dina
     property :barcode, type: :string
     property :group, type: :string
     property :managedAttributes, type: :object
+    property :preparationManagedAttributes, type: :object
     property :dwcOtherCatalogNumbers, type: :array
     property :preservationType, type: :string
     property :preparationFixative, type: :string

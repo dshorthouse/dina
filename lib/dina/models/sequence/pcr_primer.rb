@@ -30,9 +30,12 @@ module Dina
     property :createdBy, type: :string
     property :createdOn, type: :time
 
+    has_one :region
+
     validates_presence_of :group, message: "group is required"
     validates_presence_of :name, message: "name is required"
     validates_presence_of :type, message: "type is required"
+    validates_presence_of :seq, message: "seq is required"
     validates_presence_of :lotNumber, message: "lotNumber is required"
 
     def self.endpoint_path
