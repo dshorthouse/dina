@@ -1,4 +1,3 @@
-
 module Dina
   describe 'MultilingualTitle' do
 

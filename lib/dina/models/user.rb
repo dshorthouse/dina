@@ -8,7 +8,7 @@ module Dina
     property :lastName, type: :string
     property :agentId, type: :string
     property :emailAddress, type: :string
-    property :rolesPerGroup, type: :object
+    property :rolesPerGroup, type: :hash
     property :createdBy, type: :string
     property :createdOn, type: :time
 

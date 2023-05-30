@@ -11,7 +11,7 @@ module Dina
   JsonApiClient::Paginating::NestedParamPaginator.page_param = "offset"
   JsonApiClient::Paginating::NestedParamPaginator.per_page_param = "limit"
   JsonApiClient::Schema.register array: ArrayCaster
-  JsonApiClient::Schema.register object: ObjectCaster
+  JsonApiClient::Schema.register hash: HashCaster
   JsonApiClient::Schema.register date: DateCaster
   JsonApiClient::Schema.register multilingual_title: MultilingualTitleCaster
   JsonApiClient::Schema.register multilingual_description: MultilingualDescriptionCaster

@@ -11,8 +11,8 @@ module Dina
     property :createdOn, type: :time
     property :barcode, type: :string
     property :group, type: :string
-    property :managedAttributes, type: :object
-    property :preparationManagedAttributes, type: :object
+    property :managedAttributes, type: :hash
+    property :preparationManagedAttributes, type: :hash
     property :dwcOtherCatalogNumbers, type: :array
     property :preservationType, type: :string
     property :preparationFixative, type: :string
@@ -25,8 +25,8 @@ module Dina
     property :stateChangedOn, type: :date
     property :stateChangeRemarks, type: :string
     property :materialSampleRemarks, type: :string
-    property :extensionValues, type: :object
-    property :restrictionFieldsExtension, type: :object
+    property :extensionValues, type: :hash
+    property :restrictionFieldsExtension, type: :hash
     property :restrictionRemarks, type: :string
     property :isRestricted, type: :boolean
     property :materialSampleChildren, type: :array
@@ -34,9 +34,9 @@ module Dina
     property :tags, type: :array, default: []
     property :publiclyReleasable, type: :boolean, default: true
     property :notPubliclyReleasableReason, type: :string
-    property :hostOrganism, type: :object, default: { name: nil, remarks: nil }
-    property :scheduledActions, type: :object
-    property :hierarchy, type: :object
+    property :hostOrganism, type: :hash, default: { name: nil, remarks: nil }
+    property :scheduledActions, type: :hash
+    property :hierarchy, type: :hash
     property :allowDuplicateName, type: :boolean
 
     has_one :collection, class_name: "Collection"

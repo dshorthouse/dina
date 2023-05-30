@@ -7,7 +7,7 @@ module Dina
     property :name, type: :string
     property :multilingualTitle, type: :multilingual_title
     property :multilingualDescription, type: :multilingual_description
-    property :managedAttributes, type: :object
+    property :managedAttributes, type: :hash
     property :createdBy, type: :string
     property :createdOn, type: :time
 

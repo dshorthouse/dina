@@ -15,9 +15,9 @@ module Dina
     property :closedDate, type: :date
     property :dueDate, type: :date
     property :remarks, type: :string
-    property :managedAttributes, type: :object
+    property :managedAttributes, type: :hash
     property :agentRoles, type: :array # Each of type Dina::AgentRole
-    property :shipment, type: :object # Of type Dina::Shipment
+    property :shipment, type: :hash # Of type Dina::Shipment
     property :createdBy, type: :string
     property :createdOn, type: :time
 

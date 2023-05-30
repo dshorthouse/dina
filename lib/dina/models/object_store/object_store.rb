@@ -24,7 +24,7 @@ module Dina
     property :xmpRightsOwner, type: :string, default: "Government of Canada"
     property :publiclyReleasable, type: :boolean, default: true
     property :notPubliclyReleasableReason, type: :string
-    property :managedAttributes, type: :object
+    property :managedAttributes, type: :hash
     property :acTags, type: :string
     property :orientation, type: :integer
     property :resourceExternalURL, type: :string
