@@ -26,7 +26,6 @@ $ gem install dina
 All variables are **required** and most can be obtained from a DINA system administrator.
 - `authorization_url`, `realm`, `client_id`, `user`, and `password`: used in the Keycloak authentication handshake
 - `endpoint_url`: the single DINA gateway to JSON:API models
-- `server_name`: a key used to reference authentication token responses (in the event you connect to multiple DINA servers or have multiple credentials)
 - `token_store_file`: your local file that caches authentication token responses, prefixed by the server_name key.
 
 ```ruby
@@ -38,7 +37,6 @@ settings = {
    client_id: "dina",
    user: "username",
    password: "password",
-   server_name: "server",
    token_store_file: "config/token.json"
  }
 Dina.config = settings

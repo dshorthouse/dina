@@ -9,7 +9,6 @@ module Dina
         endpoint_url: "http://localhost/api",
         client_id: "objectstore",
         realm: "readme",
-        server_name: "dina",
         user: "cnc-su",
         password: "cnc-su"
       }
@@ -25,7 +24,7 @@ module Dina
 
     it "should populate an empty token file with nil values for keys" do
       token = JSON.parse(::File.read(@token_store_file), symbolize_names: true)
-      expect(token).to eq({ dina: { access_token: nil, auth_expiry: nil, refresh_token: nil }})
+      expect(token).to eq({ access_token: nil, auth_expiry: nil, refresh_token: nil, expires_in: nil })
     end
 
     it "should raise an Exception if the token file is not found" do
@@ -41,11 +40,6 @@ module Dina
     it "should raise an Exception if realm is missing from config" do
       @config[:realm] = nil
       expect { Dina.config = @config }.to raise_error(ConfigItemMissing, "Missing realm from config.")
-    end
-
-    it "should raise an Exception if server_name is missing from config" do
-      @config[:server_name] = nil
-      expect { Dina.config = @config }.to raise_error(ConfigItemMissing, "Missing server_name from config.")
     end
 
     it "should raise an Exception if user is missing from config" do
@@ -71,7 +65,7 @@ module Dina
     it "should flush the contents of the token file" do
       Dina.flush
       token = JSON.parse(::File.read(@token_store_file), symbolize_names: true)
-      expect(token).to eq({ dina: { access_token: nil, auth_expiry: nil, refresh_token: nil }})
+      expect(token).to eq({ access_token: nil, auth_expiry: nil, refresh_token: nil, expires_in: nil })
     end
 
   end

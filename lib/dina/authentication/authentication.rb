@@ -25,7 +25,6 @@ module Dina
     #    token_store_file: "file to store the token",
     #    user: "username provided by DINA admin in Keycloak",
     #    password: "password provided by DINA admin in Keycloak",
-    #    server_name: "used locally to reference the token",
     #    client_id: "provided by DINA admin in Keycloak",
     #    endpoint_url: "DINA API URL without terminating slash",
     #    authorization_url: "Keycloak authorization URL without terminating slash".
@@ -37,7 +36,6 @@ module Dina
       raise ConfigItemMissing, "Missing token_store_file from config." unless opts[:token_store_file]
       raise ConfigItemMissing, "Missing user from config." unless opts[:user]
       raise ConfigItemMissing, "Missing password from config." unless opts[:password]
-      raise ConfigItemMissing, "Missing server_name from config." unless opts[:server_name]
       raise ConfigItemMissing, "Missing client_id from config." unless opts[:client_id]
       raise ConfigItemMissing, "Missing endpoint_url from config." unless opts[:endpoint_url]
       raise ConfigItemMissing, "Missing authorization_url from config." unless opts[:authorization_url]
@@ -53,17 +51,17 @@ module Dina
       Keycloak.auth_server_url = config.authorization_url
       Keycloak.realm = config.realm
 
-      if ::File.zero?(config.token_store_file) || !token.key?(config.server_name.to_sym)
-        write_token(data: empty_token)
+      if ::File.zero?(config.token_store_file)
+        save_token(hash: empty_token)
       end
     end
 
-    # Gets, sets, and renews a Bearer access token as required and produces a Header string
+    # Gets, sets, and renews a Bearer access token as required and produces a Bearer string
     #
     # @return [String] the Bearer token
     def header
       if access_token.nil? || refresh_token.nil?
-        set_token
+        get_token
       end
 
       if Time.now >= Time.parse(auth_expiry)
@@ -75,7 +73,7 @@ module Dina
 
     # Save default values in token store file
     def flush
-      write_token(data: empty_token)
+      save_token(hash: empty_token)
     end
 
     def flush_config
@@ -91,7 +89,6 @@ module Dina
         token_store_file: nil,
         user: nil,
         password: nil,
-        server_name: nil,
         client_id: nil,
         endpoint_url: nil,
         realm: nil,
@@ -101,7 +98,7 @@ module Dina
 
     def access_token
       begin
-        token[config.server_name.to_sym][:access_token]
+        token[:access_token]
       rescue
         raise TokenStoreContentInvalid
       end
@@ -109,7 +106,7 @@ module Dina
 
     def refresh_token
       begin
-        token[config.server_name.to_sym][:refresh_token]
+        token[:refresh_token]
       rescue
         raise TokenStoreContentInvalid
       end
@@ -117,7 +114,7 @@ module Dina
 
     def auth_expiry
       begin
-        token[config.server_name.to_sym][:auth_expiry]
+        token[:auth_expiry]
       rescue
         raise TokenStoreContentInvalid
       end
@@ -129,13 +126,8 @@ module Dina
         config.password,
         client_id= config.client_id,
         secret='')
-      JSON.parse(response, symbolize_names: true)
-    end
-
-    def set_token
-      json = get_token
-      auth_expiry = (Time.now + json[:expires_in].seconds).to_s
-      save_token(access_token: json[:access_token], refresh_token: json[:refresh_token], auth_expiry: auth_expiry)
+      json = JSON.parse(response, symbolize_names: true)
+      save_token(hash: json)
     end
 
     def renew_token
@@ -145,10 +137,9 @@ module Dina
           client_id= config.client_id,
           secret='')
         json = JSON.parse(response, symbolize_names: true)
-        auth_expiry = (Time.now + json[:expires_in].seconds).to_s
-        save_token(access_token: json[:access_token], refresh_token: json[:refresh_token], auth_expiry: auth_expiry)
+        save_token(hash: json)
       rescue
-        set_token
+        get_token
       end
     end
 
@@ -157,28 +148,19 @@ module Dina
     end
 
     def empty_token
-      data = {}
-      data[config.server_name.to_sym] = {
+      {
         access_token: nil,
         refresh_token: nil,
+        expires_in: nil,
         auth_expiry: nil
       }
-      data
     end
 
-    def save_token(access_token:, refresh_token:, auth_expiry:)
-      data = JSON.parse(::File.read(config.token_store_file), symbolize_names: true) rescue {}
-      data[config.server_name.to_sym] = {
-        access_token: access_token,
-        refresh_token: refresh_token,
-        auth_expiry: auth_expiry
-      }
-      write_token(data: data)
-    end
-
-    def write_token(data:)
-      ::File.write(config.token_store_file, JSON.dump(data))
-      @token = data
+    def save_token(hash:)
+      auth_expiry = (Time.now + hash[:expires_in].seconds).to_s rescue nil
+      hash.merge!({ auth_expiry: auth_expiry })
+      ::File.write(config.token_store_file, JSON.dump(hash))
+      @token = hash
     end
 
   end

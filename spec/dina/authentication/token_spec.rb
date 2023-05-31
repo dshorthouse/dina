@@ -8,7 +8,6 @@ module Dina
         endpoint_url: "http://localhost/api",
         client_id: "objectstore",
         realm: "readme",
-        server_name: "dina",
         user: "user",
         password: "password"
       }
@@ -25,7 +24,7 @@ module Dina
     end
 
     it "should produce a header whose Access token is included" do
-      token = "Bearer " + mock_token[@config[:server_name].to_sym][:access_token]
+      token = "Bearer " + mock_token[:access_token]
       expect(Dina.header).to eq(token)
     end
 

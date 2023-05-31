@@ -73,7 +73,6 @@ module Dina
         endpoint_url: "http://localhost:9999/api",
         client_id: "objectstore",
         realm: "readme",
-        server_name: "dina",
         user: "user",
         password: "password"
       }
