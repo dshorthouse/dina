@@ -45,7 +45,6 @@ module Dina
     has_one :preparation_method, class_name: "PreparationMethod"
     has_one :parent_material_sample, class_name: "MaterialSample"
     has_one :preparation_protocol, class_name: "Protocol"
-    has_one :acquisition_event, class_name: "AcquisitionEvent"
     has_one :storage_unit, class_name: "StorageUnit"
     has_many :prepared_by, class_name: "Person"
     has_many :attachment, class_name: "Attachment"

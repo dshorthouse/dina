@@ -56,11 +56,6 @@ module Dina
       expect(material_sample.preparation_protocol).to be_a(Protocol)
     end
 
-    it "can have one acquisition event" do
-      material_sample = MaterialSample.new({ acquisition_event: AcquisitionEvent.new })
-      expect(material_sample.acquisition_event).to be_a(AcquisitionEvent)
-    end
-
     it "can have one storage unit" do
       material_sample = MaterialSample.new({ storage_unit: StorageUnit.new })
       expect(material_sample.storage_unit).to be_a(StorageUnit)
