@@ -32,7 +32,7 @@ module Dina
       @group = attributes[:group] || nil
       @is_derivative = attributes[:is_derivative] || false
       @file_path = attributes[:file_path] || nil
-      @filename = attributes[:filename] || File.basename(@file_path)
+      @filename = attributes[:filename] || File.basename(@file_path) rescue nil
     end
 
     def endpoint
