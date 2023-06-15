@@ -1,6 +1,6 @@
 module Dina
   class File < BaseModel
-    attr_accessor :id, :file_path, :group, :is_derivative
+    attr_accessor :id, :file_path, :filename, :group, :is_derivative
 
     def self.verify_ssl
       begin
@@ -32,6 +32,7 @@ module Dina
       @group = attributes[:group] || nil
       @is_derivative = attributes[:is_derivative] || false
       @file_path = attributes[:file_path] || nil
+      @filename = attributes[:filename] || File.basename(@file_path)
     end
 
     def endpoint
@@ -62,7 +63,8 @@ module Dina
         url: (!is_derivative) ? url : url + "/derivative",
         payload: {
           multipart: true,
-          file: file
+          file: file,
+          filename: filename
         },
         verify_ssl: self.class.verify_ssl
       )
