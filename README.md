@@ -131,6 +131,7 @@ collecting_event.save
 file = Dina::File.new
 file.group = "DAOM"
 file.file_path = "/my-directory/my-file.jpg"
+file.filename = "what-i-want-it-called.jpg" # the Original Filename in the DINA UI
 file.save
 => true
 
@@ -166,7 +167,7 @@ Dina::MaterialSample.associations
 
 ### Connection Errors
 
-In the event there are SSL certificate verification issues:
+In the event there are SSL certificate verification issues, you can skip verification:
 
 ```ruby
 Dina::BaseModel.connection_options[:ssl] = { verify: false }
@@ -187,7 +188,7 @@ Bug reports can be filed at [https://github.com/dshorthouse/dina/issues][3].
 ### Copyright
 Copyright © 2023 Government of Canada
 
-Authors: [David P. Shorthouse][4]
+Authors: [David P. Shorthouse][4], [Julia Douglas Freitas][11]
 
 ### License
 
@@ -203,3 +204,4 @@ Authors: [David P. Shorthouse][4]
 [8]: https://badgen.net/rubygems/v/dina/latest?cache=300
 [9]: https://rubygems.org/gems/dina
 [10]: https://github.com/imagov/keycloak
+[11]: https://github.com/juliadouglasf
