@@ -52,7 +52,11 @@ module Dina
     end
 
     def file
-      ::File.new(file_path)
+      new_file = ::File.new(file_path)
+      new_file.define_singleton_method(:original_filename) do
+        filename
+      end
+      new_file
     end
 
     def save
@@ -63,8 +67,7 @@ module Dina
         url: (!is_derivative) ? url : url + "/derivative",
         payload: {
           multipart: true,
-          file: file,
-          filename: filename
+          file: file
         },
         verify_ssl: self.class.verify_ssl
       )
