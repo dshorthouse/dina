@@ -48,5 +48,16 @@ module Dina
       expect { File.create(file) }.to raise_error(ObjectInvalid)
     end
 
+    it "should have a file_path and return the file_path" do
+      file = File.new file_path: mock_empty_token_path
+      expect(file.file_path).to eq(mock_empty_token_path)
+    end
+
+    it "should have an original_filename method and return the filename" do
+      filename = "My file.txt"
+      file = File.new file_path: mock_empty_token_path, filename: filename
+      expect(file.file.original_filename).to eq(filename)
+    end
+
   end
 end

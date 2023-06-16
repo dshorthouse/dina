@@ -53,8 +53,9 @@ module Dina
 
     def file
       new_file = ::File.new(file_path)
+      bound = filename.dup
       new_file.define_singleton_method(:original_filename) do
-        filename
+        bound
       end
       new_file
     end
