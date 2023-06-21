@@ -12,7 +12,7 @@ module Dina
     property :fileIdentifier, type: :string
     property :bucket, type: :string
     property :acCaption, type: :string
-    property :acDigitizationDate, type: :time
+    property :acDigitizationDate, type: :string
     property :xmpMetadataDate, type: :time
     property :originalFilename, type: :string
     property :fileExtension, type: :string
