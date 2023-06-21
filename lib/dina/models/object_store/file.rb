@@ -74,6 +74,7 @@ module Dina
       )
       json = JSON.parse(response, symbolize_names: true)
       self.id = json[:uuid]
+      json.each{ |k,v| define_singleton_method(k.to_sym) { v } }
       json
     end
 
