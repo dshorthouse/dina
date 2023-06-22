@@ -132,7 +132,7 @@ file = Dina::File.new
 file.group = "DAOM"
 file.file_path = "/my-directory/my-file.jpg"
 file.filename = "what-i-want-it-called.jpg" # the Original Filename in the DINA UI
-file.save
+file.save # also injects attributes from the server response like dateTimeDigitized below
 => true
 
 metadata = Dina::ObjectStore.new
@@ -141,6 +141,10 @@ metadata.dcType = "IMAGE"
 metadata.dcFormat = "image/jpeg"
 metadata.fileExtension = ".jpg"
 metadata.fileIdentifier = file.id
+date_time = Time.find_zone("America/New_York")
+                .parse(file.dateTimeDigitized)
+                .rfc3339.to_s
+metadata.acDigitizationDate = date_time
 metadata.save
 => true
 ```
