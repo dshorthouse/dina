@@ -52,5 +52,25 @@ module Dina
       expect { ce.save }.to raise_error(ObjectInvalid, "Dina::CollectingEvent is invalid. group is required")
     end
 
+    it "should raise an Exception if dwcMinimumDepthInMeters is out of range" do
+      ce = CollectingEvent.new({ group: "CNC", dwcMinimumDepthInMeters: 15001 })
+      expect { ce.save }.to raise_error(PropertyValueInvalid, "Dina::CollectingEvent is invalid. Accepted value for dwcMinimumDepthInMeters must have no more than two decimal points and be less than or equal to 15000.")
+    end
+
+    it "should raise an Exception if dwcMaximumDepthInMeters is too precise" do
+      ce = CollectingEvent.new({ group: "CNC", dwcMaximumDepthInMeters: 120.123 })
+      expect { ce.save }.to raise_error(PropertyValueInvalid, "Dina::CollectingEvent is invalid. Accepted value for dwcMaximumDepthInMeters must have no more than two decimal points and be less than or equal to 15000.")
+    end
+
+    it "should raise an Exception if dwcMinimumElevationInMeters is out of range" do
+      ce = CollectingEvent.new({ group: "CNC", dwcMinimumElevationInMeters: -120 })
+      expect { ce.save }.to raise_error(PropertyValueInvalid, "Dina::CollectingEvent is invalid. Accepted value for dwcMinimumElevationInMeters must have no more than two decimal points and be less than or equal to 15000.")
+    end
+
+    it "should raise an Exception if dwcMaximumElevationInMeters is too precise" do
+      ce = CollectingEvent.new({ group: "CNC", dwcMaximumElevationInMeters: 120.002 })
+      expect { ce.save }.to raise_error(PropertyValueInvalid, "Dina::CollectingEvent is invalid. Accepted value for dwcMaximumElevationInMeters must have no more than two decimal points and be less than or equal to 15000.")
+    end
+
   end
 end

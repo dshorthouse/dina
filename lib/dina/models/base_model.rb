@@ -21,7 +21,7 @@ module Dina
       Dina.config.endpoint_url + "/" + endpoint_path
     end
 
-    # injects keybloak bearer token with all json_api_client calls
+    # injects keycloak bearer token with all json_api_client calls
     def self.custom_headers
       { content_type: "application/vnd.api+json", authorization: Dina.header }
     end
