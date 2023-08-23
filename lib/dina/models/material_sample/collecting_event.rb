@@ -71,16 +71,16 @@ module Dina
         self.geographicPlaceNameSourceDetail = nil
       end
       if self.dwcMinimumDepthInMeters && !Validator.valid_depth_elevation(value: self.dwcMinimumDepthInMeters)
-        raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for dwcMinimumDepthInMeters must have no more than two decimal points and be less than or equal to 15000."
+        raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for dwcMinimumDepthInMeters must have no more than two decimal points and be >= 0 and <= 15000."
       end
       if self.dwcMaximumDepthInMeters && !Validator.valid_depth_elevation(value: self.dwcMaximumDepthInMeters)
-        raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for dwcMaximumDepthInMeters must have no more than two decimal points and be less than or equal to 15000."
+        raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for dwcMaximumDepthInMeters must have no more than two decimal points and be >= 0 and <= 15000."
       end
       if self.dwcMinimumElevationInMeters && !Validator.valid_depth_elevation(value: self.dwcMinimumElevationInMeters)
-        raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for dwcMinimumElevationInMeters must have no more than two decimal points and be less than or equal to 15000."
+        raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for dwcMinimumElevationInMeters must have no more than two decimal points and be >= 0 and <= 15000."
       end
       if self.dwcMaximumElevationInMeters && !Validator.valid_depth_elevation(value: self.dwcMaximumElevationInMeters)
-        raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for dwcMaximumElevationInMeters must have no more than two decimal points and be less than or equal to 15000."
+        raise PropertyValueInvalid, "#{self.class} is invalid. Accepted value for dwcMaximumElevationInMeters must have no more than two decimal points and be >= 0 and <= 15000."
       end
       super
     end
