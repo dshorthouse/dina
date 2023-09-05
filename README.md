@@ -177,6 +177,23 @@ In the event there are SSL certificate verification issues, you can skip verific
 Dina::BaseModel.connection_options[:ssl] = { verify: false }
 ```
 
+Upload of items & their derivatives to a DINA Object Store via the `Dina::File` class makes use of the `RestClient`, which unfortunately has its own mechanism to verify SSL. In order to bypass SSL verification as can be done for other classes through the one-liner above, you have to additionally include the following that injects an initialize method prior to the execution of scripts that depend on `Dina::File`:
+
+```ruby
+module RestClient
+  class Request
+    orig_initialize = instance_method(:initialize)
+
+    define_method(:initialize) do |args|
+      args[:verify_ssl] = false
+      orig_initialize.bind(self).(args)
+    end
+  end
+end
+```
+
+In both bases, the ***best*** approach is to incorporate SSL certificates in one's operating system or environment if the host uses self-signed certificates that cannot be verified.
+
 ### Advanced
 
 Flush the token from memory and save an empty token file
