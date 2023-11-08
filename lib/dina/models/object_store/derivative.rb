@@ -11,6 +11,7 @@ module Dina
     property :acHashFunction, type: :string, default: "SHA-1"
     property :acHashValue, type: :string
     property :derivativeType, type: :string
+    property :publiclyReleasable, type: :boolean, default: true
 
     has_one :ac_derived_from, class_name: "ObjectStore"
 
