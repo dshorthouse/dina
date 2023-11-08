@@ -18,7 +18,8 @@ module Dina
     # Required by json_api_client
     def self.site
       raise ConfigItemMissing, "Missing endpoint_url from config. Perhaps Dina.config has not yet been called." unless Dina.config.endpoint_url
-      Dina.config.endpoint_url + "/" + endpoint_path
+      raise PropertyInvalid, "Missing endpoint_path in class." unless !endpoint_path.nil?
+      Dina.config.endpoint_url + "/" + endpoint_path.to_s
     end
 
     # injects keycloak bearer token with all json_api_client calls
