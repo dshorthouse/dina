@@ -3,6 +3,7 @@ require "json_api_client"
 require "time"
 require "date"
 require "securerandom"
+require 'faraday/multipart'
 require "require_all"
 require_all File.join(File.dirname(__FILE__), 'dina')
 

@@ -130,8 +130,9 @@ collecting_event.save
 ```ruby
 file = Dina::File.new
 file.group = "DAOM"
-file.file_path = "/my-directory/my-file.jpg"
-file.filename = "what-i-want-it-called.jpg" # the Original Filename in the DINA UI
+file.filePath = "/my-directory/my-file.jpg"
+file.fileName = "what-i-want-it-called.jpg" # the Original Filename in the DINA UI
+file.dcFormat = "image/jpeg"
 file.save # also injects attributes from the server response like dateTimeDigitized below
 => true
 
@@ -177,22 +178,7 @@ In the event there are SSL certificate verification issues, you can skip verific
 Dina::BaseModel.connection_options[:ssl] = { verify: false }
 ```
 
-Upload of items & their derivatives to a DINA Object Store via the `Dina::File` class makes use of the `RestClient`, which unfortunately has its own mechanism to verify SSL. In order to bypass SSL verification as can be done for other classes through the one-liner above, you have to additionally include the following that injects an initialize method prior to the execution of scripts that depend on `Dina::File`:
-
-```ruby
-module RestClient
-  class Request
-    orig_initialize = instance_method(:initialize)
-
-    define_method(:initialize) do |args|
-      args[:verify_ssl] = false
-      orig_initialize.bind(self).(args)
-    end
-  end
-end
-```
-
-In both bases, the ***best*** approach is to incorporate SSL certificates in one's operating system or environment if the host uses self-signed certificates that cannot be verified.
+The ***best*** approach is to incorporate SSL certificates in one's operating system or environment if the host uses self-signed certificates that cannot be verified.
 
 ### Advanced
 

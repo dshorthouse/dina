@@ -1,95 +1,84 @@
 module Dina
-  class File < BaseModel
-    attr_accessor :id, :file_path, :filename, :group, :is_derivative
 
-    def self.verify_ssl
-      begin
-        connection_options[:ssl][:verify]
-      rescue
-        true
+  class FileConnection
+    def initialize(options = {})
+      site = options.fetch(:site)
+      connection_options = options.slice(:proxy, :ssl, :request, :headers, :params)
+      adapter_options = Array(options.fetch(:adapter, Faraday.default_adapter))
+
+      @faraday = Faraday.new(site, connection_options) do |builder|
+        builder.request :multipart
+        builder.use ::JsonApiClient::Middleware::ParseJson
+        builder.adapter(*adapter_options)
       end
+      yield(self) if block_given?
     end
 
-    def self.find(group:, id:)
-      obj = self.new
-      obj.group = group
-      RestClient::Request.execute(
-        method: :get,
-        headers: { authorization: Dina.header },
-        url: obj.url + "/#{id}",
-        verify_ssl: verify_ssl
+    def run(request_method, path, params: nil, headers: {}, body: nil)
+      path = path + "/#{body[:data]["attributes"]["group"].downcase}"
+      if body[:data]["attributes"].key?("is_derivative")
+        path = path + "/derivative"
+      end
+      file_path = body[:data]["attributes"]["filePath"]
+      mime_type = body[:data]["attributes"]["dcFormat"]
+      file_name = body[:data]["attributes"]["fileName"]
+      
+      body[:file] = Faraday::Multipart::FilePart.new(
+        file_path,
+        mime_type,
+        file_name
       )
-    end
 
-    def self.create(attributes = {})
-      new(attributes).tap do |resource|
-        resource.save
+      response = @faraday.run_request(request_method, path, body, headers) do |request|
+        request.params.update(params) if params
       end
+      attributes = response.body.dup
+      response.body["meta"] = {}
+      response.body["errors"] = []
+      response.body["data"] = { 
+        "id" => attributes["uuid"],
+        "type" => "file",
+        "relationships" => {},
+        "attributes" => attributes
+      }
+      response
     end
+  end
 
-    def initialize(attributes = {})
-      @id = attributes[:id] || SecureRandom.uuid
-      @group = attributes[:group] || nil
-      @is_derivative = attributes[:is_derivative] || false
-      @file_path = attributes[:file_path] || nil
-      @filename = attributes[:filename] || File.basename(@file_path) rescue nil
-    end
+  class File < BaseModel
+    property :id, type: :string, default: SecureRandom.uuid
+    property :group, type: :string
+    property :filePath, type: :string
+    property :fileName, type: :string
+    property :dcFormat, type: :string
+    property :is_derivative, type: :boolean
 
-    def endpoint
-      Dina.config.endpoint_url
-    end
+    self.connection_class = FileConnection
 
-    def endpoint_path
+    validates_presence_of :group, message: "group is required"
+    validates_presence_of :filePath, message: "filePath is required"
+    validates_presence_of :fileName, message: "fileName is required"
+    validates_presence_of :dcFormat, message: "dcFormat is required"
+
+    def self.endpoint_path
       "objectstore-api/"
     end
 
-    def table_name
-      "file/#{group.downcase}"
+    def self.table_name
+      "file"
     end
 
-    def url
-      endpoint + "/" + endpoint_path + table_name
-    end
-
-    def file
-      new_file = ::File.new(file_path)
-      bound = filename.dup
-      new_file.define_singleton_method(:original_filename) do
-        bound
-      end
-      new_file
-    end
-
-    def save
-      validate_params
-      response = RestClient::Request.execute(
-        method: :post,
-        headers: { authorization: Dina.header },
-        url: (!is_derivative) ? url : url + "/derivative",
-        payload: {
-          multipart: true,
-          file: file
-        },
-        verify_ssl: self.class.verify_ssl
-      )
-      json = JSON.parse(response, symbolize_names: true)
-      self.id = json[:uuid]
-      json.each{ |k,v| define_singleton_method(k.to_sym) { v } }
-      json
+    def self.custom_headers
+      { content_type: "multipart/form-data", authorization: Dina.header }
     end
 
     private
 
-    def validate_params
-      if id.nil? || !id.is_uuid?
-        raise ObjectInvalid, "#{self.class} is invalid. id is not a UUID."
+    def on_before_save
+      if !self.filePath.nil? && !::File.exist?(self.filePath)
+        raise PropertyValueInvalid, "#{self.class} is invalid. File not found in filePath."
       end
-      if group.nil?
-        raise ObjectInvalid, "#{self.class} is invalid. group is required."
-      end
-      if file_path.nil? || !::File.exist?(file_path)
-        raise ObjectInvalid, "#{self.class} is invalid. file not found in file_path."
-      end
+      super
     end
 
   end
