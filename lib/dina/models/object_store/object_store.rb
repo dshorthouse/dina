@@ -25,7 +25,7 @@ module Dina
     property :publiclyReleasable, type: :boolean, default: true
     property :notPubliclyReleasableReason, type: :string
     property :managedAttributes, type: :hash
-    property :acTags, type: :string
+    property :acTags, type: :array
     property :orientation, type: :integer
     property :resourceExternalURL, type: :string
 
