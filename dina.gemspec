@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.name        = 'dina'
   s.version     = Dina::Version.version
   s.license     = 'MIT'
-  s.date        = '2023-11-28'
+  s.date        = '2023-12-04'
   s.summary     = "DINA ruby gem"
   s.description = "Authenicate against DINA's Keycloak and access its models"
   s.authors     = ["David P. Shorthouse", "Julia Douglas Freitas"]
@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "keycloak", "~> 3.2.1"
   s.add_runtime_dependency "securerandom", "~> 0.2.0"
   s.add_runtime_dependency "require_all", "~> 3.0.0"
-  s.add_runtime_dependency "rest-client", "~> 2.1.0"
   s.add_runtime_dependency "faraday-multipart", "~> 1.0.4"
   s.add_development_dependency "rake", "~> 13"
   s.add_development_dependency "rspec", "~> 3.10"

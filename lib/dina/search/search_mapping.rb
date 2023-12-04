@@ -1,22 +1,21 @@
-require_rel 'base_search'
+require_rel '../models/base_model'
+require_rel 'search_connection'
+
+#TODO: requires testing, likely failing
 
 module Dina
-  class SearchMapping < BaseSearch
+  class SearchMapping < BaseModel
+
+    self.connection_class = SearchConnection
+
+    custom_endpoint :execute, on: :collection, request_method: :get
 
     def self.endpoint_path
-      "search-api/search-ws/mapping"
+      "search-api/search-ws/"
     end
 
-    # Return the search mapping document
-    #
-    # @param index [String] the index, accepted value is one of "agent", "material_sample", "object_store"
-    #
-    # @return [Hash] the mapping document as a hash with symbolized keys
-    def self.execute(index:)
-      params = {
-        indexName: index_name(index: index)
-      }
-      super(params.compact)
+    def self.table_name
+      "mapping"
     end
 
   end

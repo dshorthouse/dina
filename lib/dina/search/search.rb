@@ -1,24 +1,19 @@
-require_rel 'base_search'
+require_rel '../models/base_model'
+require_rel 'search_connection'
 
 module Dina
-  class Search < BaseSearch
+  class Search < BaseModel
+
+    self.connection_class = SearchConnection
+
+    custom_endpoint :execute, on: :collection, request_method: :post
 
     def self.endpoint_path
-      "search-api/search-ws/search"
+      "search-api/search-ws/"
     end
 
-    # Executes a search
-    #
-    # @param index [String] the index, accepted value is one of "agent", "material_sample", "object_store"
-    # @param payload [Hash] the payload hash as an Elasticsearch-formatted body
-    # => { query: { match_all: {} }
-    #
-    # @return [Hash] the search result with symbolized keys
-    def self.execute(index:, payload: { query: { match_all: {} } })
-      params = {
-        indexName: index_name(index: index)
-      }
-      super(params.compact, method: :post, payload: payload)[:hits]
+    def self.table_name
+      "search"
     end
 
   end

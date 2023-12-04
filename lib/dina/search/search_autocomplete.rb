@@ -1,33 +1,21 @@
-require_rel 'base_search'
+require_rel '../models/base_model'
+require_rel 'search_connection'
+
+#TODO: requires testing, likely failing
 
 module Dina
-  class SearchAutocomplete < BaseSearch
+  class SearchAutocomplete < BaseModel
+
+    self.connection_class = SearchConnection
+
+    custom_endpoint :execute, on: :collection, request_method: :post
 
     def self.endpoint_path
-      "search-api/search-ws/auto-complete"
+      "search-api/search-ws/"
     end
 
-    # Executes an autocomplete search
-    #
-    # Known field values (dependent on chosen index):
-    #   agent: data.attributes.displayName
-    #   material_sample: included.attributes.dwcRecordedBy, included.attributes.verbatimDeterminer
-    #   object_store: none
-    #
-    # @param term [String] the search term
-    # @param index [String] the index, accepted value is one of "agent", "material_sample", "object_store"
-    # @param field [String]
-    # @param group [String] the DINA group name
-    #
-    # @return [Hash] the search result with symbolized keys
-    def self.execute(term:, index:, field: nil, group: nil)
-      params = {
-        prefix: term,
-        indexName: index_name(index: index),
-        autoCompleteField: field,
-        group: group
-      }
-      super(params.compact)[:hits]
+    def self.table_name
+      "auto-complete"
     end
 
   end

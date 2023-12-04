@@ -1,24 +1,21 @@
-require_rel 'base_search'
+require_rel '../models/base_model'
+require_rel 'search_connection'
+
+#TODO: requires testing, likely failing
 
 module Dina
-  class SearchCount < BaseSearch
+  class SearchCount < BaseModel
+
+    self.connection_class = SearchConnection
+
+    custom_endpoint :execute, on: :collection, request_method: :post
 
     def self.endpoint_path
-      "search-api/search-ws/count"
+      "search-api/search-ws/"
     end
 
-    # Executes an count search
-    #
-    # @param index [String] the index, accepted value is one of "agent", "material_sample", "object_store"
-    # @param payload [Hash] the Elasticsearch query hash
-    # => Example: {query: {bool: {filter: {term: {"data.attributes.group": "dao"}}}}}
-    #
-    # @return [Integer] the count of items in the index according to the query/filter
-    def self.execute(index:, payload: { query: { match_all: {} }})
-      params = {
-        indexName: index_name(index: index)
-      }
-      super(params.compact, method: :post, payload: payload)[:count]
+    def self.table_name
+      "count"
     end
 
   end
