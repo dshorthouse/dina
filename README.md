@@ -150,6 +150,24 @@ metadata.save
 => true
 ```
 
+#### Find an Image Using a Managed Attribute
+
+```ruby
+payload = {
+  query: {
+    bool: {
+      must: [
+        { term: { "data.attributes.managedAttributes.original_directory_name.keyword":"dc1.2021-08-19_15-42-15_e49ba1" } },
+        { term: { "data.attributes.group":"dao" } }
+      ]
+    }
+  },
+  size: 1
+}
+hits = Dina::Search.execute(index: "object_store", payload: payload)
+=> [#<Dina::Search:@attributes={"type"=>"metadata", "id"=>"f5aeec1e-63f5-4c67-8ca6-e48b4415e299", "created_by"=>"s-dao", ... ]
+```
+
 ### Schema
 
 To list available JSON:API Classes:
