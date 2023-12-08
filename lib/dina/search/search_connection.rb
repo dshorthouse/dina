@@ -34,11 +34,12 @@ module Dina
     end
 
     def run(request_method, path, params: nil, headers: {}, body: nil)
-      #TODO: works for search class, but likely failing for autocomplete, count, and mapping
-      params = {
-        indexName: index_name(index: body[:index])
-      }
       path.slice!("/execute")
+      if params && params.has_key?(:index)
+        params.merge!(indexName: index_name(index: params[:index]))
+      elsif body && body.has_key?(:index)
+        params = { indexName: index_name(index: body[:index]) }
+      end
       payload = JSON.generate(body[:payload]) rescue ""
 
       response = faraday.run_request(request_method, path, body, headers) do |request|
@@ -48,7 +49,16 @@ module Dina
       end
 
       attributes = response.body.dup
-      response.body["meta"] = {}
+      meta = {}
+      if attributes.has_key?("hits")
+        #TODO: does not work with SearchAutoComplete because response is different from Search
+        meta["count"] = attributes["hits"]["total"]["value"] rescue 0
+      elsif attributes.has_key?("count")
+        meta["count"] = attributes["count"]
+      elsif attributes.has_key?("attributes")
+        meta = attributes
+      end
+      response.body["meta"] = meta
       response.body["errors"] = []
       response.body["data"] = attributes["hits"]["hits"].map{|d| d["_source"]["data"]} rescue []
       response

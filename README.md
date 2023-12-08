@@ -150,7 +150,7 @@ metadata.save
 => true
 ```
 
-#### Find an Image Using a Managed Attribute
+#### Search
 
 ```ruby
 payload = {
@@ -166,6 +166,33 @@ payload = {
 }
 hits = Dina::Search.execute(index: "object_store", payload: payload)
 => [#<Dina::Search:@attributes={"type"=>"metadata", "id"=>"f5aeec1e-63f5-4c67-8ca6-e48b4415e299", "created_by"=>"s-dao", ... ]
+```
+
+#### Search Counts
+
+```ruby
+payload = {
+  query: {
+    bool: {
+      must: [
+        { term: { "data.attributes.group":"dao" } }
+      ]
+    }
+  }
+}
+hits = Dina::SearchCount.execute(index: "object_store", payload: payload)
+hits.meta.count
+=> 415425
+```
+
+#### Search Autocomplete
+
+_WORK IN PROGRESS_
+
+Autocomplete against the `dina_agent_index` search index on the `displayName` property using supplied text, "Peter":
+
+```ruby
+autocomplete = Dina::SearchAutoComplete.execute(index: "agent", autoCompleteField: "data.attributes.displayName", prefix: "Peter")
 ```
 
 ### Schema

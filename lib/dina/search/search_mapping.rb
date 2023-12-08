@@ -1,8 +1,6 @@
 require_rel '../models/base_model'
 require_rel 'search_connection'
 
-#TODO: requires testing, likely failing
-
 module Dina
   class SearchMapping < BaseModel
 
