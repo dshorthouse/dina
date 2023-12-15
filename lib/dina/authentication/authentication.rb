@@ -52,7 +52,7 @@ module Dina
       Keycloak.auth_server_url = config.authorization_url
       Keycloak.realm = config.realm
 
-      if opts[:verify_ssl] && opts[:verify_ssl] == false
+      if opts.key?(:verify_ssl) && opts[:verify_ssl] == false
         Dina::BaseModel.connection_options[:ssl] = { verify: false }
       end
 
