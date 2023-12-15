@@ -3,7 +3,7 @@ module Dina
 
     MAJOR = 1
     MINOR = 3
-    PATCH = 3
+    PATCH = 4
     BUILD = 0
 
     def self.version

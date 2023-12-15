@@ -7,8 +7,8 @@ module RestClient
     define_method(:initialize) do |args|
       if Dina.config.verify_ssl == false
         args[:verify_ssl] = false
-        orig_initialize.bind(self).(args)
       end
+      orig_initialize.bind(self).(args)
     end
   end
 end
