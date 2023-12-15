@@ -10,7 +10,8 @@ module Dina
         client_id: "objectstore",
         realm: "readme",
         user: "cnc-su",
-        password: "cnc-su"
+        password: "cnc-su",
+        verify_ssl: false
       }
       Dina.config = @config
     end

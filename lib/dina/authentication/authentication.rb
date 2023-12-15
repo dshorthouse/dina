@@ -29,6 +29,7 @@ module Dina
     #    endpoint_url: "DINA API URL without terminating slash",
     #    authorization_url: "Keycloak authorization URL without terminating slash".
     #    realm: "provided by DINA admin in Keycloak"
+    #    verify_ssl: true
     # }
     #
     # @param options [Hash] the configuration options
@@ -50,6 +51,10 @@ module Dina
       @opts.merge!(opts)
       Keycloak.auth_server_url = config.authorization_url
       Keycloak.realm = config.realm
+
+      if opts[:verify_ssl] && opts[:verify_ssl] == false
+        Dina::BaseModel.connection_options[:ssl] = { verify: false }
+      end
 
       if ::File.zero?(config.token_store_file)
         save_token(hash: empty_token)

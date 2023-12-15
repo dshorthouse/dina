@@ -217,10 +217,10 @@ Dina::MaterialSample.associations
 
 ### Connection Errors
 
-In the event there are SSL certificate verification issues, you can skip verification:
+In the event there are SSL certificate verification issues, you can skip verification by adding the following to `Dina.config`:
 
 ```ruby
-Dina::BaseModel.connection_options[:ssl] = { verify: false }
+verify_ssl: false
 ```
 
 The ***best*** approach is to incorporate SSL certificates in one's operating system or environment if the host uses self-signed certificates that cannot be verified.
