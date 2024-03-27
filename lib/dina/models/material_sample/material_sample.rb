@@ -2,7 +2,7 @@ require_rel '../base_model'
 
 module Dina
   class MaterialSample < BaseModel
-    property :id, type: :string, default: SecureRandom.uuid
+    property :id, type: :string, default: SecureRandom.uuid_v7
     property :version, type: :integer
     property :dwcCatalogNumber, type: :string
     property :materialSampleName, type: :string

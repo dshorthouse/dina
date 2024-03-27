@@ -2,7 +2,7 @@ require_rel '../base_model'
 
 module Dina
   class ObjectSubtype < BaseModel
-    property :id, type: :string, default: SecureRandom.uuid
+    property :id, type: :string, default: SecureRandom.uuid_v7
     property :createdBy, type: :string
     property :createdOn, type: :time
     property :dcType, type: :string

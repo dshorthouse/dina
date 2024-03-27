@@ -15,7 +15,7 @@ module Dina
     end
 
     it "should add an agent" do
-      id = SecureRandom.uuid
+      id = SecureRandom.uuid_v7
       @agent_role.add_agent(id)
       expect(@agent_role.agent).to eq([ id ])
     end

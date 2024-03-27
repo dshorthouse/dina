@@ -2,7 +2,7 @@ module Dina
   describe 'Identifier' do
 
     before(:each) do
-      @id = SecureRandom.uuid
+      @id = SecureRandom.uuid_v7
     end
 
     it "should create an object of type Identifier" do

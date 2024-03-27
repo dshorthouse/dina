@@ -2,7 +2,7 @@ require_rel '../base_model'
 
 module Dina
   class Person < BaseModel
-    property :id, type: :string, default: SecureRandom.uuid
+    property :id, type: :string, default: SecureRandom.uuid_v7
     property :displayName, type: :string, default: nil
     property :givenNames, type: :string
     property :familyNames, type: :string

@@ -39,7 +39,7 @@ module Dina
 
     def initialize(params = {})
       symbolized_params = params.transform_keys(&:to_sym)
-      params["id"] = SecureRandom.uuid if !symbolized_params[:id]
+      params["id"] = SecureRandom.uuid_v7 if !symbolized_params[:id]
       super
       extend_model_methods
     end

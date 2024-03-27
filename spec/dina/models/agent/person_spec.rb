@@ -2,7 +2,7 @@ module Dina
   describe 'Person' do
 
     before(:each) do
-      @id = SecureRandom.uuid
+      @id = SecureRandom.uuid_v7
     end
 
     after(:each) do

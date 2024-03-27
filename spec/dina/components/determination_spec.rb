@@ -40,7 +40,7 @@ module Dina
     end
 
     it "should use a UUID for a determiner" do
-      id = SecureRandom.uuid
+      id = SecureRandom.uuid_v7
       @det.add_determiner(id)
       expect(@det.to_hash).to eq({ determiner: [id], scientificNameDetails: {} })
     end

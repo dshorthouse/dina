@@ -2,7 +2,7 @@ require_rel '../base_model'
 
 module Dina
   class Derivative < BaseModel
-    property :id, type: :string, default: SecureRandom.uuid
+    property :id, type: :string, default: SecureRandom.uuid_v7
     property :bucket, type: :string
     property :fileIdentifier, type: :string
     property :fileExtension, type: :string

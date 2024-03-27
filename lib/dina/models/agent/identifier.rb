@@ -2,7 +2,7 @@ require_rel '../base_model'
 
 module Dina
   class Identifier < BaseModel
-    property :id, type: :string, default: SecureRandom.uuid
+    property :id, type: :string, default: SecureRandom.uuid_v7
     property :namespace, type: :string
     property :value, type: :string
     property :createdBy, type: :string

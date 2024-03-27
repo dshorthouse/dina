@@ -2,7 +2,7 @@ require_rel '../base_model'
 
 module Dina
   class Organism < BaseModel
-    property :id, type: :string, default: SecureRandom.uuid
+    property :id, type: :string, default: SecureRandom.uuid_v7
     property :group, type: :string
     property :lifeStage, type: :string
     property :sex, type: :string

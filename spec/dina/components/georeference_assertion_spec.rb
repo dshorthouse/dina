@@ -11,7 +11,7 @@ module Dina
     end
 
     it "should create an object of type GeoreferenceAssertion with default options" do
-      id = SecureRandom.uuid
+      id = SecureRandom.uuid_v7
       @assertion.add_georeferencedBy(id)
       expect(@assertion.georeferencedBy).to eq([ id ])
     end

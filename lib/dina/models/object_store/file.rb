@@ -4,7 +4,7 @@ require_rel 'file_connection'
 module Dina
 
   class File < BaseModel
-    property :id, type: :string, default: SecureRandom.uuid
+    property :id, type: :string, default: SecureRandom.uuid_v7
     property :group, type: :string
     property :filePath, type: :string
     property :fileName, type: :string
