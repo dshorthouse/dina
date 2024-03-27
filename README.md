@@ -14,7 +14,7 @@ The DINA APIs for each of its components are under rapid development and so too 
 ### Requirements & Dependencies
 
 - ruby >= 3.3
-- bundled dependencies: [json_api_client][5] (\~> 1.20), [keycloak][10] (\~> 3.2.1),
+- bundled dependencies: [json_api_client][5] (\~> 1.22), [keycloak][10] (\~> 3.2.1),
 
 ### Install
 
@@ -64,7 +64,7 @@ data = {
 person = Dina::Person.create(data)
 ```
 
-A new instance like `person` above sets and uses a default UUIDv4, which can be accessed as `person.id`.
+A new instance like `person` above sets and uses a default UUIDv7, which can be accessed as `person.id`.
 
 #### Add an Identifier to a `person` Instance
 
@@ -89,7 +89,7 @@ person = Dina::Person.find_by_email("email@email.com").first
 person.attributes
 =>
 {"type"=>"person",                                                  
-"id"=>"bf42616e-846c-4dbd-8372-bef44cdfa3e8",                      
+"id"=>"017fe537-bb13-7c35-b52a-cb5490cce7be",                      
 "displayName"=>"Pipetter, Peter",                                  
 "email"=>"email@email.com",                                        
 "createdBy"=>"username",                                             
@@ -107,7 +107,7 @@ Unlike typical ActiveRecord methods, *find* or *find_by_\** methods return an ar
 #### Delete a `Person`
 
 ```ruby
-person = Dina::Person.find("bf42616e-846c-4dbd-8372-bef44cdfa3e8").first
+person = Dina::Person.find("017fe537-bb13-7c35-b52a-cb5490cce7be").first
 person.destroy
 => true
 ```
@@ -116,7 +116,7 @@ person.destroy
 
 ```ruby
 # Find a collection method or create one as you would a person or identifier above
-collection_method = Dina::CollectionMethod.find("bf42616e-846c-4dbd-8372-bef44cdfa3e9").first
+collection_method = Dina::CollectionMethod.find("0189f7ea-ae2c-7809-8aeb-b819cf5e9e7f").first
 
 collecting_event = Dina::CollectingEvent.new
 collecting_event.group = "CNC"
@@ -165,7 +165,7 @@ payload = {
   size: 1
 }
 hits = Dina::Search.execute(index: "object_store", payload: payload)
-=> [#<Dina::Search:@attributes={"type"=>"metadata", "id"=>"f5aeec1e-63f5-4c67-8ca6-e48b4415e299", "created_by"=>"s-dao", ... ]
+=> [#<Dina::Search:@attributes={"type"=>"metadata", "id"=>"0189f7ea-ae2f-72b9-9be8-9c3e3e8abae8", "created_by"=>"s-dao", ... ]
 ```
 
 #### Search Counts
