@@ -32,6 +32,7 @@ module Dina
       [
         "COLLECTING_EVENT",
         "MATERIAL_SAMPLE",
+        "ORGANISM",
         "DETERMINATION",
         "ASSEMBLAGE"
       ]

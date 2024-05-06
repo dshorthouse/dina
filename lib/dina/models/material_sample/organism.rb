@@ -8,6 +8,7 @@ module Dina
     property :sex, type: :string
     property :remarks, type: :string
     property :isTarget, type: :boolean
+    property :managedAttributes, type: :hash
     property :determination, type: :array, default: []
     property :createdBy, type: :string
     property :createdOn, type: :time

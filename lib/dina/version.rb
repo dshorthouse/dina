@@ -2,7 +2,7 @@ module Dina
   class Version
 
     MAJOR = 2
-    MINOR = 0
+    MINOR = 1
     PATCH = 0
     BUILD = 0
 
