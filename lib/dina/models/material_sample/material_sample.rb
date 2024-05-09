@@ -37,6 +37,7 @@ module Dina
     property :hostOrganism, type: :hash, default: { name: nil, remarks: nil }
     property :scheduledActions, type: :hash
     property :hierarchy, type: :hash
+    property :targetOrganismPrimaryScientificName, type: :string
     property :allowDuplicateName, type: :boolean
 
     has_one :collection, class_name: "Collection"
