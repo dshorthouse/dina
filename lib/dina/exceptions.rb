@@ -6,4 +6,5 @@ module Dina
   class ObjectInvalid < DinaException; end
   class PropertyInvalid < ObjectInvalid; end
   class PropertyValueInvalid < ObjectInvalid; end
+  class PropertyReadOnly < ObjectInvalid; end
 end
