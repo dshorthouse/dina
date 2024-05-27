@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "dina/version"
 
 Gem::Specification.new do |s|
-  s.required_ruby_version = '>= 3.3'
+  s.required_ruby_version = '>= 3.2'
   s.name        = 'dina'
   s.version     = Dina::Version.version
   s.license     = 'MIT'
