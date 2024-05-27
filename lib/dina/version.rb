@@ -2,8 +2,8 @@ module Dina
   class Version
 
     MAJOR = 2
-    MINOR = 2
-    PATCH = 1
+    MINOR = 3
+    PATCH = 0
     BUILD = 0
 
     def self.version

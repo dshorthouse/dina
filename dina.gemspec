@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files        = Dir['MIT-LICENSE', 'README.rdoc', 'lib/**/*']
   s.require_path = 'lib'
   s.rdoc_options.concat ['--encoding',  'UTF-8']
-  s.add_runtime_dependency "json_api_client", "~> 1.20"
+  s.add_runtime_dependency "json_api_client", "~> 1.22"
   s.add_runtime_dependency "keycloak", "~> 3.2.1"
   s.add_runtime_dependency "securerandom", "~> 0.3.0"
   s.add_runtime_dependency "require_all", "~> 3.0.0"

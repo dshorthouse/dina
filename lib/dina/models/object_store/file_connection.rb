@@ -10,7 +10,6 @@ module Dina
   
         @faraday = Faraday.new(site, connection_options) do |builder|
           builder.request :multipart
-          builder.use ::JsonApiClient::Middleware::ParseJson
           builder.adapter(*adapter_options)
         end
         yield(self) if block_given?
@@ -34,7 +33,7 @@ module Dina
         response = @faraday.run_request(request_method, path, body, headers) do |request|
           request.params.update(params) if params
         end
-        attributes = response.body.dup
+        attributes = JSON.parse(response.body.dup)
         response.body["meta"] = {}
         response.body["errors"] = []
         response.body["data"] = { 

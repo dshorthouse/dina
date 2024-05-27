@@ -13,7 +13,6 @@ module Dina
 
       @faraday = Faraday.new(site, connection_options) do |builder|
         builder.request :json
-        builder.use ::JsonApiClient::Middleware::ParseJson
         builder.adapter(*adapter_options)
       end
       yield(self) if block_given?
@@ -48,7 +47,7 @@ module Dina
         request.body = payload
       end
 
-      attributes = response.body.dup
+      attributes = JSON.parse(response.body.dup)
       meta = {}
       if attributes.has_key?("hits")
         #TODO: does not work with SearchAutoComplete because response is different from Search
