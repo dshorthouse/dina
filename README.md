@@ -120,7 +120,7 @@ collection_method = Dina::CollectionMethod.find("0189f7ea-ae2c-7809-8aeb-b819cf5
 
 collecting_event = Dina::CollectingEvent.new
 collecting_event.group = "CNC"
-collecting_event.collection_method = collection_method
+collecting_event.collectionMethod = collection_method
 collecting_event.save
 => true
 ```
