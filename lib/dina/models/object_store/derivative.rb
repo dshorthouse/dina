@@ -13,7 +13,7 @@ module Dina
     property :derivativeType, type: :string
     property :publiclyReleasable, type: :boolean, default: true
 
-    has_one :ac_derived_from, class_name: "ObjectStore"
+    has_one :acDerivedFrom, class_name: "ObjectStore"
 
     validates_presence_of :bucket, message: "bucket is required"
     validates_presence_of :dcFormat, message: "dcFormat is required"
@@ -33,7 +33,7 @@ module Dina
 
     def on_before_save
       if self.as_json_api["relationships"].nil? || !self.as_json_api["relationships"].has_key?("acDerivedFrom")
-        raise ObjectInvalid, "#{self.class} is invalid. ac_derived_from relationship is required"
+        raise ObjectInvalid, "#{self.class} is invalid. acDerivedFrom relationship is required"
       end
       super
     end

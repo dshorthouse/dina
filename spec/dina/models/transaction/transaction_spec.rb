@@ -15,7 +15,7 @@ module Dina
       expect(trans.attributes).to eq({"type"=>"transaction", "id"=>@id, "otherIdentifiers" => []})
     end
 
-    it "can have many material samples" do
+    it "can have many materialSamples" do
       trans = Transaction.new
       expect(trans.material_samples).to be_nil
     end

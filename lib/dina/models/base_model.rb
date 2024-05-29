@@ -4,8 +4,14 @@ module Dina
 
     self.raise_on_blank_find_param = true
     self.add_defaults_to_changes = true
-    self.json_key_format = :camelized_key
     self.paginator = JsonApiClient::Paginating::NestedParamPaginator
+
+    resolve_custom_type "collection-method", "Dina::CollectionMethod"
+    resolve_custom_type "collecting-event", "Dina::CollectingEvent"
+    resolve_custom_type "preparation-type", "Dina::PreparationType"
+    resolve_custom_type "preparation-method", "Dina::PreparationMethod"
+    resolve_custom_type "material-sample", "Dina::MaterialSample"
+    resolve_custom_type "storage-unit", "Dina::StorageUnit"
 
     before_create :on_before_create
     before_save :on_before_save

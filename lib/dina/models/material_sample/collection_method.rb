@@ -9,8 +9,6 @@ module Dina
     property :createdBy, type: :string
     property :createdOn, type: :time
 
-    belongs_to :collecting_event, class: "CollectingEvent", shallow_path: true
-
     validates_presence_of :group, message: "group is required"
 
     def self.endpoint_path

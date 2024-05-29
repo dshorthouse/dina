@@ -31,12 +31,12 @@ module Dina
       expect(os.attributes).to eq(default)
     end
 
-    it "can have one ac_metadata_creator" do
+    it "can have one acMetadataCreator" do
       os = ObjectStore.new({ ac_metadata_creator: Person.new })
       expect(os.ac_metadata_creator).to be_a(Person)
     end
 
-    it "can have one dc_creator" do
+    it "can have one dcCreator" do
       os = ObjectStore.new({ dc_creator: Person.new })
       expect(os.dc_creator).to be_a(Person)
     end

@@ -31,39 +31,34 @@ module Dina
       expect(material_sample.collection).to be_a(Collection)
     end
 
-    it "can have one collecting event" do
-      material_sample = MaterialSample.new({ collecting_event: CollectingEvent.new })
-      expect(material_sample.collecting_event).to be_a(CollectingEvent)
+    it "can have one collectingEvent" do
+      material_sample = MaterialSample.new({ collectingEvent: CollectingEvent.new })
+      expect(material_sample.collectingEvent).to be_a(CollectingEvent)
     end
 
-    it "can have one preparation type" do
-      material_sample = MaterialSample.new({ preparation_type: PreparationType.new })
-      expect(material_sample.preparation_type).to be_a(PreparationType)
+    it "can have one preparationType" do
+      material_sample = MaterialSample.new({ preparationType: PreparationType.new })
+      expect(material_sample.preparationType).to be_a(PreparationType)
     end
 
-    it "can have one preparation method" do
-      material_sample = MaterialSample.new({ preparation_method: PreparationMethod.new })
-      expect(material_sample.preparation_method).to be_a(PreparationMethod)
+    it "can have one preparationMethod" do
+      material_sample = MaterialSample.new({ preparationMethod: PreparationMethod.new })
+      expect(material_sample.preparationMethod).to be_a(PreparationMethod)
     end
 
-    it "can have one parent material sample" do
-      material_sample = MaterialSample.new({ parent_material_sample: MaterialSample.new })
-      expect(material_sample.parent_material_sample).to be_a(MaterialSample)
+    it "can have one parentMaterialSample" do
+      material_sample = MaterialSample.new({ parentMaterialSample: MaterialSample.new })
+      expect(material_sample.parentMaterialSample).to be_a(MaterialSample)
     end
 
-    it "can have one preparation protocol" do
-      material_sample = MaterialSample.new({ preparation_protocol: Protocol.new })
-      expect(material_sample.preparation_protocol).to be_a(Protocol)
+    it "can have one preparationProtocol" do
+      material_sample = MaterialSample.new({ preparationProtocol: Protocol.new })
+      expect(material_sample.preparationProtocol).to be_a(Protocol)
     end
 
-    it "can have one storage unit" do
-      material_sample = MaterialSample.new({ storage_unit: StorageUnit.new })
-      expect(material_sample.storage_unit).to be_a(StorageUnit)
-    end
-
-    it "can have one collection" do
-      material_sample = MaterialSample.new({ collection: Collection.new })
-      expect(material_sample.collection).to be_a(Collection)
+    it "can have one storageUnit" do
+      material_sample = MaterialSample.new({ storageUnit: StorageUnit.new })
+      expect(material_sample.storageUnit).to be_a(StorageUnit)
     end
 
     it "can have many attachments" do
@@ -86,9 +81,9 @@ module Dina
       expect(material_sample.organism.size).to eq(1)
     end
 
-    it "can have many prepared by" do
-      material_sample = MaterialSample.new({ prepared_by: [ Person.new, Person.new ]})
-      expect(material_sample.prepared_by.size).to eq(2)
+    it "can have many preparedBy" do
+      material_sample = MaterialSample.new({ preparedBy: [ Person.new, Person.new ]})
+      expect(material_sample.preparedBy.size).to eq(2)
     end
 
     it "can have a preparationDate in the form of a date string" do

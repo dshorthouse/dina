@@ -20,14 +20,20 @@ module Dina
       expect(collection.attributes).to eq({"type"=>"collection", "id" => @id, "identifiers" => [] })
     end
 
+    it "should create an object of type Collection with a createdBy attribute" do
+      collection = Collection.new({ id: @id, createdBy: "Peter" })
+      expect(collection.attributes).to eq({"type"=>"collection", "id" => @id, "identifiers" => [], "createdBy" => "Peter" })
+      expect(collection.createdBy).to eq("Peter")
+    end
+
     it "can have one institution" do
       collection = Collection.new({ institution: Institution.new })
       expect(collection.institution).to be_a(Institution)
     end
 
-    it "can have one parent_collection" do
-      collection = Collection.new({ parent_collection: Collection.new })
-      expect(collection.parent_collection).to be_a(Collection)
+    it "can have one parentCollection" do
+      collection = Collection.new({ parentCollection: Collection.new })
+      expect(collection.parentCollection).to be_a(Collection)
     end
 
     it "can have a multilingual description by sending a Hash" do

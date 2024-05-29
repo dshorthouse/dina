@@ -4,14 +4,14 @@ require_rel 'file_connection'
 module Dina
 
   class File < BaseModel
+    self.connection_class = FileConnection
+
     property :id, type: :string, default: SecureRandom.uuid_v7
     property :group, type: :string
     property :filePath, type: :string
     property :fileName, type: :string
     property :dcFormat, type: :string
-    property :is_derivative, type: :boolean
-
-    self.connection_class = FileConnection
+    property :isDerivative, type: :boolean
 
     validates_presence_of :group, message: "group is required"
     validates_presence_of :filePath, message: "filePath is required"

@@ -8,7 +8,7 @@ module Dina
     property :createdBy, type: :string
     property :createdOn, type: :time
 
-    belongs_to :person, shallow_path: true, class_name: "Person"
+    belongs_to :person, class_name: "Person", shallow_path: true
 
     validates_presence_of :namespace, message: "namespace is required"
     validates_presence_of :value, message: "value is required"

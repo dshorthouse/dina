@@ -33,18 +33,23 @@ module Dina
     end
 
     it "can have many collectors" do
-      ce = CollectingEvent.new({ collectors: [ Person.new, Person.new]})
+      ce = CollectingEvent.new({ collectors: [ Person.new, Person.new ] })
       expect(ce.collectors.size).to eq(2)
     end
 
     it "can have many attachments" do
-      ce = CollectingEvent.new({ attachment: [ Attachment.new ]})
+      ce = CollectingEvent.new({ attachment: [ Attachment.new ] })
       expect(ce.attachment.size).to eq(1)
     end
 
-    it "can have one collection method" do
-      ce = CollectingEvent.new({ group: "CNC", collection_method: CollectionMethod.new })
-      expect(ce.collection_method).to be_a(CollectionMethod)
+    it "can have one collectionMethod" do
+      ce = CollectingEvent.new({ group: "CNC", collectionMethod: CollectionMethod.new })
+      expect(ce.collectionMethod).to be_a(CollectionMethod)
+    end
+
+    it "can have one protocol" do
+      ce = CollectingEvent.new({ group: "CNC", protocol: Protocol.new })
+      expect(ce.protocol).to be_a(Protocol)
     end
 
     it "should raise an Exception if group is missing" do

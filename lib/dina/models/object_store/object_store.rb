@@ -29,8 +29,8 @@ module Dina
     property :orientation, type: :integer
     property :resourceExternalURL, type: :string
 
-    has_one :ac_metadata_creator, class_name: "Person"
-    has_one :dc_creator, class_name: "Person"
+    has_one :acMetadataCreator, class_name: "Person"
+    has_one :dcCreator, class_name: "Person"
     has_many :derivatives, class_name: "Derivative"
 
     validates_presence_of :group, message: "group is required"

@@ -4,10 +4,10 @@ module Dina
   class Attachment < BaseModel
     property :id, type: :string, default: SecureRandom.uuid_v7
 
-    belongs_to :material_sample, shallow_path: true, class_name: "MaterialSample"
-    belongs_to :collecting_event, shallow_path: true, class_name: "CollectingEvent"
-    belongs_to :project, shallow_path: true, class_name: "Project"
-    belongs_to :transaction, shallow_path: true, class_name: "Transaction"
+    belongs_to :materialSample, class_name: "MaterialSample", shallow_path: true 
+    belongs_to :collectingEvent, class_name: "CollectingEvent", shallow_path: true
+    belongs_to :project, class_name: "Project", shallow_path: true
+    belongs_to :transaction, class_name: "Transaction", shallow_path: true
 
     def self.endpoint_path
       "collection-api/"

@@ -10,6 +10,7 @@ module Dina
   
         @faraday = Faraday.new(site, connection_options) do |builder|
           builder.request :multipart
+          builder.response :json
           builder.adapter(*adapter_options)
         end
         yield(self) if block_given?
@@ -17,7 +18,7 @@ module Dina
   
       def run(request_method, path, params: nil, headers: {}, body: nil)
         path = path + "/#{body[:data]["attributes"]["group"].downcase}"
-        if body[:data]["attributes"].key?("is_derivative")
+        if body[:data]["attributes"].key?("isDerivative")
           path = path + "/derivative"
         end
         file_path = body[:data]["attributes"]["filePath"]
@@ -33,7 +34,7 @@ module Dina
         response = @faraday.run_request(request_method, path, body, headers) do |request|
           request.params.update(params) if params
         end
-        attributes = JSON.parse(response.body.dup)
+        attributes = response.body.dup
         response.body["meta"] = {}
         response.body["errors"] = []
         response.body["data"] = { 

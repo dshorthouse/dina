@@ -43,10 +43,10 @@ module Dina
     property :createdBy, type: :string
     property :createdOn, type: :time
 
+    has_one :protocol, class_name: "Protocol" 
+    has_one :collectionMethod, class_name: "CollectionMethod"
     has_many :collectors, class_name: "Person"
     has_many :attachment, class_name: "Attachment"
-
-    has_one :collection_method, class_name: "CollectionMethod"
 
     validates_presence_of :group, message: "group is required"
 

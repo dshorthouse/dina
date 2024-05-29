@@ -15,8 +15,8 @@ module Dina
     property :createdBy, type: :string
     property :createdOn, type: :time
 
-    belongs_to :institution, shallow_path: true, class_name: "Institution"
-    has_one :parent_collection, class_name: "Collection"
+    belongs_to :institution, class_name: "Institution", shallow_path: true
+    has_one :parentCollection, class_name: "Collection"
 
     validates_presence_of :group, message: "group is required"
 

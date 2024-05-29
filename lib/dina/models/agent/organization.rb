@@ -8,8 +8,8 @@ module Dina
     property :createdBy, type: :string
     property :createdOn, type: :time
 
-    validates :english_name, presence: true, on: :create
-    validates :french_name, presence: true, on: :create
+    validates :englishName, presence: true, on: :create
+    validates :frenchName, presence: true, on: :create
 
     def self.endpoint_path
       "agent-api/"
@@ -19,21 +19,21 @@ module Dina
       "organization"
     end
 
-    def english_name=(name)
+    def englishName=(name)
       names.delete_if{|o| o[:languageCode] == "EN"}
       names << { languageCode: "EN", name: name }
     end
 
-    def english_name
+    def englishName
       names.select{|o| o[:languageCode] == "EN"}.first[:name]
     end
 
-    def french_name=(name)
+    def frenchName=(name)
       names.delete_if{|o| o[:languageCode] == "FR"}
       names << { languageCode: "FR", name: name }
     end
 
-    def french_name
+    def frenchName
       names.select{|o| o[:languageCode] == "FR"}.first[:name]
     end
 
