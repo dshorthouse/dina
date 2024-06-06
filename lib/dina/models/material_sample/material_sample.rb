@@ -25,6 +25,7 @@ module Dina
     property :stateChangedOn, type: :date
     property :stateChangeRemarks, type: :string
     property :materialSampleRemarks, type: :string
+    property :sourceSet, type: :string
     property :extensionValues, type: :hash
     property :restrictionFieldsExtension, type: :hash
     property :restrictionRemarks, type: :string
