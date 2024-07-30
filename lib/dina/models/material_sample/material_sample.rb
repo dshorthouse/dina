@@ -41,13 +41,13 @@ module Dina
     property :targetOrganismPrimaryScientificName, type: :string
     property :allowDuplicateName, type: :boolean
 
-    has_one :collection, class_name: "Collection"
     has_one :collectingEvent, class_name: "CollectingEvent"
+    has_one :collection, class_name: "Collection"
     has_one :preparationType, class_name: "PreparationType"
     has_one :preparationMethod, class_name: "PreparationMethod"
     has_one :parentMaterialSample, class_name: "MaterialSample"
     has_one :preparationProtocol, class_name: "Protocol"
-    has_one :storageUnit, class_name: "StorageUnit"
+    has_one :storageUnitUsage, class_name: "StorageUnitUsage"
     has_many :preparedBy, class_name: "Person"
     has_many :attachment, class_name: "Attachment"
     has_many :projects, class_name: "Project"
