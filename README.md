@@ -195,6 +195,25 @@ Autocomplete against the `dina_agent_index` search index on the `displayName` pr
 autocomplete = Dina::SearchAutoComplete.execute(index: "agent", autoCompleteField: "data.attributes.displayName", prefix: "Peter")
 ```
 
+### Shortcut Endpoints
+
+_WORK IN PROGRESS_
+
+DINA has a handful of endpoints that operate outside the context of JSON:API. These are more performance GET requests:
+
+#### Summary Material Sample
+
+```ruby
+Dina::Endpoint.material_sample_summary(id: '0189f7ea-ae2f-72b9-9be8-9c3e3e8abae8')
+```
+
+#### Find UUID by Object Name
+
+```ruby
+Dina::Endpoint.resource_name_identifier(name: "DAO123", type: "material-sample", group: "dao")
+=> "0189f7ea-ae2f-72b9-9be8-9c3e3e8abae8
+```
+
 ### Schema
 
 To list available JSON:API Classes:
