@@ -199,7 +199,7 @@ autocomplete = Dina::SearchAutoComplete.execute(index: "agent", autoCompleteFiel
 
 _WORK IN PROGRESS_
 
-DINA has a handful of endpoints that operate outside the context of JSON:API. These are more performance GET requests:
+DINA has a handful of endpoints that operate outside the context of JSON:API. These are more performant GET requests to obtain specific items:
 
 #### Summary Material Sample
 
