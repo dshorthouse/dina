@@ -30,6 +30,7 @@ module Dina
     property :restrictionFieldsExtension, type: :hash
     property :restrictionRemarks, type: :string
     property :isRestricted, type: :boolean
+    property :isBaseForSplitByType, type: :boolean
     property :materialSampleChildren, type: :array
     property :associations, type: :array, default: []
     property :tags, type: :array, default: []
