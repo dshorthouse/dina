@@ -1,5 +1,5 @@
 module Dina
-  class GeographicSource
+  class GeographicPlaceNameSourceDetail
     attr_accessor :sourceUrl
     attr_accessor :customGeographicPlace
     attr_accessor :selectedGeographicPlace

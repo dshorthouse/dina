@@ -36,6 +36,7 @@ module Dina
     property :tags, type: :array, default: []
     property :geographicPlaceNameSource, type: :string
     property :geographicPlaceNameSourceDetail, type: :hash, default: {}
+    property :geographicThesaurus, type: :hash
     property :managedAttributes, type: :hash
     property :geoReferenceAssertions, type: :array, default: []
     property :eventGeom, type: :string
