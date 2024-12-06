@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 title: "DINA ruby gem"
-abstract: "The DINA Consortium, https://www.dina-project.net develops an open-source web-based information management system for natural history data that consists of several connected software components. At the core of the system is support for assembling, managing and sharing data associated with natural history collections and their curation ("collection management"). Target collections include zoological, botanical, geological and paleontological collections, living collections, biodiversity inventories, observation records, and molecular data. This Ruby 3.2 gem abstracts the Keycloak configuration and JSON:API models for the DINA collection management system. It depends on the json_api_client where more documentation is available on how to create, update, query, and delete objects."
+abstract: "The DINA Consortium, https://www.dina-project.net develops an open-source web-based information management system for natural history data that consists of several connected software components. At the core of the system is support for assembling, managing and sharing data associated with natural history collections and their curation (\"collection management\"). Target collections include zoological, botanical, geological and paleontological collections, living collections, biodiversity inventories, observation records, and molecular data. This Ruby 3.2 gem abstracts the Keycloak configuration and JSON:API models for the DINA collection management system. It depends on the json_api_client where more documentation is available on how to create, update, query, and delete objects."
 authors:
 - family-names: "Shorthouse"
   given-names: "David"
