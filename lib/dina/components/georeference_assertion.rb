@@ -21,7 +21,7 @@ module Dina
     # Add a georeferencedBy as UUID to the array
     #
     # @param id [String] a UUID for a georeferencedBy
-    def add_georeferencedBy(id)
+    def add_georeferencedBy(id:)
       raise PropertyValueInvalid, "georeferencedBy must be a UUID." if !id.is_uuid?
       @georeferencedBy << id
     end

@@ -31,7 +31,7 @@ module Dina
     #
     # @param email [String] an email address
     # @return array [Array] an array of Person objects
-    def self.find_by_email(email)
+    def self.find_by_email(email:)
       where("email": email).all
     end
 
@@ -39,7 +39,7 @@ module Dina
     #
     # @param name [String] any portion of a person's name
     # @return array [Array] an array of Person objects, ordered by relevance
-    def self.search_by_name(name)
+    def self.search_by_name(name:)
       payload = {
         query: {
           multi_match: {

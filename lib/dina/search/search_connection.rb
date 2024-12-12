@@ -1,7 +1,6 @@
 require_rel '../models/base_model'
 
 module Dina
-
   class SearchConnection
 
     attr_reader :faraday
@@ -69,5 +68,4 @@ module Dina
     end
 
   end
-
 end

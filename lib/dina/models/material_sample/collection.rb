@@ -40,7 +40,7 @@ module Dina
     #
     # @param code [String] a code
     # @return object [Object] a Collection object
-    def self.find_by_code(code)
+    def self.find_by_code(code:)
       where(code: code).all
     end
 

@@ -10,12 +10,12 @@ module Dina
       @roles = []
     end
 
-    def add_agent(id)
+    def add_agent(id:)
       raise PropertyValueInvalid, "Agent must be a UUID." if !id.is_uuid?
       @agent << id
     end
 
-    def add_role(role)
+    def add_role(role:)
       @roles << role
     end
 

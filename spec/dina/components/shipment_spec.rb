@@ -21,12 +21,12 @@ module Dina
         zipCode: nil,
         country: "Canada"
       })
-      @shipment.add_address(address)
+      @shipment.add_address(address: address)
       expect(@shipment.address).to eq(address.to_hash)
     end
 
     it "should raise an Exception if address is not an Address" do
-      expect { @shipment.add_address("12345") }.to raise_error(PropertyValueInvalid)
+      expect { @shipment.add_address(address: "12345") }.to raise_error(PropertyValueInvalid)
     end
 
   end

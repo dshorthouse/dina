@@ -16,12 +16,12 @@ module Dina
 
     it "should add an agent" do
       id = SecureRandom.uuid_v7
-      @agent_role.add_agent(id)
+      @agent_role.add_agent(id: id)
       expect(@agent_role.agent).to eq([ id ])
     end
 
     it "should raise an Exception if Agent is not a UUID" do
-      expect { @agent_role.add_agent("12345") }.to raise_error(PropertyValueInvalid, "Agent must be a UUID.")
+      expect { @agent_role.add_agent(id: "12345") }.to raise_error(PropertyValueInvalid, "Agent must be a UUID.")
     end
 
   end

@@ -15,7 +15,7 @@ module Dina
       @address = {}
     end
 
-    def add_address(address)
+    def add_address(address:)
       if !address.instance_of?(Address)
         raise PropertyValueInvalid, "Address must be of type Address."
       end

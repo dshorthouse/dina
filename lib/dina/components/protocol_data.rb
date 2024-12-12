@@ -8,11 +8,11 @@ module Dina
       @protocolDataElement = []
     end
 
-    def add_data_element(data_element)
-      if !data_element.instance_of?(ProtocolDataElement)
+    def add_data_element(element:)
+      if !element.instance_of?(ProtocolDataElement)
         raise PropertyValueInvalid, "Data Element must be a ProtocolDataElement."
       end
-      @protocolDataElement << data_element.to_hash
+      @protocolDataElement << element.to_hash
     end
 
     # Produce a hash with symbolized keys

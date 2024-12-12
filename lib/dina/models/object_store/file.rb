@@ -2,7 +2,6 @@ require_rel '../base_model'
 require_rel 'file_connection'
 
 module Dina
-
   class File < BaseModel
     self.connection_class = FileConnection
 

@@ -53,7 +53,7 @@ module Dina
     # Add a determiner as UUID to the array of determiner
     #
     # @param id [String] a UUID for a determiner
-    def add_determiner(id)
+    def add_determiner(id:)
       raise PropertyValueInvalid, "Determiner must be a UUID." if !id.is_uuid?
       @determiner << id
     end

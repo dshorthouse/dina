@@ -41,12 +41,12 @@ module Dina
 
     it "should use a UUID for a determiner" do
       id = SecureRandom.uuid_v7
-      @det.add_determiner(id)
+      @det.add_determiner(id: id)
       expect(@det.to_hash).to eq({ determiner: [id], scientificNameDetails: {} })
     end
 
     it "should raise an Exception if determiner is not a UUID" do
-      expect { @det.add_determiner("12345") }.to raise_error(PropertyValueInvalid)
+      expect { @det.add_determiner(id: "12345") }.to raise_error(PropertyValueInvalid)
     end
 
   end

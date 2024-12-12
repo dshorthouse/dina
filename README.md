@@ -85,7 +85,7 @@ Instance objects (like `identifier` above) must be saved before they can be atta
 #### Query for a `Person` by Email Address
 
 ```ruby
-person = Dina::Person.find_by_email("email@email.com").first
+person = Dina::Person.find_by_email(email: "email@email.com").first
 person.attributes
 =>
 {"type"=>"person",                                                  
