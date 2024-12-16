@@ -9,6 +9,7 @@ module Dina
     property :remarks, type: :string
     property :isTarget, type: :boolean
     property :managedAttributes, type: :hash
+    property :dwcVernacularName, type: :string
     property :determination, type: :array, default: []
     property :createdBy, type: :string
     property :createdOn, type: :time
