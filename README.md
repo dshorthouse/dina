@@ -13,7 +13,7 @@ The DINA APIs for each of its components are under rapid development and so too 
 
 ### Requirements & Dependencies
 
-- ruby >= 3.3
+- ruby >= 3.1
 - bundled dependencies: [json_api_client][5] (\~> 1.22), [keycloak][10] (\~> 3.2.1),
 
 ### Install

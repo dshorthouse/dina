@@ -3,11 +3,11 @@ $:.push File.expand_path("../lib", __FILE__)
 require "dina/version"
 
 Gem::Specification.new do |s|
-  s.required_ruby_version = '>= 3.2'
+  s.required_ruby_version = '>= 3.1'
   s.name        = 'dina'
   s.version     = Dina::Version.version
   s.license     = 'MIT'
-  s.date        = '2024-12-16'
+  s.date        = '2025-03-12'
   s.summary     = "DINA ruby gem"
   s.description = "Authenicate against DINA's Keycloak and access its models"
   s.authors     = ["David P. Shorthouse", "Julia Douglas Freitas"]
