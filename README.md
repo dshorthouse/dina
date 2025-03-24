@@ -150,6 +150,14 @@ metadata.save
 => true
 ```
 
+#### Download an Image `File`
+
+Returns an octet stream:
+
+```ruby
+file = Dina::File.download(group: "dao", fileId: "0195b03d-c699-7788-bf21-00506ea8c58f", isDerivative: true)
+```
+
 #### Search
 
 ```ruby

@@ -17,33 +17,44 @@ module Dina
     end
 
     def run(request_method, path, params: nil, headers: {}, body: nil)
-      path = path + "/#{body[:data]["attributes"]["group"].downcase}"
-      if body[:data]["attributes"].key?("isDerivative")
-        path = path + "/derivative"
+      if request_method == :get && path == "file/download"
+        path = "file" + "/#{params[:group]}/#{params[:fileId]}"
+        if params[:isDerivative]
+          path = "file" + "/#{params[:group]}/derivative/#{params[:fileId]}"
+        end
+        headers[:content_type] = "application/octet-stream"
+        response = @faraday.run_request(request_method, path, body, headers) do |request|
+        end
+        response
+      else
+        path = path + "/#{body[:data]["attributes"]["group"].downcase}"
+        if body[:data]["attributes"].key?("isDerivative")
+          path = path + "/derivative"
+        end
+        file_path = body[:data]["attributes"]["filePath"]
+        mime_type = body[:data]["attributes"]["dcFormat"]
+        file_name = body[:data]["attributes"]["fileName"]
+        
+        body[:file] = Faraday::Multipart::FilePart.new(
+          file_path,
+          mime_type,
+          file_name
+        )
+  
+        response = @faraday.run_request(request_method, path, body, headers) do |request|
+          request.params.update(params) if params
+        end
+        attributes = response.body.dup
+        response.body["meta"] = {}
+        response.body["errors"] = []
+        response.body["data"] = { 
+          "id" => attributes["uuid"],
+          "type" => "file",
+          "relationships" => {},
+          "attributes" => attributes
+        }
+        response
       end
-      file_path = body[:data]["attributes"]["filePath"]
-      mime_type = body[:data]["attributes"]["dcFormat"]
-      file_name = body[:data]["attributes"]["fileName"]
-      
-      body[:file] = Faraday::Multipart::FilePart.new(
-        file_path,
-        mime_type,
-        file_name
-      )
-
-      response = @faraday.run_request(request_method, path, body, headers) do |request|
-        request.params.update(params) if params
-      end
-      attributes = response.body.dup
-      response.body["meta"] = {}
-      response.body["errors"] = []
-      response.body["data"] = { 
-        "id" => attributes["uuid"],
-        "type" => "file",
-        "relationships" => {},
-        "attributes" => attributes
-      }
-      response
     end
 
   end
