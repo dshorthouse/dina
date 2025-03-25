@@ -23,8 +23,18 @@ module Dina
           path = "file" + "/#{params[:group]}/derivative/#{params[:fileId]}"
         end
         headers[:content_type] = "application/octet-stream"
+
+
         response = @faraday.run_request(request_method, path, body, headers) do |request|
         end
+        response.body["meta"] = {}
+        response.body["errors"] = []
+        response.body["data"] = { 
+          "id" => params[:fileId],
+          "type" => "file",
+          "relationships" => {},
+          "attributes" => response.headers
+        }
         response
       else
         path = path + "/#{body[:data]["attributes"]["group"].downcase}"

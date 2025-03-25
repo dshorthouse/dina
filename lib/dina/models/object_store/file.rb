@@ -1,9 +1,11 @@
 require_rel '../base_model'
 require_rel 'file_connection'
+require_rel 'file_parser'
 
 module Dina
   class File < BaseModel
     self.connection_class = FileConnection
+    self.parser = FileParser
 
     custom_endpoint :download, on: :collection, request_method: :get
 
