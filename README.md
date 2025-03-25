@@ -152,10 +152,10 @@ metadata.save
 
 #### Download an Image `File`
 
-Returns an octet stream:
+Returns an octet stream. Recommended best practice is to get the file name and fileIdentifier from a particular derivative in the response from a retrieved object store item.
 
 ```ruby
-file = Dina::File.download(group: "dao", fileId: "0195b03d-c699-7788-bf21-00506ea8c58f", isDerivative: true)
+file = Dina::File.download(group: "DAOM", fileIdentifier: "0195b03d-c699-7788-bf21-00506ea8c58f", isDerivative: true)
 File.open('my_file.jpg', 'wb') do |f|
   f.write file
 end

@@ -18,23 +18,13 @@ module Dina
 
     def run(request_method, path, params: nil, headers: {}, body: nil)
       if request_method == :get && path == "file/download"
-        path = "file" + "/#{params[:group]}/#{params[:fileId]}"
+        path = "file" + "/#{params[:group].downcase}/#{params[:fileIdentifier]}"
         if params[:isDerivative]
-          path = "file" + "/#{params[:group]}/derivative/#{params[:fileId]}"
+          path = "file" + "/#{params[:group].downcase}/derivative/#{params[:fileIdentifier]}"
         end
         headers[:content_type] = "application/octet-stream"
-
-
         response = @faraday.run_request(request_method, path, body, headers) do |request|
         end
-        response.body["meta"] = {}
-        response.body["errors"] = []
-        response.body["data"] = { 
-          "id" => params[:fileId],
-          "type" => "file",
-          "relationships" => {},
-          "attributes" => response.headers
-        }
         response
       else
         path = path + "/#{body[:data]["attributes"]["group"].downcase}"
