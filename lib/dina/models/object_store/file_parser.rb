@@ -77,19 +77,19 @@ module Dina
       end
 
       def handle_errors(result_set, data)
-        result_set.errors = ErrorCollector.new(data.fetch("errors", []))
+        result_set.errors = ::JsonApiClient::ErrorCollector.new(data.fetch("errors", []))
       end
 
       def handle_meta(result_set, data)
-        result_set.meta = MetaData.new(data.fetch("meta", {}), result_set.record_class)
+        result_set.meta = ::JsonApiClient::MetaData.new(data.fetch("meta", {}), result_set.record_class)
       end
 
       def handle_links(result_set, data)
-        result_set.links = Linking::TopLevelLinks.new(result_set.record_class, data.fetch("links", {}))
+        result_set.links = ::JsonApiClient::Linking::TopLevelLinks.new(result_set.record_class, data.fetch("links", {}))
       end
 
       def handle_relationships(result_set, data)
-        result_set.relationships = Relationships::TopLevelRelations.new(result_set.record_class, data.fetch("relationships", {}))
+        result_set.relationships = ::JsonApiClient::Relationships::TopLevelRelations.new(result_set.record_class, data.fetch("relationships", {}))
       end
 
       def handle_pagination(result_set, data)
@@ -97,7 +97,7 @@ module Dina
       end
 
       def handle_included(result_set, data)
-        result_set.included = IncludedData.new(result_set, data.fetch("included", []))
+        result_set.included = ::JsonApiClient::IncludedData.new(result_set, data.fetch("included", []))
       end
     end
   end
