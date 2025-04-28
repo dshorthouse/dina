@@ -12,6 +12,8 @@ module Dina
     property :acHashValue, type: :string
     property :derivativeType, type: :string
     property :publiclyReleasable, type: :boolean, default: true
+    property :notPubliclyReleasableReason, type: :string
+    property :acTags, type: :array
 
     has_one :acDerivedFrom, class_name: "ObjectStore"
 
