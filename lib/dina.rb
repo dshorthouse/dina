@@ -1,4 +1,5 @@
 require "keycloak"
+require "ostruct"
 require "json_api_client"
 require "time"
 require "date"
