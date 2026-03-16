@@ -15,6 +15,7 @@ module Dina
   JsonApiClient::Schema.register array: ArrayCaster,
       hash: HashCaster,
       date: DateCaster,
+      geospatial: Geospatial,
       multilingual_title: MultilingualTitleCaster,
       multilingual_description: MultilingualDescriptionCaster
 

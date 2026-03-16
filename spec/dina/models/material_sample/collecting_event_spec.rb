@@ -52,6 +52,16 @@ module Dina
       expect(ce.protocol).to be_a(Protocol)
     end
 
+    it "can have one expedition" do
+      ce = CollectingEvent.new({ group: "CNC", expedition: Expedition.new })
+      expect(ce.expedition).to be_a(Expedition)
+    end
+
+    it "can have one site" do
+      ce = CollectingEvent.new({ group: "CNC", site: Site.new })
+      expect(ce.site).to be_a(Site)
+    end
+
     it "should raise an Exception if group is missing" do
       ce = CollectingEvent.new({ group: nil })
       expect { ce.save }.to raise_error(ObjectInvalid, "Dina::CollectingEvent is invalid. group is required")

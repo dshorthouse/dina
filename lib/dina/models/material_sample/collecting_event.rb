@@ -47,6 +47,7 @@ module Dina
     has_one :protocol, class_name: "Protocol" 
     has_one :collectionMethod, class_name: "CollectionMethod"
     has_one :expedition, class_name: "Expedition"
+    has_one :site, class_name: "Site"
     has_many :collectors, class_name: "Person"
     has_many :attachment, class_name: "Attachment"
 
