@@ -3,6 +3,7 @@ module Dina
   class Site < BaseModel
     property :id, type: :string, default: SecureRandom.uuid_v7
     property :group, type: :string
+    property :name, type: :string
     property :code, type: :string
     property :multilingualDescription, type: :multilingual_description
     property :siteGeom, type: :geospatial
