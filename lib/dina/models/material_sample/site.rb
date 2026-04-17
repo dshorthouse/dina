@@ -7,6 +7,11 @@ module Dina
     property :code, type: :string
     property :multilingualDescription, type: :multilingual_description
     property :siteGeom, type: :geospatial
+    property :dwcCountry, type: :string
+    property :dwcCountryCode, type: :string
+    property :dwcStateProvince, type: :string
+    property :geographicPlaceNameSource, type: :string
+    property :geographicPlaceNameSourceDetail, type: :hash, default: {}
     property :createdBy, type: :string
     property :createdOn, type: :time
 
@@ -20,6 +25,15 @@ module Dina
 
     def self.table_name
       "site"
+    end
+
+    private
+
+    def on_before_save
+      if self.geographicPlaceNameSource.nil?
+        self.geographicPlaceNameSourceDetail = nil
+      end
+      super
     end
 
   end
