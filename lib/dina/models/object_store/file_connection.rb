@@ -17,12 +17,21 @@ module Dina
     end
 
     def run(request_method, path, params: nil, headers: {}, body: nil)
+
       if request_method == :get && path == "file/download"
         path = "file" + "/#{params[:group].downcase}/#{params[:fileIdentifier]}"
         if params[:isDerivative]
           path = "file" + "/#{params[:group].downcase}/derivative/#{params[:fileIdentifier]}"
         end
         headers[:content_type] = "application/octet-stream"
+        response = @faraday.run_request(request_method, path, body, headers) do |request|
+        end
+        response
+      elsif request_method == :get && path == "file/info"
+        path = "file-info" + "/#{params[:group].downcase}/#{params[:fileIdentifier]}#{params[:fileExtension]}"
+        if params[:isDerivative]
+          path = "file-info" + "/#{params[:group].downcase}/derivative/#{params[:fileIdentifier]}#{params[:fileExtension]}"
+        end
         response = @faraday.run_request(request_method, path, body, headers) do |request|
         end
         response
@@ -44,15 +53,13 @@ module Dina
         response = @faraday.run_request(request_method, path, body, headers) do |request|
           request.params.update(params) if params
         end
-        attributes = response.body.dup
-        response.body["meta"] = {}
+
+        body = response.body.dup
+        response.body["meta"] = body["meta"]
         response.body["errors"] = []
-        response.body["data"] = { 
-          "id" => attributes["uuid"],
-          "type" => "file",
-          "relationships" => {},
-          "attributes" => attributes
-        }
+        response.body["data"] = body["data"]
+        response.body["data"]["type"] = "file"
+
         response
       end
     end

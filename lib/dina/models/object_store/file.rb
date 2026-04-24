@@ -8,6 +8,7 @@ module Dina
     self.parser = FileParser
 
     custom_endpoint :download, on: :collection, request_method: :get
+    custom_endpoint :info, on: :collection, request_method: :get
 
     property :id, type: :string, default: SecureRandom.uuid_v7
     property :group, type: :string
