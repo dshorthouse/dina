@@ -16,13 +16,16 @@ module Dina
     end
 
     it "should create an object of type ObjectStore with default attributes" do
-      os = ObjectStore.new({ id: @id })
+      time = Time.now.iso8601.to_s
+      os = ObjectStore.new({ id: @id, acDigitizationDate: time })
       default = {
         "type" => "metadata",
         "id" => @id,
+        "isExternalResource" => false,
         "publiclyReleasable" => true,
         "xmpRightsOwner" => "Government of Canada",
         "xmpRightsUsageTerms" => "Government of Canada Usage Term",
+        "acDigitizationDate" => time,
         "acHashFunction" => "SHA-1",
         "dcFormat" => "image/jpeg",
         "dcRights" => "© His Majesty The King in Right of Canada, as represented by the Minister of Agriculture and Agri-Food | © Sa Majesté le Roi du chef du Canada, représentée par le ministre de l’Agriculture et de l’Agroalimentaire",

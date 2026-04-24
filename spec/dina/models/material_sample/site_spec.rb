@@ -12,7 +12,7 @@ module Dina
 
     it "should create an object of type Site with default attributes" do
       site = Site.new({ id: @id })
-      expect(site.attributes).to eq({"type"=>"site", "id"=>@id})
+      expect(site.attributes).to eq({"type"=>"site", "id"=>@id, "geographicPlaceNameSourceDetail"=>{}})
     end
 
     it "can have a multilingual description by sending a Hash" do
