@@ -37,7 +37,6 @@ module Dina
     has_many :derivatives, class_name: "Derivative"
 
     validates_presence_of :group, message: "group is required"
-    validates_presence_of :bucket, message: "bucket is required"
     validates_presence_of :dcFormat, message: "dcFormat is required"
     validates_presence_of :dcType, message: "dcType is required"
     validates_presence_of :xmpRightsUsageTerms, message: "xmpRightsUsageTerms is required"

@@ -19,7 +19,6 @@ module Dina
     has_one :acDerivedFrom, class_name: "ObjectStore"
 
     validates_presence_of :group, message: "group is required"
-    validates_presence_of :bucket, message: "bucket is required"
     validates_presence_of :dcFormat, message: "dcFormat is required"
     validates_presence_of :dcType, message: "dcType is required"
     validates_presence_of :fileIdentifier, message: "fileIdentifier is required"

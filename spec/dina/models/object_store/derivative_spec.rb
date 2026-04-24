@@ -17,25 +17,25 @@ module Dina
 
     it "can have one acDerivedFrom" do
       deriv = Derivative.new
-      deriv.bucket = "cnc"
+      deriv.group = "cnc"
       deriv.acDerivedFrom = ObjectStore.new
       expect(deriv.as_json_api["relationships"]).to have_key("acDerivedFrom")
     end
 
     it "should raise an Exception if bucket is missing" do
       deriv = Derivative.new
-      deriv.bucket = nil
+      deriv.group = nil
       deriv.dcFormat = "image/jpeg"
       deriv.dcType = "IMAGE"
       deriv.fileExtension = ".jpg"
       deriv.fileIdentifier = "123"
       deriv.acDerivedFrom =  ObjectStore.new
-      expect { deriv.save }.to raise_error(ObjectInvalid, "Dina::Derivative is invalid. bucket is required")
+      expect { deriv.save }.to raise_error(ObjectInvalid, "Dina::Derivative is invalid. group is required")
     end
 
     it "should raise an Exception if acDerivedFrom is missing" do
       deriv = Derivative.new
-      deriv.bucket = "cnc"
+      deriv.group = "cnc"
       deriv.dcFormat = "image/jpeg"
       deriv.dcType = "IMAGE"
       deriv.fileExtension = ".jpg"
