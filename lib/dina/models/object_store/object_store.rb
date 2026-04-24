@@ -12,8 +12,9 @@ module Dina
     property :fileIdentifier, type: :string
     property :bucket, type: :string
     property :acCaption, type: :string
-    property :acDigitizationDate, type: :string
+    property :acDigitizationDate, type: :string, default: Time.now.iso8601.to_s
     property :xmpMetadataDate, type: :time
+    property :filename, type: :string
     property :originalFilename, type: :string
     property :fileExtension, type: :string
     property :acHashFunction, type: :string, default: "SHA-1"
@@ -27,7 +28,9 @@ module Dina
     property :managedAttributes, type: :hash
     property :acTags, type: :array
     property :orientation, type: :integer
+    property :isExternalResource, type: :boolean, default: false
     property :resourceExternalURL, type: :string
+    property :sourceSet, type: :string
 
     has_one :acMetadataCreator, class_name: "Person"
     has_one :dcCreator, class_name: "Person"
