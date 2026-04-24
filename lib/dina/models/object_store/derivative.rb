@@ -3,6 +3,7 @@ require_rel '../base_model'
 module Dina
   class Derivative < BaseModel
     property :id, type: :string, default: SecureRandom.uuid_v7
+    property :group, type: :string
     property :bucket, type: :string
     property :fileIdentifier, type: :string
     property :fileExtension, type: :string
@@ -17,6 +18,7 @@ module Dina
 
     has_one :acDerivedFrom, class_name: "ObjectStore"
 
+    validates_presence_of :group, message: "group is required"
     validates_presence_of :bucket, message: "bucket is required"
     validates_presence_of :dcFormat, message: "dcFormat is required"
     validates_presence_of :dcType, message: "dcType is required"
@@ -34,6 +36,9 @@ module Dina
     private
 
     def on_before_save
+      if self.group && self.bucket.nil?
+        self.bucket = self.group.downcase
+      end
       if self.as_json_api["relationships"].nil? || !self.as_json_api["relationships"].has_key?("acDerivedFrom")
         raise ObjectInvalid, "#{self.class} is invalid. acDerivedFrom relationship is required"
       end
