@@ -161,6 +161,19 @@ File.open('my_file.jpg', 'wb') do |f|
 end
 ```
 
+#### Show Details of an Image `File`
+
+```ruby
+file = Dina::File.find("019dd42f-1f5d-73c1-8068-fe275a3be5a8").first
+file.exif
+=> {
+  "Padding"=>"[2060 values]", 
+  "Color Space"=>"sRGB", 
+  "Exif Image Width"=>"6859 pixels", 
+  "Exif Image Height"=>"9912 pixels"
+  }
+```
+
 #### Search
 
 ```ruby
