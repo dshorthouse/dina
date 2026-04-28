@@ -8,6 +8,9 @@ module Dina
     belongs_to :collectingEvent, class_name: "CollectingEvent", shallow_path: true
     belongs_to :project, class_name: "Project", shallow_path: true
     belongs_to :transaction, class_name: "Transaction", shallow_path: true
+    belongs_to :site, class_name: "Site", shallow_path: true
+    belongs_to :assemblage, class_name: "Assemblage", shallow_path: true
+    belongs_to :protocol, class_name: "Protocol", shallow_path: true
 
     def self.endpoint_path
       "collection-api/"
