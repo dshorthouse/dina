@@ -17,8 +17,16 @@ module Dina
     end
 
     def run(request_method, path, params: nil, headers: {}, body: nil)
+      uuid_regex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
+      slug = path[5..].dup
 
-      if request_method == :get && path == "file/download"
+      if request_method == :get && uuid_regex.match?(slug.to_s.downcase)
+        path = "object-upload/#{slug}"
+        headers[:content_type] = "application/json"
+        response = @faraday.run_request(request_method, path, body, headers) do |request|
+        end
+        response
+      elsif request_method == :get && path == "file/download"
         path = "file" + "/#{params[:group].downcase}/#{params[:fileIdentifier]}"
         if params[:isDerivative]
           path = "file" + "/#{params[:group].downcase}/derivative/#{params[:fileIdentifier]}"

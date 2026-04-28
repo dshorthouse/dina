@@ -16,6 +16,7 @@ module Dina
     property :fileName, type: :string
     property :dcFormat, type: :string
     property :isDerivative, type: :boolean
+    property :dateTimeDigitized, type: :time
 
     validates_presence_of :group, message: "group is required"
     validates_presence_of :filePath, message: "filePath is required"
