@@ -11,8 +11,8 @@ module Dina
     property :createdBy, type: :string
     property :createdOn, type: :time
 
-    has_one :storage_unit, class_name: "StorageUnit"
-    has_one :storage_unit_type, class_name: "StorageUnitType"
+    has_one :storageUnit, class_name: "StorageUnit"
+    has_one :storageUnitType, class_name: "StorageUnitType"
 
     validates_presence_of :usageType, message: "usageType is required"
 

@@ -12,8 +12,8 @@ module Dina
     property :createdBy, type: :string
     property :createdOn, type: :time
 
-    has_one :storage_unit_type, class_name: "StorageUnitType"
-    has_one :parent_storage_unit, class_name: "StorageUnit"
+    has_one :storageUnitType, class_name: "StorageUnitType"
+    has_one :parentStorageUnit, class_name: "StorageUnit"
 
     validates_presence_of :group, message: "group is required"
 
