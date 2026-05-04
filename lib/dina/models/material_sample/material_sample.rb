@@ -6,6 +6,7 @@ module Dina
     property :version, type: :integer
     property :dwcCatalogNumber, type: :string
     property :materialSampleName, type: :string
+    property :identifiers, type: :hash
     property :materialSampleType, type: :string
     property :createdBy, type: :string
     property :createdOn, type: :time
@@ -41,6 +42,7 @@ module Dina
     property :hierarchy, type: :hash
     property :targetOrganismPrimaryScientificName, type: :string
     property :allowDuplicateName, type: :boolean
+
 
     has_one :collectingEvent, class_name: "CollectingEvent"
     has_one :collection, class_name: "Collection"
