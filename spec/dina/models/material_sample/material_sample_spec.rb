@@ -15,7 +15,6 @@ module Dina
       default = {
         "type" => "material-sample",
         "id" => @id,
-        "associations" => [],
         "tags" => [],
         "publiclyReleasable" => true,
         "hostOrganism" => {

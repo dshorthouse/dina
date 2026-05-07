@@ -33,7 +33,6 @@ module Dina
     property :isRestricted, type: :boolean
     property :isBaseForSplitByType, type: :boolean
     property :materialSampleChildren, type: :array
-    property :associations, type: :array, default: []
     property :tags, type: :array, default: []
     property :publiclyReleasable, type: :boolean, default: true
     property :notPubliclyReleasableReason, type: :string
