@@ -67,7 +67,12 @@ module Dina
     end
 
     def on_before_save
-      unknown_attributes = self.attributes.symbolize_keys.keys - self.class.properties.keys - [:type]
+      #Symbolize managedAttributes because strings fail on save
+      symbolized_attributes = self.attributes.symbolize_keys
+      if symbolized_attributes.has_key?(:managedAttributes)
+        self.managedAttributes = self.managedAttributes.to_hash.symbolize_keys
+      end
+      unknown_attributes = symbolized_attributes.keys - self.class.properties.keys - [:type]
       if unknown_attributes.size > 0
         raise ObjectInvalid, "#{self.class} is invalid. #{unknown_attributes.join(", ")} are not accepted properties."
       end

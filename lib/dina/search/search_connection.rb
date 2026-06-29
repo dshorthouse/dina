@@ -3,8 +3,6 @@ require_rel '../models/base_model'
 module Dina
   class SearchConnection
 
-    attr_reader :faraday
-
     def initialize(options = {})
       site = options.fetch(:site)
       connection_options = options.slice(:proxy, :ssl, :request, :headers, :params)
@@ -41,7 +39,7 @@ module Dina
       end
       payload = JSON.generate(body[:payload]) rescue ""
 
-      response = faraday.run_request(request_method, path, body, headers) do |request|
+      response = @faraday.run_request(request_method, path, body, headers) do |request|
         request.params.update(params) if params
         request.headers = custom_headers
         request.body = payload
@@ -64,7 +62,7 @@ module Dina
     end
 
     def use(middleware, *args, &block)
-      return if faraday.builder.locked?
+      return if @faraday.builder.locked?
     end
 
   end
