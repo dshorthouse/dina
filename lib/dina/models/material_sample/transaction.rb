@@ -31,7 +31,7 @@ module Dina
     attr_accessor :accepted_directions
 
     def self.endpoint_path
-      "loan-transaction/"
+      "collection-api/"
     end
 
     def self.table_name
